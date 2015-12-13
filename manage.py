@@ -4,9 +4,13 @@ from flask.ext.migrate import Migrate, MigrateCommand
 from flask.ext.script import Manager
 
 from dotify import app
-from dotify.database import Base
+from dotify.database import Base, session
+from dotify.models import Country, Song
+from resources.countries import countries
+
 
 manager = Manager(app)
+
 
 @manager.command
 def run():

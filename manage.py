@@ -18,6 +18,17 @@ def run():
     app.run(host='0.0.0.0', port=port)
 
 
+@manager.command
+def insert_countries():
+    for country_name in countries.keys():
+        country = Country(
+            id=countries[country_name]['id'],
+            name=country_name
+        )
+        session.add(country)
+    session.commit()
+
+
 class DB:
     def __init__(self, metadata):
         self.metadata = metadata

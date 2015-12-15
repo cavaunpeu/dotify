@@ -5,8 +5,8 @@ from flask.ext.script import Manager
 
 from dotify import app
 from dotify.database import Base, session
-from dotify.models import Country, Song
-from resources.countries import countries
+from dotify.models import Country, Song, DailyChart, TopSong
+from dotify.resources.countries import countries
 
 
 manager = Manager(app)
@@ -26,6 +26,19 @@ def insert_countries():
             name=country_name
         )
         session.add(country)
+    session.commit()
+
+
+@manager.command
+def insert_top_songs():
+    for country_name in countries.keys():
+        daily_chart = DailyChart(country_name)
+        for top_song in daily_chart.dataframe.iterrows():
+            song_title, song_artist = top_song[1]['Track Name'], top_song[1]['Artist']
+            song = session.query(Song).filter_by(title=song_title, artist=song_artist).first()
+            if not song:
+                song = Song(title=song_title, artist=song_artist)
+                session.add(song)
     session.commit()
 
 

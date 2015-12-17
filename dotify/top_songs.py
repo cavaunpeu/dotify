@@ -13,7 +13,7 @@ from .resources.countries import countries
 class DailyChart:
 
     BASE_URL = 'https://spotifycharts.com/api/?download=true&limit=200&country={}&recurrence=weekly&date=latest&type=regional'
-    BASE_LOCAL_PATH = os.path.join(os.path.dirname(__file__), 'tmp', '{}_{}.csv')
+    BASE_LOCAL_PATH = os.path.join(os.path.dirname(__file__), '..', 'tmp', '{}_{}.csv')
 
     def __init__(self, country_name):
         self.country_name = country_name

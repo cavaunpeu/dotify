@@ -20,26 +20,26 @@ class DailyChart:
         self.country_abbrev = countries[country_name]['abbrev']
         self.current_datetime = datetime.now()
         self.local_path = self._generate_local_path()
-        self.response = self._request_daily_chart() 
+        self.response = self._request_daily_chart()
         self.dataframe = self._response_to_dataframe()
 
     def _generate_local_path(self):
         datetime_string = self.current_datetime.strftime('%Y%m%d%H%M')
         return self.BASE_LOCAL_PATH.format(datetime_string, self.country_abbrev)
-    
+
     def _request_daily_chart(self):
         daily_chart_url = self.BASE_URL.format(self.country_abbrev)
         return requests.get(daily_chart_url)
 
     def _response_to_local_csv(self):
         open(self.local_path, 'w').write(self.response.text)
-    
+
     def _response_to_dataframe(self):
         self._response_to_local_csv()
         dataframe = pd.read_csv(self.local_path, index_col='Position')
         os.remove(self.local_path)
         return dataframe
-    
+
     def __iter__(self):
         for rank, song in self.dataframe.iterrows():
             yield rank, Song(title=song['Track Name'], artist=song['Artist'])
@@ -48,7 +48,7 @@ class DailyChart:
 class TopSongsGenerator:
 
     def __init__(self, country_name):
-        self.daily_chart = DailyChart(country_name) 
+        self.daily_chart = DailyChart(country_name)
 
     @staticmethod
     def _song_exists(song):
@@ -56,7 +56,7 @@ class TopSongsGenerator:
                 .where(Song.title==song.title)\
                 .where(Song.artist==song.artist)
         ).scalar()
-                                            
+
     @staticmethod
     def _insert_song(song):
         session.add(song)
@@ -72,4 +72,3 @@ class TopSongsGenerator:
                 rank=int(rank),
                 date=self.daily_chart.current_datetime.date()
             )
-            

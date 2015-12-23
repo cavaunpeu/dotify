@@ -46,14 +46,47 @@
 
 	'use strict';
 
-	var React = __webpack_require__(1);
-	var ReactDOM = __webpack_require__(158);
+	var _react = __webpack_require__(1);
 
-	ReactDOM.render(React.createElement(
-	  'h1',
-	  null,
-	  'Hello, freaking world!'
-	), document.getElementById('content'));
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(158);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Song = _react2.default.createClass({
+	    displayName: 'Song',
+
+	    render: function render() {
+	        return _react2.default.createElement(
+	            'div',
+	            { className: 'song' },
+	            this.props.artist,
+	            this.props.title
+	        );
+	    }
+	});
+
+	var RecommendedSongs = _react2.default.createClass({
+	    displayName: 'RecommendedSongs',
+
+	    render: function render() {
+	        var songNodes = this.props.songs.map(function (song) {
+	            return _react2.default.createElement(Song, { artist: song.artist, title: song.title });
+	        });
+	        return _react2.default.createElement(
+	            'div',
+	            { className: 'recommendedSongs' },
+	            songNodes
+	        );
+	    }
+	});
+
+	var songs = [{ "artist": "Camron", "title": "Hey Ma" }, { "arist": "Fauve", "title": "Rub a Dub" }];
+
+	_reactDom2.default.render(_react2.default.createElement(RecommendedSongs, { songs: songs }), document.getElementById("content"));
 
 /***/ },
 /* 1 */

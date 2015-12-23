@@ -1,0 +1,22 @@
+{
+  "name": "dotify",
+  "version": "0.0.1",
+  "description": "recommend spotify songs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Will Wolf",
+  "license": "ISC",
+  "dependencies": {
+    "react": "^0.14.3",
+    "react-absolute-grid": "^2.0.1",
+    "react-dom": "^0.14.3"
+  },
+  "devDependencies": {
+    "babel-core": "^6.3.13",
+    "babel-loader": "^6.2.0",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-react": "^6.3.13"
+  }
+}

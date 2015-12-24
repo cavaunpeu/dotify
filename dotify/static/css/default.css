@@ -79,10 +79,10 @@ a:active {
 }
 
 .codrops-top a {
-	padding: 0 1em;
+	padding: 0 1.5em;
 	letter-spacing: 0.1em;
-	color: #E96D65;
-	font-weight: 700;
+	color: #00004d;
+	font-weight: 500;
 	display: inline-block;
 }
 
@@ -91,51 +91,6 @@ a:active {
 	color: #bd4a43;
 }
 
-.codrops-top span.right {
-	float: right;
+.codrops-top a.nav-main {
+	font-weight: 900;
 }
-
-.codrops-top span.right a {
-	float: left;
-	display: block;
-}
-
-/*.codrops-icon:before {
-	font-family: 'codropsicons';
-	margin: 0 4px;
-	speak: none;
-	font-style: normal;
-	font-weight: normal;
-	font-variant: normal;
-	text-transform: none;
-	line-height: 1;
-	-webkit-font-smoothing: antialiased;
-}
-
-.codrops-icon-drop:before {
-	content: "\e001";
-}
-
-.codrops-icon-prev:before {
-	content: "\e004";
-}
-
-.codrops-icon-archive:before {
-	content: "\e002";
-}
-
-.codrops-icon-next:before {
-	content: "\e000";
-}
-
-.codrops-icon-about:before {
-	content: "\e003";
-}
-
-@media screen and (max-width: 25em) {
-
-	.codrops-icon span {
-		display: none;
-	}
-
-}*/

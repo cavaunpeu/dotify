@@ -21,8 +21,8 @@ body, html { font-size: 100%; padding: 0; margin: 0;}
 
 body {
 	font-family: 'Lato', Calibri, Arial, sans-serif;
-	color: #ffe8e7;
-	background: #E96D65;
+	color: #004a99;
+	background: #CCE5FF;
 	font-weight: 300;
 	overflow-x: hidden;
 }
@@ -75,7 +75,7 @@ a:active {
 	text-transform: uppercase;
 	width: 100%;
 	font-size: 0.69em;
-	line-height: 2.2;
+	line-height: 4.0;
 }
 
 .codrops-top a {
@@ -100,7 +100,7 @@ a:active {
 	display: block;
 }
 
-.codrops-icon:before {
+/*.codrops-icon:before {
 	font-family: 'codropsicons';
 	margin: 0 4px;
 	speak: none;
@@ -138,4 +138,4 @@ a:active {
 		display: none;
 	}
 
-}
+}*/

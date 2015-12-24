@@ -10,11 +10,11 @@
 		<link rel="stylesheet" type="text/css" href="static/css/component.css" />
 		<script src="static/js/modernizr.custom.js"></script>
 	</head>
-	<body class="nl-blurred">
-		<div class="container demo-1">
+	<body>
+		<div class="container">
 			<!-- Top Navigation -->
 			<div class="codrops-top clearfix">
-				<a class="nav-main" href="http://tympanus.net/Development/MorphingDevices/">
+				<a class="top-nav-main" href="http://tympanus.net/Development/MorphingDevices/">
 					<span>spotify music recommender</span>
 				</a>
 				<span>
@@ -24,42 +24,10 @@
 				</span>
 			</div>
 			<div class="main clearfix">
-				<form id="nl-form" class="nl-form">
-					I want music like
-					<select>
-						<option value="1" selected>country</option>
-						<option value="2">Indian</option>
-						<option value="3">French</option>
-						<option value="4">Japanese</option>
-						<option value="2">Italian</option>
-					</select>
-					<br />in a
-					<select>
-						<option value="1" selected>standard</option>
-						<option value="2">fancy</option>
-						<option value="3">hip</option>
-						<option value="4">traditional</option>
-						<option value="2">romantic</option>
-					</select>
-					restaurant
-					<br />at
-					<select>
-						<option value="1" selected>anytime</option>
-					 	<option value="1">7 p.m.</option>
-					 	<option value="2">8 p.m.</option>
-					 	<option value="3">9 p.m.</option>
-					</select>
-					in <input type="text" value="" placeholder="any city" data-subline="For example: <em>Los Angeles</em> or <em>New York</em>"/>
-					<div class="nl-submit-wrap">
-						<button class="nl-submit" type="submit">Go</button>
-					</div>
-					<div class="nl-overlay"></div>
-				</form>
+				<span class="main-prompt">
+					I want music like:
+				</span>
 			</div>
 		</div><!-- /container -->
-		<script src="static/js/nlform.js"></script>
-		<script>
-			var nlform = new NLForm( document.getElementById( 'nl-form' ) );
-		</script>
 	</body>
 </html>

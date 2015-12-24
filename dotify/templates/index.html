@@ -27,7 +27,20 @@
 				<span class="main-prompt">
 					I want music like:
 				</span>
+				<form id="nl-form" class="nl-form">
+                    <select>
+                        <option value="1" selected>country</option>
+                        <option value="2">Indian</option>
+                        <option value="3">French</option>
+                        <option value="4">Japanese</option>
+                        <option value="2">Italian</option>
+                    </select>
+                </form>
 			</div>
 		</div><!-- /container -->
+		<script src="static/js/nlform.js"></script>
+        <script>
+            var nlform = new NLForm( document.getElementById( 'nl-form' ) );
+        </script>
 	</body>
 </html>

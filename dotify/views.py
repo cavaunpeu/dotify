@@ -8,6 +8,7 @@ from dotify import app, recommended_songs_path
 
 @app.route("/")
 def hello():
+    # TODO: write a thing that wraps all this into `RecommendedSongsRenderer`
     rendered = render_component(
         path=recommended_songs_path,
         props={
@@ -19,3 +20,7 @@ def hello():
         to_static_markup=True
     )
     return render_template('index.html', rendered=rendered)
+
+@app.route("/form")
+def form():
+    return render_template('index.html')

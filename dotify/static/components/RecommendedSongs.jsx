@@ -1,3 +1,5 @@
+"use strict";
+
 import React from 'react';
 import Song from './Song.jsx';
 

@@ -7,11 +7,13 @@
 		<title>Natural Language Form</title>
 		<meta name="description" content="Natural Language Form with custom text input and drop-down lists" />
 		<link rel="stylesheet" type="text/css" href="static/css/default.css" />
-		<link rel="stylesheet" type="text/css" href="static/css/component.css" />
-		<script src="static/js/modernizr.custom.js"></script>
+		<!-- Bootstrap -->
+		<link rel="stylesheet" type="text/css" href="static/css/bootstrap-iso.css" />
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<script src="static/js/bootstrap.min.js"></script>
 	</head>
 	<body>
-		<div class="container">
+		<div>
 			<!-- Top Navigation -->
 			<div class="codrops-top clearfix">
 				<a class="top-nav-main" href="http://tympanus.net/Development/MorphingDevices/">
@@ -27,14 +29,10 @@
 				<span class="main-prompt">
 					I want music like:
 				</span>
-				<form id="nl-form" class="nl-form">
-                    {{ rendered|safe }}
-                </form>
+				<div class="bootstrap-iso">
+                	{{ rendered|safe }}
+            	</div>
 			</div>
 		</div><!-- /container -->
-		<script src="static/js/nlform.js"></script>
-        <script>
-            var nlform = new NLForm( document.getElementById( 'nl-form' ) );
-        </script>
 	</body>
 </html>

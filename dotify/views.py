@@ -18,16 +18,6 @@ def test():
         {'id': 1, 'name': 'This'},
         {'id': 2, 'name': 'Hey'},
         {'id': 3, 'name': 'Colombia'},
-        {'id': 3, 'name': 'Colombia'},
-        {'id': 3, 'name': 'Colombia'},
-        {'id': 3, 'name': 'Colombia'},
-        {'id': 3, 'name': 'Colombia'},
-        {'id': 3, 'name': 'Colombia'},
-        {'id': 3, 'name': 'Colombia'},
-        {'id': 3, 'name': 'Colombia'},
-        {'id': 3, 'name': 'Colombia'},
-        {'id': 3, 'name': 'Colombia'},
-        {'id': 3, 'name': 'Colombia'},
     ]
     rendered = render_component(country_dropdown_path, props={'countries': countries})
     return render_template('index.html', rendered=rendered)

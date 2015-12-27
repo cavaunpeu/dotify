@@ -5,16 +5,21 @@ import React from 'react';
 
 var CountryDropdown = React.createClass({
     render: function() {
+        var countries = this.props.countries.map(function(country) {
+            return (
+                <li key={country.id}>
+                    <a href="#">{country.name}</a>
+                </li>
+            );
+        });
         return (
             <div className="dropdown">
-              <button className="dropdown-toggle dropdown-country" data-toggle="dropdown">
+              <button className="btn btn-default dropdown-toggle dropdown-country" data-toggle="dropdown">
                 country
                 <b className="caret"></b>
               </button>
               <ul className="dropdown-menu">
-                <li><a href="#">HTML</a></li>
-                <li><a href="#">CSS</a></li>
-                <li><a href="#">JavaScript</a></li>
+                {countries}
               </ul>
             </div>
         );

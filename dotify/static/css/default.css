@@ -66,11 +66,12 @@ a:active {
 	display: inline-block;
 }
 
-.dropdown-toggle.dropdown-country {
+.btn.btn-default.dropdown-toggle.dropdown-country {
 	color: #006600;
 	font-size: 3.5em;
 	font-family: 'Lato', Calibri, Arial, sans-serif;
 	background-color: inherit;
+	font-weight: inherit;
 	border: 0;
 	border-bottom: 1px dotted #006600;
 }

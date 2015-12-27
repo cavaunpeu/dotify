@@ -13,26 +13,25 @@
 		<script src="static/js/bootstrap.min.js"></script>
 	</head>
 	<body>
-		<div>
-			<!-- Top Navigation -->
-			<div class="codrops-top clearfix">
-				<a class="top-nav-main" href="http://tympanus.net/Development/MorphingDevices/">
-					<span>spotify music recommender</span>
+		<!-- Top Navigation -->
+		<div class="top-nav">
+			<a class="top-nav-main" href="http://tympanus.net/Development/MorphingDevices/">
+				<span>spotify music recommender</span>
+			</a>
+			<span>
+				<a href="http://tympanus.net/codrops/?p=15139">
+					<span>how's this work?</span>
 				</a>
-				<span>
-					<a href="http://tympanus.net/codrops/?p=15139">
-						<span>how's this work?</span>
-					</a>
-				</span>
-			</div>
-			<div class="main clearfix">
-				<span class="main-prompt">
-					I want music like:
-				</span>
-				<div class="bootstrap-iso">
-                	{{ rendered|safe }}
-            	</div>
-			</div>
-		</div><!-- /container -->
+			</span>
+		</div>
+		<!-- Main Prompt -->
+		<div class="main-prompt">
+			<span>
+				I want music like:
+			</span>
+			<div class="bootstrap-iso">
+            	{{ rendered|safe }}
+        	</div>
+		</div>
 	</body>
 </html>

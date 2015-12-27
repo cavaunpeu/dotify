@@ -15,10 +15,6 @@
 *, *:after, *:before { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
 body, html { font-size: 100%; padding: 0; margin: 0;}
 
-/* Clearfix hack by Nicolas Gallagher: http://nicolasgallagher.com/micro-clearfix-hack/ */
-.clearfix:before, .clearfix:after { content: " "; display: table; }
-.clearfix:after { clear: both; }
-
 body {
 	font-family: 'Lato', Calibri, Arial, sans-serif;
 	color: #004a99;
@@ -38,7 +34,7 @@ a:active {
 }
 
 /* To Navigation Style */
-.codrops-top {
+.top-nav {
 	background: #fff;
 	background: rgba(255, 255, 255, 0.4);
 	text-transform: uppercase;
@@ -47,7 +43,7 @@ a:active {
 	line-height: 4.0;
 }
 
-.codrops-top a {
+.top-nav a {
 	padding: 0 1.5em;
 	letter-spacing: 0.1em;
 	color: #00004d;
@@ -55,21 +51,25 @@ a:active {
 	display: inline-block;
 }
 
-.codrops-top a:hover {
+.top-nav > a:hover {
 	background: rgba(255,255,255,0.5);
 	color: #bd4a43;
 }
 
-.codrops-top a.top-nav-main {
+.top-nav > a.top-nav-main {
 	font-weight: 900;
 }
 
-.main span.main-prompt {
+.main-prompt {
 	margin: 100px 160px;
 	font-size: 4em;
 	display: inline-block;
 }
 
-button.btn.btn-primary.country {
-	background-color: red;
+.bootstrap-iso > .dropdown > .dropdown-toggle.dropdown-country {
+	color: green;
+	font-size: 3.5em;
+	font-family: 'Lato', Calibri, Arial, sans-serif;
+	background-color: inherit;
+	border: 0;
 }

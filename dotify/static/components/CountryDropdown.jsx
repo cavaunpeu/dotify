@@ -7,7 +7,10 @@ var CountryDropdown = React.createClass({
     render: function() {
         return (
             <div className="dropdown">
-              <button className="dropdown-toggle dropdown-country" type="button" data-toggle="dropdown">country</button>
+              <button className="dropdown-toggle dropdown-country" type="button" data-toggle="dropdown">
+                country
+                <span class="caret"></span>
+              </button>
               <ul className="dropdown-menu">
                 <li><a href="#">HTML</a></li>
                 <li><a href="#">CSS</a></li>

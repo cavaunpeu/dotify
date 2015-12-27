@@ -69,3 +69,7 @@ a:active {
 	font-size: 4em;
 	display: inline-block;
 }
+
+button.btn.btn-primary.country {
+	background-color: red;
+}

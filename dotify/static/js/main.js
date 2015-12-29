@@ -1,4 +1,6 @@
-require('../css/main.css')
+// require('../css/react-select.css')
+require('../less/default.less')
+require('../css/default.css')
 
 import React from 'react';
 import ReactDOM from 'react-dom';

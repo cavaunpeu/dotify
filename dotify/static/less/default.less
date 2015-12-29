@@ -1,0 +1,86 @@
+@import "~react-select/less/default.less";
+
+// common
+@text-color: #006600;
+@background-color: #CCE5FF;
+@font-size: 3.5em;
+@no-border: none;
+@box-shadow: none;
+@placeholder-string-width: 185.829px;
+@border-bottom: 1px dotted @text-color;
+
+// control options
+@select-text-color: @text-color;
+@select-input-placeholder: @text-color;
+@select-primary-color:      @background-color;
+@select-input-bg-disabled: @background-color;
+@select-input-bg:                   @background-color;
+@select-input-height: 73px;
+@select-input-border-width: 0px;
+@select-padding-horizontal: 0px;
+@select-padding-vertical: 0px;
+@select-clear-hover-color: fade(@select-text-color, 60%);
+
+// menu options
+@select-option-color:              fade(@select-text-color, 60%);
+@select-noresults-color:  @select-option-color;
+
+// css
+.Select-focus-state(@color) {
+    box-shadow: @box-shadow;
+}
+
+.Select-focus-state-classic() {
+    box-shadow: @box-shadow;
+}
+
+.Select {
+    font-size: @font-size;
+}
+
+.Select-control {
+    border: @no-border;
+    position: static;
+    &:hover {
+        box-shadow: @box-shadow;
+    }
+}
+
+.Select-placeholder {
+    display: block;
+    width: @placeholder-string-width;
+    vertical-align: text-bottom;
+}
+
+.Select-input {
+    min-width: @placeholder-string-width;
+    vertical-align: text-bottom;
+    border-bottom: @border-bottom;
+    > input {
+        color: @text-color;
+        font-weight: inherit;
+    }
+}
+
+.Select-input.no-border {
+    border-bottom: @no-border;
+}
+
+.Select-menu-outer {
+    border: @no-border;
+    box-shadow: @box-shadow;
+    margin-top: 15px;
+}
+
+.Select-menu {
+    font-size: .2*@font-size;
+}
+
+.Select-value-label {
+    border-bottom: @border-bottom;
+}
+
+.select-country {
+    width: 500px;
+    height: 100px;
+}

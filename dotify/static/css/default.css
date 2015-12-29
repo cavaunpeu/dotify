@@ -47,24 +47,48 @@ a:active {
 	font-weight: 900;
 }
 
-#app {
-	margin: 100px 160px;
+#i-want-music-like {
+	padding: 100px 160px 75px;
 	font-size: 4em;
 	display: inline-block;
 }
 
-.btn.btn-default.dropdown-toggle.dropdown-country {
+#equation-builder {
+	padding: 0px 100px 0px;
+}
+
+/*.select-country {
+	max-width: 300px;
+	height: 100px;
 	color: #006600;
-	font-size: 3.5em;
 	font-family: 'Lato', Calibri, Arial, sans-serif;
 	background-color: inherit;
 	font-weight: inherit;
-	border: 0;
+	font-size: 3.5em;
+	margin: 5px;
+}*/
+
+/*.select-country .Select*/
+
+/*.select-country .Select-input > input */
+
+/*.select-country .Select-control {
 	border-bottom: 1px dotted #006600;
+}*/
+
+/*.select-country .Select-input {
+	font-size: 3.5em;
+}*/
+
+/*.select-country .Select-option {
+	color: yellow;
 }
 
-.caret {
-    position: absolute;
-    left: 40%;
-    top: 55%;
+.select-country .Select-option.is-focused {
+  background-color: rgba(0, 126, 255, 0.08);
+  color: #333;
 }
+.select-country .Select-option.is-disabled {
+  color: #cccccc;
+  cursor: default;
+}*/

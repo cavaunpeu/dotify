@@ -1,35 +1,15 @@
-<!DOCTYPE html>
-<html lang="en" class="no-js">
-	<head>
-		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Natural Language Form</title>
-		<meta name="description" content="Natural Language Form with custom text input and drop-down lists" />
-		<link rel="stylesheet" type="text/css" href="static/css/default.css" />
-		<!-- Bootstrap -->
-		<link rel="stylesheet" type="text/css" href="static/css/bootstrap-iso.css" />
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-		<script src="static/js/bootstrap.min.js"></script>
-	</head>
-	<body>
-		<!-- Top Navigation -->
-		<div class="top-nav">
-			<a class="top-nav-main" href="http://tympanus.net/Development/MorphingDevices/">
-				<span>spotify music recommender</span>
-			</a>
-			<a href="http://tympanus.net/codrops/?p=15139">
-				<span>how's this work?</span>
-			</a>
-		</div>
-		<!-- Main Prompt -->
-		<div class="main-prompt">
-			<span>
-				I want music like:
-			</span>
-			<div class="bootstrap-iso">
-            	{{ rendered|safe }}
-        	</div>
-		</div>
-	</body>
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>dotify</title>
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="author" href="humans.txt">
+    </head>
+    <body>
+        <div id="app"></div>
+        <script src="../assets/index.js"></script>
+    </body>
 </html>

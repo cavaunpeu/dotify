@@ -4,8 +4,10 @@
   "description": "recommend spotify songs",
   "main": "index.js",
   "dependencies": {
+    "css-loader": "^0.23.1",
     "react": "^0.14.3",
-    "react-dom": "^0.14.3"
+    "react-dom": "^0.14.3",
+    "style-loader": "^0.13.0"
   },
   "devDependencies": {},
   "scripts": {

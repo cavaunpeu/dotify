@@ -2,7 +2,13 @@ import React from 'react'
 
 class App extends React.Component {
     render() {
-        return <div>Hello, World!</div>;
+        return (
+            <div>
+                <span>
+                    I want music like:
+                </span>
+            </div>
+        )
     }
 }
 

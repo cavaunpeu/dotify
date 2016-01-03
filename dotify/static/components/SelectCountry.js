@@ -6,75 +6,66 @@ var SelectCountry = React.createClass({
         return {
             disabled: false,
             searchable: true,
-            selectCountry: '',
+            selectCountry: "",
             clearable: true,
+            placeholder: "country",
+            noResultsText: "where's that?",
+            inputClass: ".Select-input",
+            inputValueClass: ".Select-value-label",
+            noBorderClassname: "no-border",
         };
     },
-    updateCountry (newCountry) {
-        this.setState({
-            selectCountry: newCountry
-        });
-        console.log("onChange!");
-        console.log("newCountry " + newCountry);
-        // if (newCountry && document.querySelector(".Select-input").classList.contains("no-border") && document.querySelector(".Select-value-label")) {
-        //     document.querySelector(".Select-input").classList.remove("no-border");
-        //     console.log("adding border!");
-        // }
-        if (document.querySelector(".Select-input").classList.contains("no-border")) {
-            if (!newCountry) {
-                document.querySelector(".Select-input").classList.remove("no-border");
-                console.log("adding border!");
-            }
-        }
-        else {
-            document.querySelector(".Select-input").classList.add("no-border");
-            console.log("removing border!");
-        }
-        // if (!document.querySelector(".Select-input").classList.contains("no-border") && document.querySelector(".Select-value-label")) {
-        //     document.querySelector(".Select-input").classList.add("no-border");
-        //     console.log("removing border!");
-        // }
-    },
     excludeDefaultCountry (option, filterValue) {
-        if (option['className'] !== 'default' && ~option['value'].indexOf(filterValue)) {
+        if (option["className"] !== "default" && ~option["value"].indexOf(filterValue)) {
             return option;
         }
     },
+    onChange (newCountry) {
+        this.setState({
+            selectCountry: newCountry
+        });
+        if (document.querySelector(this.state.inputClass).classList.contains(this.state.noBorderClassname)) {
+            if (!newCountry) {
+                document.querySelector(this.state.inputClass).classList.remove(this.state.noBorderClassname);
+            }
+        }
+        else {
+            document.querySelector(this.state.inputClass).classList.add(this.state.noBorderClassname);
+        }
+    },
     onBlur (event) {
-        console.log("onBlur!");
-        if (document.querySelector(".Select-value-label")) {
-            document.querySelector(".Select-input").classList.add("no-border");
-            console.log("removing border!");
+        if (document.querySelector(this.state.inputValueClass)) {
+            document.querySelector(this.state.inputClass).classList.add(this.state.noBorderClassname);
         }
     },
     onFocus (event) {
-        console.log("onFocus!");
-        if (!document.querySelector(".Select-value-label") && document.querySelector(".Select-input").classList.contains("no-border")) {
-            document.querySelector(".Select-input").classList.remove("no-border");
-            console.log("adding border!");
+        if (!document.querySelector(this.state.inputValueClass)
+            && document.querySelector(this.state.inputClass).classList.contains(this.state.noBorderClassname)
+            ) {
+            document.querySelector(this.state.inputClass).classList.remove(this.state.noBorderClassname);
         }
     },
     onInputChange (inputValue) {
-        console.log("onInputChange!")
-        if (!document.querySelector(".Select-value-label") && inputValue !== "" && document.querySelector(".Select-input").classList.contains("no-border")) {
-            document.querySelector(".Select-input").classList.remove("no-border");
-            console.log("adding border!");
+        if (!document.querySelector(this.state.inputValueClass)
+            && inputValue !== ""
+            && document.querySelector(this.state.inputClass).classList.contains(this.state.noBorderClassname)
+            ) {
+            document.querySelector(this.state.inputClass).classList.remove(this.state.noBorderClassname);
         }
-        if (inputValue === "" && document.querySelector(".Select-value-label")) {
-            document.querySelector(".Select-input").classList.add("no-border");
-            console.log("removing border!");
+        if (inputValue === "" && document.querySelector(this.state.inputValueClass)) {
+            document.querySelector(this.state.inputClass).classList.add(this.state.noBorderClassname);
         }
     },
     render () {
         var options = [
-            { value: 'country', label: 'country', className: 'default' },
-            { value: 'colombia', label: 'Colombia', className: 'country' },
-            { value: 'venezuela', label: 'Venezuela', className: 'country' },
-            { value: 'nicaragua', label: 'Nicaragua', className: 'country' }
+            { value: "country", label: "country", className: "default" },
+            { value: "colombia", label: "Colombia", className: "country" },
+            { value: "venezuela", label: "Venezuela", className: "country" },
+            { value: "nicaragua", label: "Nicaragua", className: "country" }
         ];
         return (
             <div className="select-country">
-                <Select onInputChange={this.onInputChange} onBlur={this.onBlur} onFocus={this.onFocus} onChange={this.updateCountry} ref="stateSelect" placeholder='country' noResultsText="where's that?" filterOption={this.excludeDefaultCountry} autofocus options={options} simpleValue clearable={this.state.clearable} name="selected-country" disabled={this.state.disabled} value={this.state.selectCountry} searchable={this.state.searchable} />
+                <Select onInputChange={this.onInputChange} onBlur={this.onBlur} onFocus={this.onFocus} onChange={this.onChange} placeholder={this.state.placeholder} noResultsText={this.state.noResultsText} filterOption={this.excludeDefaultCountry} autofocus options={options} simpleValue clearable={this.state.clearable} disabled={this.state.disabled} value={this.state.selectCountry} searchable={this.state.searchable} />
             </div>
         );
     }

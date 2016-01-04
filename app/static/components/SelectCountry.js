@@ -3,8 +3,10 @@ import React from 'react';
 var SelectCountry = React.createClass({
   render: function() {
     return (
-      <div>
-        Hello, World!
+      <div className="select-country">
+        <form>
+          <input type="text" />
+        </form>
       </div>
     );
   }

@@ -1,4 +1,4 @@
-require('../styles/default.css')
+require('../styles/default.less')
 
 import React from 'react';
 import ReactDOM from 'react-dom';

@@ -1,14 +1,17 @@
 @import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
 
+@font-family: 'Lato', Calibri, Arial, sans-serif;
+@background-color-main: #CCE5FF;
+@font-color-main: #004a99;
+
 *, *:after, *:before { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
 body, html { font-size: 100%; padding: 0; margin: 0;}
 
 body {
-	font-family: 'Lato', Calibri, Arial, sans-serif;
-	color: #004a99;
-	background: #CCE5FF;
+	font-family: @font-family;
+	color: @font-color-main;
+	background: @background-color-main;
 	font-weight: 300;
-	overflow-x: hidden;
 }
 
 a {
@@ -56,39 +59,3 @@ a:active {
 #equation-builder {
 	padding: 0px 100px 0px;
 }
-
-/*.select-country {
-	max-width: 300px;
-	height: 100px;
-	color: #006600;
-	font-family: 'Lato', Calibri, Arial, sans-serif;
-	background-color: inherit;
-	font-weight: inherit;
-	font-size: 3.5em;
-	margin: 5px;
-}*/
-
-/*.select-country .Select*/
-
-/*.select-country .Select-input > input */
-
-/*.select-country .Select-control {
-	border-bottom: 1px dotted #006600;
-}*/
-
-/*.select-country .Select-input {
-	font-size: 3.5em;
-}*/
-
-/*.select-country .Select-option {
-	color: yellow;
-}
-
-.select-country .Select-option.is-focused {
-  background-color: rgba(0, 126, 255, 0.08);
-  color: #333;
-}
-.select-country .Select-option.is-disabled {
-  color: #cccccc;
-  cursor: default;
-}*/

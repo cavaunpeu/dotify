@@ -1,8 +1,8 @@
 module.exports = {
-    context: __dirname + '/dotify/static/js',
+    context: __dirname + '/app/static/js',
     entry: './main.js',
     output: {
-        path: __dirname + '/dotify',
+        path: __dirname + '/app',
         publicPath: '/assets/',
         filename: 'index.js'
     },

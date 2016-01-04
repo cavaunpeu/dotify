@@ -36,34 +36,30 @@
 
 .Select {
     font-size: @font-size;
+    display: inline-block;
 }
 
 .Select-control {
     border: @no-border;
     position: static;
+    display: inline-block;
     &:hover {
         box-shadow: @box-shadow;
     }
-}
-
-.Select-placeholder {
-    display: block;
-    width: @placeholder-string-width;
-    vertical-align: text-bottom;
 }
 
 .Select-input {
     min-width: @placeholder-string-width;
     vertical-align: text-bottom;
     border-bottom: @border-bottom;
+    display: inline-block;
     > input {
         color: @text-color;
         font-weight: inherit;
     }
-}
-
-.Select-input.no-border {
-    border-bottom: @no-border;
+    &.no-border {
+        border-bottom: @no-border;
+    }
 }
 
 .Select-menu-outer {
@@ -76,11 +72,24 @@
     font-size: .2*@font-size;
 }
 
+:not(.Select--multi) > .Select-control .Select-value {
+    display: inline-block;
+    overflow: visible;
+}
+
+.Select-value.country {
+    float: left;
+    width: 100%;
+}
+
 .Select-value-label {
     border-bottom: @border-bottom;
 }
 
+.Select-arrow-zone {
+    float: right;
+}
+
 .select-country {
-    width: 500px;
-    height: 100px;
+    display: inline-block;
 }

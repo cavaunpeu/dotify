@@ -7,7 +7,7 @@ var SelectCountry = React.createClass({
             disabled: false,
             searchable: true,
             selectCountry: "",
-            clearable: true,
+            clearable: false,
             placeholder: "country",
             noResultsText: "where's that?",
             inputClass: ".Select-input",
@@ -60,6 +60,7 @@ var SelectCountry = React.createClass({
         var options = [
             { value: "country", label: "country", className: "default" },
             { value: "colombia", label: "Colombia", className: "country" },
+            { value: "dominican republic", label: "Dominican Republic", className: "country" },
             { value: "venezuela", label: "Venezuela", className: "country" },
             { value: "nicaragua", label: "Nicaragua", className: "country" }
         ];

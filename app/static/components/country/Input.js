@@ -1,13 +1,13 @@
 import React from 'react';
 
 var Input = React.createClass({
-  onChange: function() {
-    console.log("poopies")
+  propTypes: {
+    handleInputChange: React.PropTypes.func,
   },
   render: function() {
     return (
       <div className="country-input">
-        <input placeholder="hello, world!" onChange={this.onChange}/>
+        <input placeholder="hello, world!" onChange={this.props.handleInputChange}/>
       </div>
     )
   }

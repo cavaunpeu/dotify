@@ -1,5 +1,5 @@
 import React from 'react'
-import SelectCountry from '../components/SelectCountry'
+import Select from '../components/country/Select'
 
 class App extends React.Component {
     render() {
@@ -9,7 +9,7 @@ class App extends React.Component {
                     I want music like:
                 </span>
                 <div id="equation-builder">
-                    <SelectCountry />
+                    <Select />
                 </div>
             </div>
         );

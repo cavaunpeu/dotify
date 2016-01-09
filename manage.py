@@ -5,7 +5,7 @@ from flask.ext.script import Manager
 
 from dotify import app
 from dotify.database import Base, session
-from dotify.models import Country 
+from dotify.models import Country
 from dotify.resources.countries import countries
 from dotify.top_songs import TopSongsGenerator
 

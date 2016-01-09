@@ -11,4 +11,4 @@ recommended_songs_path = os.path.join(os.path.dirname(__file__),
         'static', 'components', 'RecommendedSongs.jsx')
 
 
-from . import views
+from . import routes

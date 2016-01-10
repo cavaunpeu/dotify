@@ -2,6 +2,7 @@ import React from 'react';
 import Country from './Country';
 
 var Dropdown = React.createClass({
+  // TODO: generalize this to accept a componentWillMount method
   propTypes: {
     inputValue: React.PropTypes.string.isRequired,
     handleOnClick: React.PropTypes.func.isRequired

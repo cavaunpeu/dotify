@@ -2,6 +2,10 @@ import React from 'react';
 import Country from './Country';
 
 var Dropdown = React.createClass({
+  propTypes: {
+    inputValue: React.PropTypes.string.isRequired,
+    handleOnClick: React.PropTypes.func.isRequired
+  },
   componentWillMount: function () {
     this.setState({
       countries: [
@@ -20,7 +24,7 @@ var Dropdown = React.createClass({
     var eligibleCountries = this.state.countries.map(function(country) {
       if (country.props.name.includes(this.props.inputValue) && country.props.name != this.props.inputValue) {
         return (
-          <li key={country.props.id}>{country.props.name}</li>
+          <li key={country.props.id} onClick={this.props.handleOnClick}>{country.props.name}</li>
         );
       }
     }.bind(this));

@@ -7,7 +7,7 @@ var Input = React.createClass({
   },
   render: function() {
     return (
-      <div className="country-input">
+      <div className="Input">
         <input placeholder={this.props.placeholder} onChange={this.props.handleInputChange}/>
       </div>
     )

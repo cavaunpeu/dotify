@@ -23,11 +23,11 @@ var Select = React.createClass({
       inputValue: inputValue,
       dropdownShouldBeOpen: false
     });
-    document.querySelector(".country-input input").value = inputValue;
+    document.querySelector(".Input input").value = inputValue;
   },
   render: function () {
     return (
-      <div className="country-select">
+      <div className="Select">
         <Input placeholder={this.state.inputPlaceholder} handleInputChange={this.handleInputChange} />
         {this.state.dropdownShouldBeOpen ? (
           <Dropdown inputValue={this.state.inputValue} handleOnClick={this.handleOnClick} />

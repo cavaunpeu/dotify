@@ -29,7 +29,7 @@ var Dropdown = React.createClass({
       }
     }.bind(this));
     return (
-      <div className="country-menu">
+      <div className="Dropdown">
         <ul>
           {eligibleCountries}
         </ul>

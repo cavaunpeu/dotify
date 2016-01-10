@@ -5,8 +5,9 @@ import Dropdown from './Dropdown';
 var Select = React.createClass({
   getInitialState: function () {
     return {
-      inputValue: "country",
-      dropdownShouldBeOpen: false,
+      inputValue: "",
+      inputPlaceholder: "country",
+      dropdownShouldBeOpen: false
     }
   },
   handleInputChange: function (event) {
@@ -27,7 +28,7 @@ var Select = React.createClass({
   render: function () {
     return (
       <div className="country-select">
-        <Input handleInputChange={this.handleInputChange} />
+        <Input placeholder={this.state.inputPlaceholder} handleInputChange={this.handleInputChange} />
         {this.state.dropdownShouldBeOpen ? (
           <Dropdown inputValue={this.state.inputValue} handleOnClick={this.handleOnClick} />
         ) : null}

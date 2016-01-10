@@ -33,7 +33,7 @@ a:active {
 	line-height: 4.0;
 }
 
-.top-nav a {
+.top-nav > a {
 	padding: 0 1.5em;
 	letter-spacing: 0.1em;
 	color: #00004d;
@@ -58,4 +58,12 @@ a:active {
 
 #equation-builder {
 	padding: 0px 100px 0px;
+}
+
+.Input > input {
+	background-color: @background-color-main;
+	border: none;
+	&:focus {
+		outline: none;
+	}
 }

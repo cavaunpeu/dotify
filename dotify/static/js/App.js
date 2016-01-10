@@ -1,5 +1,5 @@
 import React from 'react'
-import Select from '../components/country/Select'
+import Select from '../components/select/Select'
 
 class App extends React.Component {
     render() {

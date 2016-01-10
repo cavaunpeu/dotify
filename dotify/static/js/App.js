@@ -4,7 +4,7 @@ import NaturalLanguageForm from '../components/NaturalLanguageForm'
 class App extends React.Component {
     render() {
         return (
-            <div>
+            <div className="container">
                 <span id="i-want-music-like">
                     I want music like:
                 </span>

@@ -60,10 +60,49 @@ a:active {
 	padding: 0px 100px 0px;
 }
 
-.Input > input {
+.Select {
+	display: inline-block;
+}
+
+.Input {
+	display: inherit;
+	}
+	& input {
 	background-color: @background-color-main;
 	border: none;
+	color: inherit;
+	font-size: inherit;
+	font-family: inherit;
+	font-weight: inherit;
 	&:focus {
 		outline: none;
 	}
+	&::-webkit-input-placeholder {
+		color: inherit
+	}
+	&::-moz-placeholder {
+	color: inherit;
+	}
+	&:-moz-placeholder {   /* Older versions of Firefox */
+		color: inherit;
+	}
 }
+
+// country-select
+@text-color: #006600;
+@font-size: 3.5em;
+@border-bottom: 1px dotted @text-color;
+
+.country-select {
+		color: @text-color;
+		font-size: @font-size;
+		& .Select {
+			& .Dropdown > ul > li {
+			color: fade(@text-color, 60%);
+			font-size: .2 * @font-size;
+			}
+			& .Input > input {
+				border-bottom: @border-bottom;
+			}
+		}
+};

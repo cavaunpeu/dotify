@@ -18,7 +18,7 @@ var Dropdown = React.createClass({
   },
   render: function() {
     var eligibleCountries = this.state.countries.map(function(country) {
-      if (country.props.name.includes(this.props.inputValue)) {
+      if (country.props.name.includes(this.props.inputValue) && country.props.name != this.props.inputValue) {
         return (
           <li key={country.props.id}>{country.props.name}</li>
         );

@@ -4,7 +4,6 @@
 @background-color-main: #CCE5FF;
 @font-color-main: #004a99;
 
-*, *:after, *:before { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
 body, html { font-size: 100%; padding: 0; margin: 0;}
 
 body {
@@ -60,31 +59,48 @@ a:active {
 	padding: 0px 100px 0px;
 }
 
+// #natural-language-form {
+
+// }
+
 .Select {
-	display: inline-block;
+	display: block;
 }
 
 .Input {
-	display: inherit;
-	}
+	display: inline;
 	& input {
-	background-color: @background-color-main;
-	border: none;
-	color: inherit;
-	font-size: inherit;
-	font-family: inherit;
-	font-weight: inherit;
-	&:focus {
-		outline: none;
-	}
-	&::-webkit-input-placeholder {
-		color: inherit
-	}
-	&::-moz-placeholder {
-	color: inherit;
-	}
-	&:-moz-placeholder {   /* Older versions of Firefox */
+		background-color: @background-color-main;
+		border: none;
 		color: inherit;
+		font-size: inherit;
+		font-family: inherit;
+		font-weight: inherit;
+		min-width: 185px;
+		&:focus {
+			outline: none;
+		}
+		&::-webkit-input-placeholder {
+			color: inherit
+		}
+		&::-moz-placeholder {
+		color: inherit;
+		}
+		&:-moz-placeholder {   /* Older versions of Firefox */
+			color: inherit;
+		}
+	}
+	& span {
+		display: none;
+	}
+}
+
+.Dropdown {
+	display: block;
+	& ul {
+		list-style-type: none;
+		margin: 10px 0px 0px;
+		padding: 0px;
 	}
 }
 
@@ -94,15 +110,24 @@ a:active {
 @border-bottom: 1px dotted @text-color;
 
 .country-select {
-		color: @text-color;
-		font-size: @font-size;
-		& .Select {
-			& .Dropdown > ul > li {
-			color: fade(@text-color, 60%);
-			font-size: .2 * @font-size;
-			}
-			& .Input > input {
-				border-bottom: @border-bottom;
-			}
+	color: @text-color;
+	font-size: @font-size;
+	& .Select {
+		& .Dropdown > ul > li {
+		color: fade(@text-color, 60%);
+		font-size: .2 * @font-size;
 		}
+		& .Input > input {
+			border-bottom: @border-bottom;
+		}
+	}
 };
+
+.resizing-input input, .resizing-input span {
+	background-color: white;
+    font-size: 12px;
+    font-family: Sans-serif;
+    white-space: pre;
+    padding: 5px;
+    min-width: 100px;
+}

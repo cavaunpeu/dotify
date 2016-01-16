@@ -1,10 +1,9 @@
 import React from 'react'
 import Select from '../Select'
-import Country from '../Country'
+import Country from './Country'
 
 var CountrySelect = React.createClass({
 	fetchCountries: function () {
-		console.log('no shit')
 		return (
 			[
         <Country id={1} name="Colombia" />,

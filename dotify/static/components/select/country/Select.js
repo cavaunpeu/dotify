@@ -3,6 +3,12 @@ import Select from '../Select'
 import Country from './Country'
 
 var CountrySelect = React.createClass({
+	getDefaultProps: function () {
+		return {
+			placeholder: "country"
+			// pass in minWidth here
+		}
+	},
 	fetchCountries: function () {
 		return (
 			[
@@ -20,7 +26,7 @@ var CountrySelect = React.createClass({
   render: function () {
     return (
       <div className="country-select">
-        <Select fetchDropdownElements={this.fetchCountries}/>
+        <Select fetchDropdownElements={this.fetchCountries} placeholder={this.props.placeholder}/>
       </div>
     );
   }

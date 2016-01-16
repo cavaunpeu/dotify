@@ -4,12 +4,13 @@ import Dropdown from './Dropdown';
 
 var Select = React.createClass({
   propTypes: {
-    fetchDropdownElements: React.PropTypes.func.isRequired
+    fetchDropdownElements: React.PropTypes.func.isRequired,
+    placeholder: React.PropTypes.string.isRequired
   },
   getInitialState: function () {
     return {
       inputValue: "",
-      inputPlaceholder: "country",
+      inputPlaceholder: this.props.placeholder,
       dropdownShouldBeOpen: false,
       focusedDropdownOptionIndex: -2
     }

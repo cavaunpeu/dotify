@@ -19,10 +19,20 @@ var Select = React.createClass({
     });
   },
   handleOnKeyDown: function (event) {
-    this.setState({
-      dropdownShouldBeOpen: true,
-      focusedDropdownOptionIndex: this.state.focusedDropdownOptionIndex + 1,
-    });
+    switch (event.keyCode) {
+      case 38: // up
+        this.setState({
+          dropdownShouldBeOpen: this.state.focusedDropdownOptionIndex != 0,
+          focusedDropdownOptionIndex: this.state.focusedDropdownOptionIndex - 1
+        })
+      break;
+      case 40: // down
+        this.setState({
+          dropdownShouldBeOpen: true,
+          focusedDropdownOptionIndex: this.state.focusedDropdownOptionIndex + 1,
+        });
+      break;
+    }
   },
   handleOnClick: function (event) {
     let inputValue = event.target.innerText;

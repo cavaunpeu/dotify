@@ -3,6 +3,7 @@ import React from "react";
 var Input = React.createClass({
   propTypes: {
     handleInputChange: React.PropTypes.func.isRequired,
+    handleOnKeyDown: React.PropTypes.func.isRequired,
     placeholder: React.PropTypes.string.isRequired
   },
   componentDidMount: function() {
@@ -39,7 +40,7 @@ var Input = React.createClass({
   render: function() {
     return (
       <div className="Input">
-        <input placeholder={this.props.placeholder} onChange={this.props.handleInputChange}/>
+        <input placeholder={this.props.placeholder} onChange={this.props.handleInputChange} onKeyDown={this.props.handleOnKeyDown}/>
         <span></span>
       </div>
     )

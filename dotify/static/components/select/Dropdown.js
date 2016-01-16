@@ -4,8 +4,9 @@ import Country from './Country';
 var Dropdown = React.createClass({
   // TODO: generalize this to accept a componentWillMount method
   propTypes: {
-    inputValue: React.PropTypes.string.isRequired,
-    handleOnClick: React.PropTypes.func.isRequired
+    focusedDropdownOptionIndex: React.PropTypes.number.isRequired,
+    handleOnClick: React.PropTypes.func.isRequired,
+    inputValue: React.PropTypes.string.isRequired
   },
   componentWillMount: function () {
     this.setState({
@@ -22,10 +23,11 @@ var Dropdown = React.createClass({
     });
   },
   render: function() {
-    var eligibleCountries = this.state.countries.map(function(country) {
+    var eligibleCountries = this.state.countries.map(function(country, index) {
       if (country.props.name.includes(this.props.inputValue) && country.props.name != this.props.inputValue) {
+        var className = this.props.focusedDropdownOptionIndex == index ? "focused" : null;
         return (
-          <li key={country.props.id} onClick={this.props.handleOnClick}>{country.props.name}</li>
+          <li className={className} key={country.props.id} onClick={this.props.handleOnClick}>{country.props.name}</li>
         );
       }
     }.bind(this));

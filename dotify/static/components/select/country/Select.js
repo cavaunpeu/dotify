@@ -26,7 +26,7 @@ var CountrySelect = React.createClass({
   render: function () {
     return (
       <div className="country-select">
-        <Select fetchDropdownElements={this.fetchCountries} placeholder={this.props.placeholder}/>
+        <Select dropdownElements={this.fetchCountries()} placeholder={this.props.placeholder}/>
       </div>
     );
   }

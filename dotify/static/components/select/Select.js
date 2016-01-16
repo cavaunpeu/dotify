@@ -4,13 +4,13 @@ import Dropdown from './Dropdown';
 
 var Select = React.createClass({
   propTypes: {
-    fetchDropdownElements: React.PropTypes.func.isRequired,
+    dropdownElements: React.PropTypes.array.isRequired,
     placeholder: React.PropTypes.string.isRequired
   },
   getInitialState: function () {
     return {
-      dropdownElements: this.props.fetchDropdownElements().length,
       dropdownShouldBeOpen: false,
+      eligibleDropdownElements: [],
       focusedDropdownElementIndex: -1,
       inputValue: "",
       inputPlaceholder: this.props.placeholder
@@ -19,8 +19,9 @@ var Select = React.createClass({
   handleInputChange: function (event) {
     let inputValue = event.target.value;
     this.setState({
-      inputValue: inputValue,
       dropdownShouldBeOpen: inputValue.length ? true : false,
+      eligibleDropdownElements: this.parseEligibleDropdownElements(inputValue),
+      inputValue: inputValue
     });
   },
   handleOnKeyDown: function (event) {
@@ -34,7 +35,7 @@ var Select = React.createClass({
       case 40: // down
         this.setState({
           dropdownShouldBeOpen: true,
-          focusedDropdownElementIndex: Math.min(this.state.dropdownElements - 1, this.state.focusedDropdownElementIndex + 1),
+          focusedDropdownElementIndex: Math.min(this.props.dropdownElements - 1, this.state.focusedDropdownElementIndex + 1),
         });
       break;
     }
@@ -47,12 +48,18 @@ var Select = React.createClass({
     });
     document.querySelector(".Input input").value = inputValue;
   },
+  parseEligibleDropdownElements: function (inputValue) {
+    function elementIsEligible(element) {
+      return element.props.name.includes(inputValue) && element.props.name != inputValue;
+    }
+    return this.props.dropdownElements.filter(elementIsEligible);
+  },
   render: function () {
     return (
       <div className="Select">
         <Input placeholder={this.state.inputPlaceholder} handleInputChange={this.handleInputChange} handleOnKeyDown={this.handleOnKeyDown}/>
         {this.state.dropdownShouldBeOpen ? (
-          <Dropdown inputValue={this.state.inputValue} handleOnClick={this.handleOnClick} focusedDropdownElementIndex={this.state.focusedDropdownElementIndex} fetchDropdownElements={this.props.fetchDropdownElements}/>
+          <Dropdown dropdownElements={this.state.eligibleDropdownElements} handleOnClick={this.handleOnClick} focusedDropdownElementIndex={this.state.focusedDropdownElementIndex}/>
         ) : null}
       </div>
     );

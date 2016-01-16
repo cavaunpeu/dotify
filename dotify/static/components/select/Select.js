@@ -3,6 +3,9 @@ import Input from './Input';
 import Dropdown from './Dropdown';
 
 var Select = React.createClass({
+  propTypes: {
+    fetchDropdownElements: React.PropTypes.func.isRequired
+  },
   getInitialState: function () {
     return {
       inputValue: "",
@@ -47,7 +50,7 @@ var Select = React.createClass({
       <div className="Select">
         <Input placeholder={this.state.inputPlaceholder} handleInputChange={this.handleInputChange} handleOnKeyDown={this.handleOnKeyDown}/>
         {this.state.dropdownShouldBeOpen ? (
-          <Dropdown inputValue={this.state.inputValue} handleOnClick={this.handleOnClick} focusedDropdownOptionIndex={this.state.focusedDropdownOptionIndex}/>
+          <Dropdown inputValue={this.state.inputValue} handleOnClick={this.handleOnClick} focusedDropdownOptionIndex={this.state.focusedDropdownOptionIndex} fetchDropdownElements={this.props.fetchDropdownElements}/>
         ) : null}
       </div>
     );

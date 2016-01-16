@@ -12,14 +12,14 @@ var CountrySelect = React.createClass({
 	fetchCountries: function () {
 		return (
 			[
-        <Country id={1} name="Colombia" />,
-        <Country id={2} name="Puerto Rico" />,
-        <Country id={3} name="Mexico" />,
-        <Country id={4} name="Venezuela" />,
-        <Country id={5} name="Chile" />,
-        <Country id={6} name="Cuba" />,
-        <Country id={7} name="Guatemala" />,
-        <Country id={8} name="Brazil" />,
+        <Country id={0} name="Colombia" />,
+        <Country id={1} name="Puerto Rico" />,
+        <Country id={2} name="Mexico" />,
+        <Country id={3} name="Venezuela" />,
+        <Country id={4} name="Chile" />,
+        <Country id={5} name="Cuba" />,
+        <Country id={6} name="Guatemala" />,
+        <Country id={7} name="Brazil" />,
       ]
     );
 	},

@@ -6,7 +6,6 @@ var CountrySelect = React.createClass({
 	getDefaultProps: function () {
 		return {
 			placeholder: "country"
-			// pass in minWidth here
 		}
 	},
 	fetchCountries: function () {

@@ -15,6 +15,9 @@ var Select = React.createClass({
       inputValue: ""
     }
   },
+  getFocusedDropdownElement: function () {
+    return this.state.eligibleDropdownElements[this.state.focusedDropdownElementIndex];
+  },
   handleInputChange: function (event) {
     let inputValue = event.target.value;
     this.setState({
@@ -29,12 +32,15 @@ var Select = React.createClass({
       case 13: // enter
         let enteredValue = this.getFocusedDropdownElement().props.name
         this.setInputValue(enteredValue);
+        this.setState({
+          focusedDropdownElementIndex: -1,
+        });
       break;
       case 38: // up
         this.setState({
           dropdownShouldBeOpen: this.state.focusedDropdownElementIndex > 0,
           focusedDropdownElementIndex: Math.max(-1, this.state.focusedDropdownElementIndex - 1)
-        })
+        });
       break;
       case 40: // down
         this.setState({
@@ -43,13 +49,6 @@ var Select = React.createClass({
         });
       break;
     }
-  },
-  handleOnClick: function (event) {
-    let clickedValue = event.target.innerText;
-    this.setInputValue(clickedValue);
-  },
-  getFocusedDropdownElement: function () {
-    return this.state.eligibleDropdownElements[this.state.focusedDropdownElementIndex];
   },
   parseEligibleDropdownElements: function (inputValue) {
     function elementIsEligible(element) {

@@ -26,6 +26,10 @@ var Select = React.createClass({
   },
   handleOnKeyDown: function (event) {
     switch (event.keyCode) {
+      case 13: // enter
+        let enteredValue = this.getFocusedDropdownElement().props.name
+        this.setInputValue(enteredValue);
+      break;
       case 38: // up
         this.setState({
           dropdownShouldBeOpen: this.state.focusedDropdownElementIndex > 0,
@@ -41,12 +45,11 @@ var Select = React.createClass({
     }
   },
   handleOnClick: function (event) {
-    let inputValue = event.target.innerText;
-    this.setState({
-      inputValue: inputValue,
-      dropdownShouldBeOpen: false
-    });
-    document.querySelector(".Input input").value = inputValue;
+    let clickedValue = event.target.innerText;
+    this.setInputValue(clickedValue);
+  },
+  getFocusedDropdownElement: function () {
+    return this.state.eligibleDropdownElements[this.state.focusedDropdownElementIndex];
   },
   parseEligibleDropdownElements: function (inputValue) {
     function elementIsEligible(element) {
@@ -54,12 +57,19 @@ var Select = React.createClass({
     }
     return this.props.dropdownElements.filter(elementIsEligible);
   },
+  setInputValue: function (value) {
+    this.setState({
+      inputValue: value,
+      dropdownShouldBeOpen: false
+    });
+    document.querySelector(".Input input").value = value;
+  },
   render: function () {
     return (
       <div className="Select">
         <Input placeholder={this.props.placeholder} handleInputChange={this.handleInputChange} handleOnKeyDown={this.handleOnKeyDown}/>
         {this.state.dropdownShouldBeOpen ? (
-          <Dropdown dropdownElements={this.state.eligibleDropdownElements} handleOnClick={this.handleOnClick} focusedDropdownElement={this.state.eligibleDropdownElements[this.state.focusedDropdownElementIndex]}/>
+          <Dropdown dropdownElements={this.state.eligibleDropdownElements} handleOnClick={this.handleOnClick} focusedDropdownElement={this.getFocusedDropdownElement()}/>
         ) : null}
       </div>
     );

@@ -66,7 +66,7 @@ var Select = React.createClass({
   render: function () {
     return (
       <div className="Select">
-        <Input placeholder={this.props.placeholder} handleInputChange={this.handleInputChange} handleOnKeyDown={this.handleOnKeyDown}/>
+        <Input inputValue={this.state.inputValue} placeholder={this.props.placeholder} handleInputChange={this.handleInputChange} handleOnKeyDown={this.handleOnKeyDown}/>
         {this.state.dropdownShouldBeOpen ? (
           <Dropdown dropdownElements={this.state.eligibleDropdownElements} handleOnClick={this.handleOnClick} focusedDropdownElement={this.getFocusedDropdownElement()}/>
         ) : null}

@@ -12,7 +12,7 @@ var Input = React.createClass({
           text = $(this).attr("placeholder").trim();
       }
       var $span = $(this).parent().find("span");
-      $span.text(text);
+      $span.text(text).width();
       $(this).css("width", $span.width());
     }
 

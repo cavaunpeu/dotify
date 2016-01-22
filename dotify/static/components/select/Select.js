@@ -15,6 +15,12 @@ var Select = React.createClass({
       inputValue: ""
     }
   },
+  inputValueIsValid: function (inputValue) {
+    let dropdownElementNames = this.props.dropdownElements.map(function(element) {
+      return element.props.name
+    });
+    return dropdownElementNames.indexOf(inputValue) > -1;
+  },
   getFocusedDropdownElement: function () {
     return this.state.eligibleDropdownElements[this.state.focusedDropdownElementIndex];
   },
@@ -30,11 +36,13 @@ var Select = React.createClass({
   handleOnKeyDown: function (event) {
     switch (event.keyCode) {
       case 13: // enter
-        let enteredValue = this.getFocusedDropdownElement().props.name
-        this.setInputValue(enteredValue);
-        this.setState({
-          focusedDropdownElementIndex: -1,
-        });
+        let enteredValue = this.state.focusedDropdownElementIndex != -1 ? this.getFocusedDropdownElement().props.name : this.state.inputValue;
+        if (this.inputValueIsValid(enteredValue)) {
+          this.setInputValue(enteredValue);
+          this.setState({
+            focusedDropdownElementIndex: -1,
+          });
+        };
       break;
       case 38: // up
         this.setState({

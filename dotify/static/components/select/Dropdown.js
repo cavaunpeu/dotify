@@ -6,7 +6,7 @@ var Dropdown = React.createClass({
     focusedDropdownElement: React.PropTypes.object
   },
   render: function() {
-    var dropdownElements = this.props.dropdownElements.map(function(element, index) {
+    var dropdownElements = this.props.dropdownElements.map(function(element) {
       let className = this.props.focusedDropdownElement &&
         (element.props.id == this.props.focusedDropdownElement.props.id) ? "focused" : null;
       return (

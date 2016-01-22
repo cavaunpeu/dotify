@@ -28,7 +28,6 @@ var Select = React.createClass({
     });
   },
   handleOnClick: function (event) {
-    console.log(event)
     this.setInputValue(event.target.innerText);
   },
   handleOnKeyDown: function (event) {
@@ -71,7 +70,7 @@ var Select = React.createClass({
       focusedDropdownElementIndex: -1,
       inputValue: value
     });
-    document.querySelector(".Input input").value = value;
+    // document.querySelector(".Input input").value = value;
   },
   render: function () {
     return (

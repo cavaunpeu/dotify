@@ -10,7 +10,7 @@ var Dropdown = React.createClass({
       let className = this.props.focusedDropdownElement &&
         (element.props.id == this.props.focusedDropdownElement.props.id) ? "focused" : null;
       return (
-        <li className={className} key={element.props.id}>{element.props.name}</li>
+        <li className={className} key={element.props.id} onClick={this.props.handleOnClick}>{element.props.name}</li>
       );
     }.bind(this));
     return (

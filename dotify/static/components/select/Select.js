@@ -15,12 +15,6 @@ var Select = React.createClass({
       inputValue: ""
     }
   },
-  inputValueIsValid: function (inputValue) {
-    let dropdownElementNames = this.props.dropdownElements.map(function(element) {
-      return element.props.name
-    });
-    return dropdownElementNames.indexOf(inputValue) > -1;
-  },
   getFocusedDropdownElement: function () {
     return this.state.eligibleDropdownElements[this.state.focusedDropdownElementIndex];
   },
@@ -33,15 +27,16 @@ var Select = React.createClass({
       inputValue: inputValue
     });
   },
+  handleOnClick: function (event) {
+    console.log(event)
+    this.setInputValue(event.target.innerText);
+  },
   handleOnKeyDown: function (event) {
     switch (event.keyCode) {
       case 13: // enter
         let enteredValue = this.state.focusedDropdownElementIndex != -1 ? this.getFocusedDropdownElement().props.name : this.state.inputValue;
         if (this.inputValueIsValid(enteredValue)) {
           this.setInputValue(enteredValue);
-          this.setState({
-            focusedDropdownElementIndex: -1,
-          });
         };
       break;
       case 38: // up
@@ -58,6 +53,12 @@ var Select = React.createClass({
       break;
     }
   },
+  inputValueIsValid: function (inputValue) {
+    let dropdownElementNames = this.props.dropdownElements.map(function(element) {
+      return element.props.name
+    });
+    return dropdownElementNames.indexOf(inputValue) > -1;
+  },
   parseEligibleDropdownElements: function (inputValue) {
     function elementIsEligible(element) {
       return element.props.name.includes(inputValue) && element.props.name != inputValue;
@@ -66,8 +67,9 @@ var Select = React.createClass({
   },
   setInputValue: function (value) {
     this.setState({
-      inputValue: value,
-      dropdownShouldBeOpen: false
+      dropdownShouldBeOpen: false,
+      focusedDropdownElementIndex: -1,
+      inputValue: value
     });
     document.querySelector(".Input input").value = value;
   },

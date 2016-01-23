@@ -6,7 +6,12 @@ var NaturalLanguageForm = React.createClass({
   render: function () {
     return (
       <div id="natural-language-form">
-        <CountrySelect />
+        <span className="nl-form-select">
+          <CountrySelect />
+        </span>
+        <span className="nl-form-select">
+          <OperatorSelect />
+        </span>
       </div>
     );
   }

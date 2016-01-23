@@ -58,9 +58,13 @@ a:active {
 }
 
 #natural-language-form {
-	display: inline-block;
+	display: flex;
 	font-size: @nl-form-font-size;
 	margin: 0px 100px;
+}
+
+.nl-form-select {
+	display: inline-block;
 }
 
 .Input {
@@ -112,6 +116,9 @@ a:active {
 
 .operator-select {
 	color: @font-color-main;
+	margin: 0px 6px;
+	padding: 3px 0px;
+	width: 30px;
 	& .Select {
 		& .Dropdown > ul > li {
 			color: fade(@font-color-main, 60%);

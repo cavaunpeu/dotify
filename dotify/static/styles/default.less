@@ -3,6 +3,8 @@
 @font-family: 'Lato', Calibri, Arial, sans-serif;
 @background-color-main: #CCE5FF;
 @font-color-main: #004a99;
+@nl-form-font-size: 3.5em;
+@country-select-text-color: #006600;
 
 body, html { font-size: 100%; padding: 0; margin: 0;}
 
@@ -59,6 +61,10 @@ a:active {
 	padding: 0px 100px 0px;
 }
 
+#natural-language-form {
+	font-size: @nl-form-font-size;
+}
+
 .Select {
 	display: block;
 }
@@ -81,7 +87,7 @@ a:active {
 		&::-moz-placeholder {
 		color: inherit;
 		}
-		&:-moz-placeholder {   /* Older versions of Firefox */
+		&:-moz-placeholder {
 			color: inherit;
 		}
 	}
@@ -96,24 +102,36 @@ a:active {
 		list-style-type: none;
 		margin: 10px 0px 0px;
 		padding: 0px;
+		& > li {
+		font-size: .2 * @nl-form-font-size;
+		}
 	}
 }
 
-// country-select
-@text-color: #006600;
-@font-size: 3.5em;
-@border-bottom: 1px dotted @text-color;
-
 .country-select {
-	color: @text-color;
-	font-size: @font-size;
+	color: @country-select-text-color;
 	& .Select {
 		& .Dropdown > ul > li {
-			color: fade(@text-color, 60%);
-			font-size: .2 * @font-size;
+			color: fade(@country-select-text-color, 60%);
 			&.focused {
-				color: @text-color;
+				color: @country-select-text-color;
 			}
+		}
+	}
+};
+
+.operator-select {
+	display: inline;
+	color: @font-color-main;
+	& .Select {
+		& .Dropdown > ul > li {
+			color: fade(@font-color-main, 60%);
+			&.focused {
+				color: @font-color-main;
+			}
+		}
+		& .Input {
+			max-width: 20px;
 		}
 	}
 };

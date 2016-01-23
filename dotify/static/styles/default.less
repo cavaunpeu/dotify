@@ -52,25 +52,18 @@ a:active {
 }
 
 #i-want-music-like {
-	padding: 100px 160px 75px;
+	display: block;
 	font-size: 4em;
-	display: inline-block;
-}
-
-#equation-builder {
-	padding: 0px 100px 0px;
+	margin: 100px 160px 75px;
 }
 
 #natural-language-form {
+	display: inline-block;
 	font-size: @nl-form-font-size;
-}
-
-.Select {
-	display: block;
+	margin: 0px 100px;
 }
 
 .Input {
-	display: inline;
 	& input {
 		background-color: @background-color-main;
 		border: none;
@@ -78,6 +71,7 @@ a:active {
 		font-size: inherit;
 		font-family: inherit;
 		font-weight: inherit;
+		padding: 0px;
 		&:focus {
 			outline: none;
 		}
@@ -91,13 +85,9 @@ a:active {
 			color: inherit;
 		}
 	}
-	& span {
-		display: none;
-	}
 }
 
 .Dropdown {
-	display: block;
 	& ul {
 		list-style-type: none;
 		margin: 10px 0px 0px;
@@ -121,7 +111,6 @@ a:active {
 };
 
 .operator-select {
-	display: inline;
 	color: @font-color-main;
 	& .Select {
 		& .Dropdown > ul > li {

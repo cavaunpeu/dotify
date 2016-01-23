@@ -5,12 +5,10 @@ class App extends React.Component {
     render() {
         return (
             <div className="container">
-                <span id="i-want-music-like">
+                <div id="i-want-music-like">
                     I want music like:
-                </span>
-                <div id="equation-builder">
-                    <NaturalLanguageForm />
                 </div>
+                <NaturalLanguageForm />
             </div>
         );
     }

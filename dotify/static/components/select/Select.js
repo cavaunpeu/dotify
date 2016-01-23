@@ -70,7 +70,6 @@ var Select = React.createClass({
       focusedDropdownElementIndex: -1,
       inputValue: value
     });
-    // document.querySelector(".Input input").value = value;
   },
   render: function () {
     return (

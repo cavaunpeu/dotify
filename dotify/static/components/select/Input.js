@@ -19,7 +19,7 @@ var Input = React.createClass({
       <div className="Input">
         <input ref="input-form" value={this.props.inputValue} size={this.inputSize()} placeholder={this.props.placeholder} onChange={this.props.handleInputChange} onKeyDown={this.props.handleOnKeyDown}/>
       </div>
-    )
+    );
   }
 });
 

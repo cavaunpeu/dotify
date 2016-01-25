@@ -21,7 +21,7 @@ var OperatorSelect = React.createClass({
   render: function () {
     return (
       <div className="operator-select">
-        <Select dropdownElements={this.fetchOperators()} placeholder={this.props.placeholder}/>
+        <Select dropdownElements={this.fetchOperators()} flexOrder={this.props.flexOrder} placeholder={this.props.placeholder} handleValidInput={this.props.handleValidInput}/>
       </div>
     );
   }

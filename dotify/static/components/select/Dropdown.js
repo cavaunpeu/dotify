@@ -14,7 +14,7 @@ var Dropdown = React.createClass({
       );
     }.bind(this));
     return (
-      <div className="Dropdown" size={4}>
+      <div className="Dropdown">
         <ul>
           {dropdownElements}
         </ul>

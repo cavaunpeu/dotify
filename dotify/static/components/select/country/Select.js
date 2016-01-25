@@ -25,7 +25,7 @@ var CountrySelect = React.createClass({
   render: function () {
     return (
       <div className="country-select">
-        <Select dropdownElements={this.fetchCountries()} flexOrder={this.props.flexOrder} placeholder={this.props.placeholder} handleValidInput={this.props.handleValidInput}/>
+        <Select dropdownElements={this.fetchCountries()} flexOrder={this.props.flexOrder} handleValidInput={this.props.handleValidInput} placeholder={this.props.placeholder}/>
       </div>
     );
   }

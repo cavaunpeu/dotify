@@ -10,6 +10,11 @@ var Select = React.createClass({
     dropdownElements: React.PropTypes.array.isRequired,
     placeholder: React.PropTypes.string.isRequired
   },
+  componentDidUpdate: function () {
+    if (this.isCompleteDropdownElementName(this.state.inputValue)) {
+      this.props.handleValidInput(this.props.flexOrder, this.state.inputValue);
+    }
+  },
   getInitialState: function () {
     return {
       dropdownShouldBeOpen: false,
@@ -37,9 +42,8 @@ var Select = React.createClass({
     switch (event.keyCode) {
       case 13: // enter
         let enteredValue = this.state.focusedDropdownElementIndex != this.initialfocusedDropdownElementIndex ? this.getFocusedDropdownElement().props.name : this.state.inputValue;
-        if (this.inputValueIsValid(enteredValue)) {
+        if (this.isCompleteDropdownElementName(enteredValue)) {
           this.setInputValue(enteredValue);
-          this.props.handleValidInput(this.props.flexOrder, enteredValue);
         };
       break;
       case 38: // up
@@ -56,7 +60,7 @@ var Select = React.createClass({
       break;
     }
   },
-  inputValueIsValid: function (inputValue) {
+  isCompleteDropdownElementName: function (inputValue) {
     let dropdownElementNames = this.props.dropdownElements.map(function(element) {
       return element.props.name
     });

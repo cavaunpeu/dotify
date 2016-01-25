@@ -3,6 +3,9 @@ import Input from './Input';
 import Dropdown from './Dropdown';
 
 var Select = React.createClass({
+
+  initialfocusedDropdownElementIndex: -1,
+
   propTypes: {
     dropdownElements: React.PropTypes.array.isRequired,
     placeholder: React.PropTypes.string.isRequired
@@ -11,7 +14,7 @@ var Select = React.createClass({
     return {
       dropdownShouldBeOpen: false,
       eligibleDropdownElements: this.props.dropdownElements,
-      focusedDropdownElementIndex: -1,
+      focusedDropdownElementIndex: this.initialfocusedDropdownElementIndex,
       inputValue: ""
     }
   },
@@ -23,7 +26,7 @@ var Select = React.createClass({
     this.setState({
       dropdownShouldBeOpen: inputValue.length ? true : false,
       eligibleDropdownElements: this.parseEligibleDropdownElements(inputValue),
-      focusedDropdownElementIndex: -1,
+      focusedDropdownElementIndex: this.initialfocusedDropdownElementIndex,
       inputValue: inputValue
     });
   },
@@ -33,7 +36,7 @@ var Select = React.createClass({
   handleOnKeyDown: function (event) {
     switch (event.keyCode) {
       case 13: // enter
-        let enteredValue = this.state.focusedDropdownElementIndex != -1 ? this.getFocusedDropdownElement().props.name : this.state.inputValue;
+        let enteredValue = this.state.focusedDropdownElementIndex != this.initialfocusedDropdownElementIndex ? this.getFocusedDropdownElement().props.name : this.state.inputValue;
         if (this.inputValueIsValid(enteredValue)) {
           this.setInputValue(enteredValue);
           this.props.handleValidInput(this.props.flexOrder);
@@ -42,7 +45,7 @@ var Select = React.createClass({
       case 38: // up
         this.setState({
           dropdownShouldBeOpen: this.state.focusedDropdownElementIndex > 0,
-          focusedDropdownElementIndex: Math.max(-1, this.state.focusedDropdownElementIndex - 1)
+          focusedDropdownElementIndex: Math.max(this.initialfocusedDropdownElementIndex, this.state.focusedDropdownElementIndex - 1)
         });
       break;
       case 40: // down
@@ -68,7 +71,7 @@ var Select = React.createClass({
   setInputValue: function (value) {
     this.setState({
       dropdownShouldBeOpen: false,
-      focusedDropdownElementIndex: -1,
+      focusedDropdownElementIndex: this.initialfocusedDropdownElementIndex,
       inputValue: value
     });
   },

@@ -39,7 +39,7 @@ var Select = React.createClass({
         let enteredValue = this.state.focusedDropdownElementIndex != this.initialfocusedDropdownElementIndex ? this.getFocusedDropdownElement().props.name : this.state.inputValue;
         if (this.inputValueIsValid(enteredValue)) {
           this.setInputValue(enteredValue);
-          this.props.handleValidInput(this.props.flexOrder);
+          this.props.handleValidInput(this.props.flexOrder, enteredValue);
         };
       break;
       case 38: // up

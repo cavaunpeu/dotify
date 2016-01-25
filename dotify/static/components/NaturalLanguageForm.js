@@ -15,11 +15,13 @@ var NaturalLanguageForm = React.createClass({
         <CountrySelect flexOrder={flexOrder + 1} handleValidInput={this.handleValidInput}/>
       :<OperatorSelect flexOrder={flexOrder + 1} handleValidInput={this.handleValidInput}/>
   },
-  handleValidInput: function (flexOrder) {
+  handleValidInput: function (flexOrder, inputValue) {
     if (flexOrder == this.state.componentsToRender.length) {
-      this.setState({
-        componentsToRender: this.state.componentsToRender.concat([this.determineNextComponent(flexOrder)])
-      });
+      if (inputValue != "=") {
+        this.setState({
+          componentsToRender: this.state.componentsToRender.concat([this.determineNextComponent(flexOrder)])
+        });
+      }
     }
   },
   isEven: function(integer) {

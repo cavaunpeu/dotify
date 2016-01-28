@@ -8,11 +8,12 @@ var Select = React.createClass({
 
   propTypes: {
     dropdownElements: React.PropTypes.array.isRequired,
+    handleValidDropdownElementName: React.PropTypes.func.isRequired,
     placeholder: React.PropTypes.string.isRequired
   },
   componentDidUpdate: function () {
     if (this.isCompleteDropdownElementName(this.state.inputValue)) {
-      this.props.handleValidInput(this.props.flexOrder, this.state.inputValue);
+      this.props.handleValidDropdownElementName(this.props.flexOrder, this.state.inputValue);
     }
   },
   getInitialState: function () {

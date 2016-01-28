@@ -7,7 +7,7 @@ var NaturalLanguageForm = React.createClass({
     return {
       componentObjectsToRender: [
         {
-          "component": <CountrySelect flexOrder={1} handleValidInput={this.handleValidInput}/>,
+          "component": <CountrySelect flexOrder={1} handleValidDropdownElementName={this.handleValidDropdownElementName}/>,
           "enteredDropdownElementName": ""
         }
       ]
@@ -21,10 +21,10 @@ var NaturalLanguageForm = React.createClass({
   },
   determineNextComponent: function (flexOrder) {
     return this.isEven(flexOrder) ?
-        <CountrySelect flexOrder={flexOrder + 1} handleValidInput={this.handleValidInput}/>
-      :<OperatorSelect flexOrder={flexOrder + 1} handleValidInput={this.handleValidInput}/>;
+        <CountrySelect flexOrder={flexOrder + 1} handleValidDropdownElementName={this.handleValidDropdownElementName}/>
+      :<OperatorSelect flexOrder={flexOrder + 1} handleValidDropdownElementName={this.handleValidDropdownElementName}/>;
   },
-  handleValidInput: function (flexOrder, inputValue) {
+  handleValidDropdownElementName: function (flexOrder, inputValue) {
     if (flexOrder == this.state.componentObjectsToRender.length) {
       this.setState((state) => { componentObjectsToRender: state.componentObjectsToRender[flexOrder - 1]["enteredDropdownElementName"] = inputValue })
       if (inputValue != "=") {

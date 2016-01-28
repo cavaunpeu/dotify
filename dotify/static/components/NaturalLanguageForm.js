@@ -24,6 +24,11 @@ var NaturalLanguageForm = React.createClass({
         <CountrySelect flexOrder={flexOrder + 1} handleValidDropdownElementName={this.handleValidDropdownElementName}/>
       :<OperatorSelect flexOrder={flexOrder + 1} handleValidDropdownElementName={this.handleValidDropdownElementName}/>;
   },
+  enteredDropdownElementNames: function () {
+    return this.state.componentObjectsToRender.map(function(componentObject) {
+      return componentObject["enteredDropdownElementName"];
+    });
+  },
   handleValidDropdownElementName: function (flexOrder, inputValue) {
     if (flexOrder == this.state.componentObjectsToRender.length) {
       this.setState((state) => { componentObjectsToRender: state.componentObjectsToRender[flexOrder - 1]["enteredDropdownElementName"] = inputValue })

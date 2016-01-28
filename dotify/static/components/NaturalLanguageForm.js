@@ -5,7 +5,7 @@ import OperatorSelect from './select/operator/Select'
 var NaturalLanguageForm = React.createClass({
   getInitialState: function () {
     return {
-      componentsToRender: [
+      componentObjectsToRender: [
         {
           "component": <CountrySelect flexOrder={1} handleValidInput={this.handleValidInput}/>,
           "enteredDropdownElementName": ""
@@ -13,20 +13,22 @@ var NaturalLanguageForm = React.createClass({
       ]
     }
   },
-  determineNextComponent: function (flexOrder) {
-    var nextComponent = this.isEven(flexOrder) ?
-        <CountrySelect flexOrder={flexOrder + 1} handleValidInput={this.handleValidInput}/>
-      :<OperatorSelect flexOrder={flexOrder + 1} handleValidInput={this.handleValidInput}/>;
+  buildNextComponentObject: function (flexOrder) {
     return {
-      "component": nextComponent,
+      "component": this.determineNextComponent(flexOrder),
       "enteredDropdownElementName": ""
     };
   },
+  determineNextComponent: function (flexOrder) {
+    return this.isEven(flexOrder) ?
+        <CountrySelect flexOrder={flexOrder + 1} handleValidInput={this.handleValidInput}/>
+      :<OperatorSelect flexOrder={flexOrder + 1} handleValidInput={this.handleValidInput}/>;
+  },
   handleValidInput: function (flexOrder, inputValue) {
-    if (flexOrder == this.state.componentsToRender.length) {
-      this.setState((state) => { componentsToRender: state.componentsToRender[flexOrder - 1]["enteredDropdownElementName"] = inputValue })
+    if (flexOrder == this.state.componentObjectsToRender.length) {
+      this.setState((state) => { componentObjectsToRender: state.componentObjectsToRender[flexOrder - 1]["enteredDropdownElementName"] = inputValue })
       if (inputValue != "=") {
-        this.setState((state) => { componentsToRender: state.componentsToRender.push(this.determineNextComponent(flexOrder)) })
+        this.setState((state) => { componentObjectsToRender: state.componentObjectsToRender.push(this.buildNextComponentObject(flexOrder)) })
       }
     }
   },
@@ -34,7 +36,7 @@ var NaturalLanguageForm = React.createClass({
     return integer % 2 == 0;
   },
   render: function () {
-    var componentsToRender = this.state.componentsToRender.map(function(componentObject) {
+    let componentsToRender = this.state.componentObjectsToRender.map(function(componentObject) {
       return (
         <span className="nl-form-component" key={componentObject["component"].props.flexOrder}>
           {componentObject["component"]}

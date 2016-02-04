@@ -1,4 +1,5 @@
 import React from 'react'
+var $ = require('jquery');
 import CountrySelect from './select/country/Select'
 import OperatorSelect from './select/operator/Select'
 
@@ -29,12 +30,33 @@ var NaturalLanguageForm = React.createClass({
       return componentObject["enteredDropdownElementName"];
     });
   },
+  fetchRecommendedSongs: function() {
+    $.ajax({
+      url: "/songs",
+      type: "POST",
+      data: JSON.stringify({"dropdownElementNames": this.enteredDropdownElementNames()}, null, '\t'),
+      contentType: "application/json",
+      success: function(data) {
+        // parse recommended songs here
+        this.setState({data: data});
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  },
   handleValidDropdownElementName: function (flexOrder, inputValue) {
     if (flexOrder == this.state.componentObjectsToRender.length) {
-      this.setState((state) => { componentObjectsToRender: state.componentObjectsToRender[flexOrder - 1]["enteredDropdownElementName"] = inputValue })
-      if (inputValue != "=") {
-        this.setState((state) => { componentObjectsToRender: state.componentObjectsToRender.push(this.buildNextComponentObject(flexOrder)) })
-      }
+      this.setState(
+        (state) => { componentObjectsToRender: state.componentObjectsToRender[flexOrder - 1]["enteredDropdownElementName"] = inputValue },
+        () => {
+          if (inputValue != "=") {
+            this.setState((state) => { componentObjectsToRender: state.componentObjectsToRender.push(this.buildNextComponentObject(flexOrder)) });
+          } else {
+            this.fetchRecommendedSongs();
+          }
+        }
+      );
     }
   },
   isEven: function(integer) {

@@ -11,10 +11,11 @@ var OperatorSelect = React.createClass({
   fetchDropdownElements: function () {
     return (
       [
-        <Operator id={0} name="&#8722;" value="-" />,
-        <Operator id={1} name="&#215;"  value="*" />,
-        <Operator id={2} name="&#247;"  value="/" />,
-        <Operator id={3} name="&#61;"   value="=" />,
+        <Operator id={0} name="&#43;"   value="+" />,
+        <Operator id={1} name="&#8722;" value="-" />,
+        <Operator id={2} name="&#215;"  value="*" />,
+        <Operator id={3} name="&#247;"  value="/" />,
+        <Operator id={4} name="&#61;"   value="=" />,
       ]
     );
   },

@@ -43,7 +43,7 @@ var Select = React.createClass({
   handleInputNameChange: function (event) {
     let inputName = event.target.value;
     this.setState({
-      dropdownShouldBeOpen: inputName.length ? true : false,
+      dropdownShouldBeOpen: Boolean(inputName.length),
       eligibleDropdownElements: this.getEligibleDropdownElements(inputName),
       focusedDropdownElementIndex: this.initialfocusedDropdownElementIndex,
       inputName: inputName

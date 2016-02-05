@@ -11,17 +11,17 @@ var OperatorSelect = React.createClass({
   fetchDropdownElements: function () {
     return (
       [
-        <Operator id={0} name="&#8722;" />, // -
-        <Operator id={1} name="&#215;" />,  // x
-        <Operator id={2} name="&#247;" />,  // /
-        <Operator id={3} name="&#61;" />,   // =
+        <Operator id={0} name="&#8722;" value="-" />,
+        <Operator id={1} name="&#215;"  value="*" />,
+        <Operator id={2} name="&#247;"  value="/" />,
+        <Operator id={3} name="&#61;"   value="=" />,
       ]
     );
   },
   render: function () {
     return (
       <div className="operator-select">
-        <Select dropdownElements={this.fetchDropdownElements()} flexOrder={this.props.flexOrder} handleValidDropdownElementName={this.props.handleValidDropdownElementName} placeholder={this.props.placeholder}/>
+        <Select dropdownElements={this.fetchDropdownElements()} flexOrder={this.props.flexOrder} handleValidDropdownElement={this.props.handleValidDropdownElement} placeholder={this.props.placeholder}/>
       </div>
     );
   }

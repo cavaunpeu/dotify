@@ -1,43 +1,42 @@
 import React from 'react'
-var $ = require('jquery');
+
 import CountrySelect from './select/country/Select'
 import OperatorSelect from './select/operator/Select'
+import NaturalLanguageFormElement from './NaturalLanguageFormElement'
+
+var $ = require('jquery');
 
 var NaturalLanguageForm = React.createClass({
   getInitialState: function () {
     return {
-      componentObjectsToRender: [
-        {
-          "component": <CountrySelect flexOrder={1} handleValidDropdownElementName={this.handleValidDropdownElementName}/>,
-          "enteredDropdownElementName": ""
-        }
+      elementsToRender: [
+        <NaturalLanguageFormElement selectComponent={<CountrySelect flexOrder={1} handleValidDropdownElement={this.handleValidDropdownElement}/>} value=""/>
       ]
     }
   },
-  buildNextComponentObject: function (flexOrder) {
-    return {
-      "component": this.determineNextComponent(flexOrder),
-      "enteredDropdownElementName": ""
-    };
+  buildElement: function (selectComponent, value) {
+    return <NaturalLanguageFormElement selectComponent={selectComponent} value={value}/>;
   },
-  determineNextComponent: function (flexOrder) {
+  determineNextSelectComponent: function (flexOrder) {
     return this.isEven(flexOrder) ?
-        <CountrySelect flexOrder={flexOrder + 1} handleValidDropdownElementName={this.handleValidDropdownElementName}/>
-      :<OperatorSelect flexOrder={flexOrder + 1} handleValidDropdownElementName={this.handleValidDropdownElementName}/>;
+        <CountrySelect flexOrder={flexOrder + 1} handleValidDropdownElement={this.handleValidDropdownElement}/>
+      :<OperatorSelect flexOrder={flexOrder + 1} handleValidDropdownElement={this.handleValidDropdownElement}/>;
   },
-  enteredDropdownElementNames: function () {
-    return this.state.componentObjectsToRender.map(function(componentObject) {
-      return componentObject["enteredDropdownElementName"];
+  elementValues: function () {
+    return this.state.elementsToRender.map(function(element) {
+      return element.props.value;
     });
   },
   fetchRecommendedSongs: function() {
     $.ajax({
       url: "/songs",
       type: "POST",
-      data: JSON.stringify({"dropdownElementNames": this.enteredDropdownElementNames()}, null, '\t'),
+      data: JSON.stringify({
+        "operators": this.getOperators(),
+        "operands": this.getOperands()
+      }, null, '\t'),
       contentType: "application/json",
       success: function(data) {
-        // parse recommended songs here
         this.setState({data: data});
       }.bind(this),
       error: function(xhr, status, err) {
@@ -45,13 +44,19 @@ var NaturalLanguageForm = React.createClass({
       }.bind(this)
     });
   },
-  handleValidDropdownElementName: function (flexOrder, inputValue) {
-    if (flexOrder == this.state.componentObjectsToRender.length) {
+  getOperands: function() {
+    return this.elementValues().filter((value, index) => this.isEven(index));
+  },
+  getOperators: function() {
+    return this.elementValues().filter((value, index) => !this.isEven(index) && value != "=");
+  },
+  handleValidDropdownElement: function (flexOrder, dropdownElement) {
+    if (flexOrder == this.state.elementsToRender.length) {
       this.setState(
-        (state) => { componentObjectsToRender: state.componentObjectsToRender[flexOrder - 1]["enteredDropdownElementName"] = inputValue },
+        (state) => { elementsToRender: state.elementsToRender[flexOrder - 1] = this.buildElement(state.elementsToRender[flexOrder - 1].props.selectComponent, dropdownElement.props.value) },
         () => {
-          if (inputValue != "=") {
-            this.setState((state) => { componentObjectsToRender: state.componentObjectsToRender.push(this.buildNextComponentObject(flexOrder)) });
+          if (dropdownElement.props.value != "=") {
+            this.setState((state) => { elementsToRender: state.elementsToRender.push(this.buildElement(this.determineNextSelectComponent(flexOrder), "")) });
           } else {
             this.fetchRecommendedSongs();
           }
@@ -63,16 +68,16 @@ var NaturalLanguageForm = React.createClass({
     return integer % 2 == 0;
   },
   render: function () {
-    let componentsToRender = this.state.componentObjectsToRender.map(function(componentObject) {
+    let elementsToRender = this.state.elementsToRender.map(function(element) {
       return (
-        <span className="nl-form-component" key={componentObject["component"].props.flexOrder}>
-          {componentObject["component"]}
+        <span className="natural-language-form-element" key={element.props.selectComponent.props.flexOrder}>
+          {element.props.selectComponent}
         </span>
       );
     });
     return (
       <div id="natural-language-form">
-        {componentsToRender}
+        {elementsToRender}
       </div>
     );
   }

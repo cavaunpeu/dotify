@@ -8,12 +8,13 @@ var Select = React.createClass({
 
   propTypes: {
     dropdownElements: React.PropTypes.array.isRequired,
-    handleValidDropdownElementName: React.PropTypes.func.isRequired,
+    handleValidDropdownElement: React.PropTypes.func.isRequired,
     placeholder: React.PropTypes.string.isRequired
   },
   componentDidUpdate: function () {
-    if (this.isCompleteDropdownElementName(this.state.inputValue)) {
-      this.props.handleValidDropdownElementName(this.props.flexOrder, this.state.inputValue);
+    let enteredDropdownElement = this.getEnteredDropdownElement(this.state.inputName);
+    if (enteredDropdownElement) {
+      this.props.handleValidDropdownElement(this.props.flexOrder, enteredDropdownElement);
     }
   },
   getInitialState: function () {
@@ -21,30 +22,42 @@ var Select = React.createClass({
       dropdownShouldBeOpen: false,
       eligibleDropdownElements: this.props.dropdownElements,
       focusedDropdownElementIndex: this.initialfocusedDropdownElementIndex,
-      inputValue: ""
+      inputName: ""
     }
+  },
+  getEligibleDropdownElements: function (inputName) {
+    function elementIsEligible(element) {
+      return element.props.name.includes(inputName) && element.props.name != inputName;
+    }
+    return this.props.dropdownElements.filter(elementIsEligible);
+  },
+  getEnteredDropdownElement: function (inputName) {
+    function elementIsEligible(element) {
+      return element.props.name == inputName;
+    }
+    return this.props.dropdownElements.filter(elementIsEligible)[0];
   },
   getFocusedDropdownElement: function () {
     return this.state.eligibleDropdownElements[this.state.focusedDropdownElementIndex];
   },
-  handleInputChange: function (event) {
-    let inputValue = event.target.value;
+  handleInputNameChange: function (event) {
+    let inputName = event.target.value;
     this.setState({
-      dropdownShouldBeOpen: inputValue.length ? true : false,
-      eligibleDropdownElements: this.parseEligibleDropdownElements(inputValue),
+      dropdownShouldBeOpen: inputName.length ? true : false,
+      eligibleDropdownElements: this.getEligibleDropdownElements(inputName),
       focusedDropdownElementIndex: this.initialfocusedDropdownElementIndex,
-      inputValue: inputValue
+      inputName: inputName
     });
   },
   handleOnClick: function (event) {
-    this.setInputValue(event.target.innerText);
+    this.setInputName(event.target.innerText);
   },
   handleOnKeyDown: function (event) {
     switch (event.keyCode) {
       case 13: // enter
-        let enteredValue = this.state.focusedDropdownElementIndex != this.initialfocusedDropdownElementIndex ? this.getFocusedDropdownElement().props.name : this.state.inputValue;
-        if (this.isCompleteDropdownElementName(enteredValue)) {
-          this.setInputValue(enteredValue);
+        let enteredName = this.state.focusedDropdownElementIndex != this.initialfocusedDropdownElementIndex ? this.getFocusedDropdownElement().props.name : this.state.inputName;
+        if (this.getEnteredDropdownElement(enteredName)) {
+          this.setInputName(enteredName);
         };
       break;
       case 38: // up
@@ -61,29 +74,17 @@ var Select = React.createClass({
       break;
     }
   },
-  isCompleteDropdownElementName: function (inputValue) {
-    let dropdownElementNames = this.props.dropdownElements.map(function(element) {
-      return element.props.name
-    });
-    return dropdownElementNames.indexOf(inputValue) > -1;
-  },
-  parseEligibleDropdownElements: function (inputValue) {
-    function elementIsEligible(element) {
-      return element.props.name.includes(inputValue) && element.props.name != inputValue;
-    }
-    return this.props.dropdownElements.filter(elementIsEligible);
-  },
-  setInputValue: function (value) {
+  setInputName: function (name) {
     this.setState({
       dropdownShouldBeOpen: false,
       focusedDropdownElementIndex: this.initialfocusedDropdownElementIndex,
-      inputValue: value
+      inputName: name
     });
   },
   render: function () {
     return (
       <div className="Select">
-        <Input inputValue={this.state.inputValue} placeholder={this.props.placeholder} handleInputChange={this.handleInputChange} handleOnKeyDown={this.handleOnKeyDown}/>
+        <Input inputName={this.state.inputName} placeholder={this.props.placeholder} handleInputNameChange={this.handleInputNameChange} handleOnKeyDown={this.handleOnKeyDown}/>
         {this.state.dropdownShouldBeOpen ? (
           <Dropdown dropdownElements={this.state.eligibleDropdownElements} handleOnClick={this.handleOnClick} focusedDropdownElement={this.getFocusedDropdownElement()}/>
         ) : null}

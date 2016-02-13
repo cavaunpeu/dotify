@@ -36,5 +36,42 @@ class TopSong(Base):
     ForeignKeyConstraint(['song_id', 'country_id'], ['songs.id', 'country.id'])
 
 
+class CountryVector(Base):
+    __tablename__ = 'country_vectors'
+
+    country_id = sa.Column(sa.Integer(), primary_key=True)
+    dim_0  = sa.Column(sa.Float(precision=11, decimal_return_scale=10))
+    dim_1  = sa.Column(sa.Float(precision=11, decimal_return_scale=10))
+    dim_2  = sa.Column(sa.Float(precision=11, decimal_return_scale=10))
+    dim_3  = sa.Column(sa.Float(precision=11, decimal_return_scale=10))
+    dim_4  = sa.Column(sa.Float(precision=11, decimal_return_scale=10))
+    dim_5  = sa.Column(sa.Float(precision=11, decimal_return_scale=10))
+    dim_6  = sa.Column(sa.Float(precision=11, decimal_return_scale=10))
+    dim_7  = sa.Column(sa.Float(precision=11, decimal_return_scale=10))
+    dim_8  = sa.Column(sa.Float(precision=11, decimal_return_scale=10))
+    dim_9  = sa.Column(sa.Float(precision=11, decimal_return_scale=10))
+    dim_10 = sa.Column(sa.Float(precision=11, decimal_return_scale=10))
+    dim_11 = sa.Column(sa.Float(precision=11, decimal_return_scale=10))
+    dim_12 = sa.Column(sa.Float(precision=11, decimal_return_scale=10))
+    dim_13 = sa.Column(sa.Float(precision=11, decimal_return_scale=10))
+    dim_14 = sa.Column(sa.Float(precision=11, decimal_return_scale=10))
+    dim_15 = sa.Column(sa.Float(precision=11, decimal_return_scale=10))
+    dim_16 = sa.Column(sa.Float(precision=11, decimal_return_scale=10))
+    dim_17 = sa.Column(sa.Float(precision=11, decimal_return_scale=10))
+    dim_18 = sa.Column(sa.Float(precision=11, decimal_return_scale=10))
+    dim_19 = sa.Column(sa.Float(precision=11, decimal_return_scale=10))
+    dim_20 = sa.Column(sa.Float(precision=11, decimal_return_scale=10))
+    dim_21 = sa.Column(sa.Float(precision=11, decimal_return_scale=10))
+    dim_22 = sa.Column(sa.Float(precision=11, decimal_return_scale=10))
+    dim_23 = sa.Column(sa.Float(precision=11, decimal_return_scale=10))
+    dim_24 = sa.Column(sa.Float(precision=11, decimal_return_scale=10))
+    dim_25 = sa.Column(sa.Float(precision=11, decimal_return_scale=10))
+    dim_26 = sa.Column(sa.Float(precision=11, decimal_return_scale=10))
+    dim_27 = sa.Column(sa.Float(precision=11, decimal_return_scale=10))
+    dim_28 = sa.Column(sa.Float(precision=11, decimal_return_scale=10))
+    dim_29 = sa.Column(sa.Float(precision=11, decimal_return_scale=10))
+    ForeignKeyConstraint(['country_id'], ['country.id'])
+
+
 Base.metadata.create_all(engine)
 

@@ -9,8 +9,8 @@ from dotify.models import Country, CountryVector, SongVector
 from dotify.resources.countries import countries
 from dotify.top_songs import TopSongsGenerator
 from dotify.recommendation.implicit_mf.ratings_matrix import RatingsMatrix
-from dotify.recommendation.implicit_mf.vectors import CountryVectors, SongVectors
 from dotify.recommendation.implicit_mf.implicit_mf import ImplicitMF
+from dotify.recommendation.implicit_mf.pipeline import Pipeline as ImplicitMFPipeline
 
 
 manager = Manager(app)
@@ -45,25 +45,11 @@ def insert_top_songs():
             session.add(top_song)
     session.commit()
 
+
 @manager.command
 def compute_latent_vectors():
-    implicit_mf = ImplicitMF(
-        country_vectors_class=CountryVectors,
-        song_vectors_class=SongVectors,
-        ratings_matrix=RatingsMatrix(),
-        f=F,
-        alpha=ALPHA,
-        lmbda=LAMBDA
-    )
-    implicit_mf.run()
-
-    for country_id, country_vector in implicit_mf.country_vectors.vectors.iterrows():
-        session.add(CountryVector(country_id=int(country_id), **country_vector))
-
-    for song_id, song_vector in implicit_mf.song_vectors.vectors.iterrows():
-        session.add(SongVector(song_id=int(song_id), **song_vector))
-
-    session.commit()
+    implicit_mf = ImplicitMF(ratings_matrix=RatingsMatrix(), f=F, alpha=ALPHA, lmbda=LAMBDA)
+    ImplicitMFPipeline(implicit_mf).run()
 
 
 class DB:

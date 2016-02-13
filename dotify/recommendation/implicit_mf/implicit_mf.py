@@ -1,12 +1,13 @@
 import numpy as np
 
+from .vectors import CountryVectors, SongVectors
+
 
 class ImplicitMF:
 
-    def __init__(self, country_vectors_class, song_vectors_class, ratings_matrix, f,
-        alpha, lmbda, n_iterations=1):
-        self.country_vectors = country_vectors_class(ratings_matrix, f)
-        self.song_vectors = song_vectors_class(ratings_matrix, f)
+    def __init__(self, ratings_matrix, f, alpha, lmbda, n_iterations=10):
+        self.country_vectors = CountryVectors(ratings_matrix, f)
+        self.song_vectors = SongVectors(ratings_matrix, f)
         self.P_ui = ratings_matrix.R_ui > 0
         self.C_ui = 1 + alpha*ratings_matrix.R_ui
         self.lmbda = lmbda

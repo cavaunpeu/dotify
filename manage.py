@@ -5,7 +5,7 @@ from flask.ext.script import Manager
 
 from dotify import app
 from dotify.database import Base, session
-from dotify.models import Country
+from dotify.models import Country, CountryVector, SongVector
 from dotify.resources.countries import countries
 from dotify.top_songs import TopSongsGenerator
 from dotify.recommendation.implicit_mf.ratings_matrix import RatingsMatrix
@@ -56,6 +56,14 @@ def compute_latent_vectors():
         lmbda=LAMBDA
     )
     implicit_mf.run()
+
+    for country_id, country_vector in implicit_mf.country_vectors.vectors.iterrows():
+        session.add(CountryVector(country_id=int(country_id), **country_vector))
+
+    for song_id, song_vector in implicit_mf.song_vectors.vectors.iterrows():
+        session.add(SongVector(song_id=int(song_id), **song_vector))
+
+    session.commit()
 
 
 class DB:

@@ -4,7 +4,7 @@ import numpy as np
 class ImplicitMF:
 
     def __init__(self, country_vectors_class, song_vectors_class, ratings_matrix, f,
-        alpha, lmbda, n_iterations=10):
+        alpha, lmbda, n_iterations=1):
         self.country_vectors = country_vectors_class(ratings_matrix, f)
         self.song_vectors = song_vectors_class(ratings_matrix, f)
         self.P_ui = ratings_matrix.R_ui > 0

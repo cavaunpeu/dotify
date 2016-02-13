@@ -4,7 +4,7 @@ import os
 
 import pandas as pd
 import sqlalchemy as sa
-from sqlalchemy import ForeignKeyConstraint
+from sqlalchemy import ForeignKey, ForeignKeyConstraint
 from sqlalchemy.orm import relationship
 
 from .database import Base, engine
@@ -33,13 +33,13 @@ class TopSong(Base):
     country_id = sa.Column(sa.Integer(), primary_key=True)
     rank = sa.Column(sa.Integer(), primary_key=True)
     date = sa.Column(sa.DateTime(), primary_key=True)
-    ForeignKeyConstraint(['song_id', 'country_id'], ['songs.id', 'country.id'])
+    ForeignKeyConstraint(['song_id', 'country_id'], ['songs.id', 'countries.id'])
 
 
 class CountryVector(Base):
     __tablename__ = 'country_vectors'
 
-    country_id = sa.Column(sa.Integer(), primary_key=True)
+    country_id = sa.Column(sa.Integer(), ForeignKey('countries.id'), primary_key=True)
     dim_0  = sa.Column(sa.Float(precision=11, decimal_return_scale=10))
     dim_1  = sa.Column(sa.Float(precision=11, decimal_return_scale=10))
     dim_2  = sa.Column(sa.Float(precision=11, decimal_return_scale=10))
@@ -70,13 +70,12 @@ class CountryVector(Base):
     dim_27 = sa.Column(sa.Float(precision=11, decimal_return_scale=10))
     dim_28 = sa.Column(sa.Float(precision=11, decimal_return_scale=10))
     dim_29 = sa.Column(sa.Float(precision=11, decimal_return_scale=10))
-    ForeignKeyConstraint(['country_id'], ['country.id'])
 
 
 class SongVector(Base):
     __tablename__ = 'song_vectors'
 
-    song_id = sa.Column(sa.Integer(), primary_key=True)
+    song_id = sa.Column(sa.Integer(), ForeignKey('songs.id'), primary_key=True)
     dim_0  = sa.Column(sa.Float(precision=11, decimal_return_scale=10))
     dim_1  = sa.Column(sa.Float(precision=11, decimal_return_scale=10))
     dim_2  = sa.Column(sa.Float(precision=11, decimal_return_scale=10))

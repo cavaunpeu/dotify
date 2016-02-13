@@ -11,7 +11,7 @@ class CountryVectors:
             index=ratings_matrix.R_ui.index
         )
         
-class TopSongVectors:
+class SongVectors:
     
     def __init__(self, ratings_matrix, f):
         self.vectors = pd.DataFrame(

@@ -9,7 +9,7 @@ from dotify.models import Country
 from dotify.resources.countries import countries
 from dotify.top_songs import TopSongsGenerator
 from dotify.recommendation.implicit_mf.ratings_matrix import RatingsMatrix
-from dotify.recommendation.implicit_mf.vectors import CountryVectors, TopSongVectors
+from dotify.recommendation.implicit_mf.vectors import CountryVectors, SongVectors
 from dotify.recommendation.implicit_mf.implicit_mf import ImplicitMF
 
 
@@ -49,7 +49,7 @@ def insert_top_songs():
 def compute_latent_vectors():
     implicit_mf = ImplicitMF(
         country_vectors_class=CountryVectors,
-        top_song_vectors_class=TopSongVectors,
+        song_vectors_class=SongVectors,
         ratings_matrix=RatingsMatrix(),
         f=F,
         alpha=ALPHA,

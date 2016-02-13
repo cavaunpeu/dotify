@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 
 
-class UserVectors:
+class CountryVectors:
     
     def __init__(self, ratings_matrix, f):
         self.vectors = pd.DataFrame(
@@ -11,7 +11,7 @@ class UserVectors:
             index=ratings_matrix.R_ui.index
         )
         
-class ItemVectors:
+class TopSongVectors:
     
     def __init__(self, ratings_matrix, f):
         self.vectors = pd.DataFrame(
@@ -19,4 +19,3 @@ class ItemVectors:
             columns=range(f),
             index=ratings_matrix.R_ui.columns
         )
-        

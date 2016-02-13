@@ -16,4 +16,6 @@ class RatingsMatrix:
             TopSong.song_id,
             (1. / func.sum(TopSong.rank)).label('normalized_rank')
         ).group_by(TopSong.country_id, TopSong.song_id).all()
-        return pd.DataFrame(top_songs).pivot('country_id', 'song_id', 'normalized_rank').fillna(0)
+
+        return pd.DataFrame(top_songs).pivot(
+            'country_id', 'song_id', 'normalized_rank').fillna(0).astype(float)

@@ -8,9 +8,17 @@ from dotify.database import Base, session
 from dotify.models import Country
 from dotify.resources.countries import countries
 from dotify.top_songs import TopSongsGenerator
+from dotify.recommendation.implicit_mf.ratings_matrix import RatingsMatrix
+from dotify.recommendation.implicit_mf.vectors import CountryVectors, TopSongVectors
+from dotify.recommendation.implicit_mf.implicit_mf import ImplicitMF
 
 
 manager = Manager(app)
+
+
+F = 30
+ALPHA = 40
+LAMBDA = 1
 
 
 @manager.command
@@ -36,6 +44,18 @@ def insert_top_songs():
         for top_song in TopSongsGenerator(country_name):
             session.add(top_song)
     session.commit()
+
+@manager.command
+def compute_latent_vectors():
+    implicit_mf = ImplicitMF(
+        country_vectors_class=CountryVectors,
+        top_song_vectors_class=TopSongVectors,
+        ratings_matrix=RatingsMatrix(),
+        f=F,
+        alpha=ALPHA,
+        lmbda=LAMBDA
+    )
+    implicit_mf.run()
 
 
 class DB:

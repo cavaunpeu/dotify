@@ -16,6 +16,7 @@ class Country(Base):
 
     id = sa.Column(sa.Integer(), primary_key=True)
     name = sa.Column(sa.String(255), nullable=False)
+    value = sa.Column(sa.String(255), nullable=False)
 
 
 class Song(Base):

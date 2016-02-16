@@ -21,7 +21,7 @@ def get_countries():
 @app.route('/songs', methods=['POST'])
 def get_songs():
     operators = request.get_json()['operators']
-    operands = request.get_json()['operands']
+    countries = request.get_json()['countries']
     return jsonify(
         {
             'songs': [

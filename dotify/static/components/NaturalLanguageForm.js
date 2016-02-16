@@ -33,7 +33,7 @@ var NaturalLanguageForm = React.createClass({
       type: "POST",
       data: JSON.stringify({
         "operators": this.getOperators(),
-        "operands": this.getOperands()
+        "countries": this.getOperands()
       }, null, '\t'),
       contentType: "application/json",
       success: function(data) {

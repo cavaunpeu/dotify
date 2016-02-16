@@ -19,6 +19,14 @@ class Country(Base):
     value = sa.Column(sa.String(255), nullable=False)
 
 
+class Operator(Base):
+    __tablename__ = 'operators'
+
+    id = sa.Column(sa.Integer(), primary_key=True)
+    name = sa.Column(sa.String(255), nullable=False)
+    value = sa.Column(sa.String(255), nullable=False)
+
+
 class Song(Base):
     __tablename__ = 'songs'
 

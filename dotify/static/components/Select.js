@@ -67,9 +67,14 @@ var Select = React.createClass({
         });
       break;
       case 40: // down
+        if (this.state.focusedDropdownElementIndex == this.initialfocusedDropdownElementIndex) {
+          this.setState({
+            eligibleDropdownElements: this.getEligibleDropdownElements(this.state.inputName)
+          });
+        }
         this.setState({
           dropdownShouldBeOpen: true,
-          focusedDropdownElementIndex: Math.min(this.state.eligibleDropdownElements.length - 1, this.state.focusedDropdownElementIndex + 1),
+          focusedDropdownElementIndex: Math.min(this.state.eligibleDropdownElements.length - 1, this.state.focusedDropdownElementIndex + 1)
         });
       break;
     }

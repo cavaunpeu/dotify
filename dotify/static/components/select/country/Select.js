@@ -2,28 +2,34 @@ import React from 'react'
 import Select from '../../Select'
 import Country from './Country'
 
+var $ = require('jquery');
+
 var CountrySelect = React.createClass({
 
   placeholder: "country",
+  source: "/countries",
 
-  fetchCountries: function () {
-		return (
-			[
-        <Country id={0} name="Colombia"    value="Colombia" />,
-        <Country id={1} name="Puerto Rico" value="Puerto Rico"/>,
-        <Country id={2} name="Mexico"      value="Mexico"/>,
-        <Country id={3} name="Venezuela"   value="Venezuela"/>,
-        <Country id={4} name="Chile"       value="Chile"/>,
-        <Country id={5} name="Cuba"        value="Cuba"/>,
-        <Country id={6} name="Guatemala"   value="Guatemala"/>,
-        <Country id={7} name="Brazil"      value="Brazil"/>,
-      ]
-    );
-	},
+  getInitialState: function () {
+    return {
+      dropdownElements: []
+    };
+  },
+  componentDidMount: function() {
+    this.serverRequest = $.get(this.source, function (response) {
+      this.setState({
+        dropdownElements: response['countries'].map(function(country) {
+          return <Country id={country.id} name={country.name} value={country.value}/>;
+        })
+      });
+    }.bind(this));
+  },
+  componentWillUnmount: function() {
+    this.serverRequest.abort();
+  },
   render: function () {
     return (
       <div className="country-select">
-        <Select dropdownElements={this.fetchCountries()} flexOrder={this.props.flexOrder} handleValidDropdownElement={this.props.handleValidDropdownElement} placeholder={this.placeholder}/>
+        <Select dropdownElements={this.state.dropdownElements} flexOrder={this.props.flexOrder} handleValidDropdownElement={this.props.handleValidDropdownElement} placeholder={this.placeholder}/>
       </div>
     );
   }

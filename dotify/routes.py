@@ -14,7 +14,7 @@ def main():
 
 @app.route('/countries', methods=['GET'])
 def get_countries():
-    countries = [{'name': country.name} for country in session.query(Country)]
+    countries = [{'id': country.id, 'name': country.name, 'value': country.value} for country in session.query(Country)]
     return jsonify({'countries': countries}), 200
 
 

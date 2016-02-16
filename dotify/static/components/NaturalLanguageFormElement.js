@@ -6,7 +6,7 @@ var NaturalLanguageFormElement = React.createClass({
     dropdownElement: React.PropTypes.object,
   },
   setDropdownElement: function (dropdownElement) {
-    this.setState({dropdownElement: dropdownElement});
+    this.setState({ dropdownElement: dropdownElement });
   },
   render: function () {
     return false

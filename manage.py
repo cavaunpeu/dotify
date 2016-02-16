@@ -17,8 +17,8 @@ manager = Manager(app)
 
 
 F = 30
-ALPHA = 40
-LAMBDA = 1
+ALPHA = 1
+LAMBDA = 10
 
 
 @manager.command

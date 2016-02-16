@@ -10,21 +10,21 @@ var NaturalLanguageForm = React.createClass({
   getInitialState: function () {
     return {
       elementsToRender: [
-        <NaturalLanguageFormElement selectComponent={<CountrySelect flexOrder={1} handleValidDropdownElement={this.handleValidDropdownElement}/>} value=""/>
+        <NaturalLanguageFormElement selectComponent={<CountrySelect flexOrder={1} handleValidDropdownElement={this.handleValidDropdownElement}/>} dropdownElement={null}/>
       ]
     }
   },
-  buildElement: function (selectComponent, value) {
-    return <NaturalLanguageFormElement selectComponent={selectComponent} value={value}/>;
+  buildFormElement: function (selectComponent, dropdownElement = null) {
+    return <NaturalLanguageFormElement selectComponent={selectComponent} dropdownElement={dropdownElement}/>;
   },
   determineNextSelectComponent: function (flexOrder) {
     return this.isEven(flexOrder) ?
         <CountrySelect flexOrder={flexOrder + 1} handleValidDropdownElement={this.handleValidDropdownElement}/>
       :<OperatorSelect flexOrder={flexOrder + 1} handleValidDropdownElement={this.handleValidDropdownElement}/>;
   },
-  elementValues: function () {
+  formElementValues: function () {
     return this.state.elementsToRender.map(function(element) {
-      return element.props.value;
+      return element.props.dropdownElement ? element.props.dropdownElement.value : "";
     });
   },
   fetchRecommendedSongs: function() {
@@ -45,18 +45,18 @@ var NaturalLanguageForm = React.createClass({
     });
   },
   getOperands: function() {
-    return this.elementValues().filter((value, index) => this.isEven(index));
+    return this.formElementValues().filter((value, index) => this.isEven(index));
   },
   getOperators: function() {
-    return this.elementValues().filter((value, index) => !this.isEven(index) && value != "=");
+    return this.formElementValues().filter((value, index) => !this.isEven(index) && value != "=");
   },
   handleValidDropdownElement: function (flexOrder, dropdownElement) {
     if (flexOrder == this.state.elementsToRender.length) {
       this.setState(
-        (state) => { elementsToRender: state.elementsToRender[flexOrder - 1] = this.buildElement(state.elementsToRender[flexOrder - 1].props.selectComponent, dropdownElement.props.value) },
+        (state) => { elementsToRender: state.elementsToRender[flexOrder - 1] = this.buildFormElement(state.elementsToRender[flexOrder - 1].props.selectComponent, dropdownElement) },
         () => {
           if (dropdownElement.props.value != "=") {
-            this.setState((state) => { elementsToRender: state.elementsToRender.push(this.buildElement(this.determineNextSelectComponent(flexOrder), "")) });
+            this.setState((state) => { elementsToRender: state.elementsToRender.push(this.buildFormElement(this.determineNextSelectComponent(flexOrder))) });
           } else {
             this.fetchRecommendedSongs();
           }

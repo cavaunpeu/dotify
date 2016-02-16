@@ -3,10 +3,10 @@ import React from 'react';
 var NaturalLanguageFormElement = React.createClass({
   propTypes: {
     selectComponent: React.PropTypes.object.isRequired,
-    value: React.PropTypes.string.isRequired,
+    dropdownElement: React.PropTypes.object,
   },
-  setValue: function (value) {
-    this.setState({value: value});
+  setDropdownElement: function (dropdownElement) {
+    this.setState({dropdownElement: dropdownElement});
   },
   render: function () {
     return false

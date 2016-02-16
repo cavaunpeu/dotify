@@ -12,7 +12,7 @@ countries = {
     'Canada': {'id': 11, 'abbrev': 'ca'},
     'Chile': {'id': 12, 'abbrev': 'cl'},
     'Colombia': {'id': 13, 'abbrev': 'co'},
-    'Costa': {'id': 14, 'abbrev': 'cr'},
+    'Costa Rica': {'id': 14, 'abbrev': 'cr'},
     'Cyprus': {'id': 15, 'abbrev': 'cy'},
     'Czech': {'id': 16, 'abbrev': 'cz'},
     'Denmark': {'id': 17, 'abbrev': 'dk'},

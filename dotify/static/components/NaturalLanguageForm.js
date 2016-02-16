@@ -37,6 +37,7 @@ var NaturalLanguageForm = React.createClass({
       }, null, '\t'),
       contentType: "application/json",
       success: function(data) {
+        console.log(data)
         this.setState({data: data});
       }.bind(this),
       error: function(xhr, status, err) {

@@ -14,7 +14,7 @@ from .resources.countries import countries
 class Country(Base):
     __tablename__ = 'countries'
 
-    id = sa.Column(sa.Integer(), primary_key=True)
+    id = sa.Column(sa.Integer(), primary_key=True, index=True)
     name = sa.Column(sa.String(255), nullable=False)
     value = sa.Column(sa.String(255), nullable=False)
 
@@ -30,7 +30,7 @@ class Operator(Base):
 class Song(Base):
     __tablename__ = 'songs'
 
-    id = sa.Column(sa.Integer(), primary_key=True)
+    id = sa.Column(sa.Integer(), primary_key=True, index=True)
     title = sa.Column(sa.String(255))
     artist = sa.Column(sa.String(255))
 
@@ -48,7 +48,7 @@ class TopSong(Base):
 class CountryVector(Base):
     __tablename__ = 'country_vectors'
 
-    country_id = sa.Column(sa.Integer(), ForeignKey('countries.id'), primary_key=True)
+    country_id = sa.Column(sa.Integer(), ForeignKey('countries.id'), primary_key=True, index=True)
     dim_0  = sa.Column(sa.Float(precision=11, decimal_return_scale=10))
     dim_1  = sa.Column(sa.Float(precision=11, decimal_return_scale=10))
     dim_2  = sa.Column(sa.Float(precision=11, decimal_return_scale=10))
@@ -84,7 +84,7 @@ class CountryVector(Base):
 class SongVector(Base):
     __tablename__ = 'song_vectors'
 
-    song_id = sa.Column(sa.Integer(), ForeignKey('songs.id'), primary_key=True)
+    song_id = sa.Column(sa.Integer(), ForeignKey('songs.id'), primary_key=True, index=True)
     dim_0  = sa.Column(sa.Float(precision=11, decimal_return_scale=10))
     dim_1  = sa.Column(sa.Float(precision=11, decimal_return_scale=10))
     dim_2  = sa.Column(sa.Float(precision=11, decimal_return_scale=10))

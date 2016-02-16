@@ -4,7 +4,8 @@ from flask import jsonify, request, render_template
 
 from dotify import app
 from dotify.database import session
-from dotify.models import Country, Operator
+from dotify.models import Country, Operator, CountryVector, Song, SongVector
+from dotify.recommendation.song_generator import SongGenerator as RecommendedSongGenerator
 
 
 @app.route('/', methods=['GET'])
@@ -26,16 +27,14 @@ def get_operators():
 
 @app.route('/songs', methods=['POST'])
 def get_songs():
-    operator_ids = request.get_json()['operator_ids']
     country_ids = request.get_json()['country_ids']
+    operator_ids = request.get_json()['operator_ids']
+    country_vector_objects = session.query(CountryVector).filter(CountryVector.country_id.in_(country_ids)).all()
+    operator_objects = session.query(Operator).filter(Operator.id.in_(operator_ids)).all()
+    recommended_song_generator = RecommendedSongGenerator(country_vector_objects, operator_objects)
     return jsonify(
         {
-            'songs': [
-                {
-                    'artist': 'J Alvarez',
-                    'title': 'La Pregunta'
-                }
-            ]
+            'songs': [{'artist': artist, 'title': title} for title, artist in recommended_song_generator]
         }
     ), 200
     

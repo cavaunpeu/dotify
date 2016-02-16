@@ -3,12 +3,10 @@ import Select from '../../Select'
 import Country from './Country'
 
 var CountrySelect = React.createClass({
-	getDefaultProps: function () {
-		return {
-			placeholder: "country"
-		}
-	},
-	fetchCountries: function () {
+
+  placeholder: "country",
+
+  fetchCountries: function () {
 		return (
 			[
         <Country id={0} name="Colombia"    value="Colombia" />,
@@ -25,7 +23,7 @@ var CountrySelect = React.createClass({
   render: function () {
     return (
       <div className="country-select">
-        <Select dropdownElements={this.fetchCountries()} flexOrder={this.props.flexOrder} handleValidDropdownElement={this.props.handleValidDropdownElement} placeholder={this.props.placeholder}/>
+        <Select dropdownElements={this.fetchCountries()} flexOrder={this.props.flexOrder} handleValidDropdownElement={this.props.handleValidDropdownElement} placeholder={this.placeholder}/>
       </div>
     );
   }

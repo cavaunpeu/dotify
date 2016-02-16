@@ -3,11 +3,9 @@ import Select from '../../Select'
 import Operator from './Operator'
 
 var OperatorSelect = React.createClass({
-  getDefaultProps: function () {
-    return {
-      placeholder: "+"
-    }
-  },
+
+  placeholder: "+",
+
   fetchDropdownElements: function () {
     return (
       [
@@ -22,7 +20,7 @@ var OperatorSelect = React.createClass({
   render: function () {
     return (
       <div className="operator-select">
-        <Select dropdownElements={this.fetchDropdownElements()} flexOrder={this.props.flexOrder} handleValidDropdownElement={this.props.handleValidDropdownElement} placeholder={this.props.placeholder}/>
+        <Select dropdownElements={this.fetchDropdownElements()} flexOrder={this.props.flexOrder} handleValidDropdownElement={this.props.handleValidDropdownElement} placeholder={this.placeholder}/>
       </div>
     );
   }

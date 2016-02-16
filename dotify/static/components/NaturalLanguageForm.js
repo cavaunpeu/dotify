@@ -22,9 +22,9 @@ var NaturalLanguageForm = React.createClass({
         <CountrySelect flexOrder={flexOrder + 1} handleValidDropdownElement={this.handleValidDropdownElement}/>
       :<OperatorSelect flexOrder={flexOrder + 1} handleValidDropdownElement={this.handleValidDropdownElement}/>;
   },
-  formElementValues: function () {
+  formElementIds: function () {
     return this.state.elementsToRender.map(function(element) {
-      return element.props.dropdownElement ? element.props.dropdownElement.value : "";
+      return element.props.dropdownElement.props.id;
     });
   },
   fetchRecommendedSongs: function() {
@@ -32,8 +32,8 @@ var NaturalLanguageForm = React.createClass({
       url: "/songs",
       type: "POST",
       data: JSON.stringify({
-        "operators": this.getOperators(),
-        "countries": this.getOperands()
+        "operator_ids": this.getOperatorIds().filter((id) => id != 4), // 4 is the id of `=`
+        "country_ids": this.getCountryIds()
       }, null, '\t'),
       contentType: "application/json",
       success: function(data) {
@@ -44,11 +44,11 @@ var NaturalLanguageForm = React.createClass({
       }.bind(this)
     });
   },
-  getOperands: function() {
-    return this.formElementValues().filter((value, index) => this.isEven(index));
+  getCountryIds: function() {
+    return this.formElementIds().filter((formElement, index) => this.isEven(index));
   },
-  getOperators: function() {
-    return this.formElementValues().filter((value, index) => !this.isEven(index) && value != "=");
+  getOperatorIds: function() {
+    return this.formElementIds().filter((formElement, index) => !this.isEven(index));
   },
   handleValidDropdownElement: function (flexOrder, dropdownElement) {
     if (flexOrder == this.state.elementsToRender.length) {

@@ -9,7 +9,7 @@ var $ = require('jquery');
 var NaturalLanguageForm = React.createClass({
   getInitialState: function () {
     return {
-      elementsToRender: [
+      formElementsToRender: [
         <NaturalLanguageFormElement selectComponent={<CountrySelect flexOrder={1} handleValidDropdownElement={this.handleValidDropdownElement}/>} dropdownElement={null}/>
       ]
     }
@@ -23,8 +23,8 @@ var NaturalLanguageForm = React.createClass({
       :<OperatorSelect flexOrder={flexOrder + 1} handleValidDropdownElement={this.handleValidDropdownElement}/>;
   },
   formElementIds: function () {
-    return this.state.elementsToRender.map(function(element) {
-      return element.props.dropdownElement.props.id;
+    return this.state.formElementsToRender.map(function(formElement) {
+      return formElement.props.dropdownElement.props.id;
     });
   },
   fetchRecommendedSongs: function() {
@@ -51,12 +51,12 @@ var NaturalLanguageForm = React.createClass({
     return this.formElementIds().filter((formElement, index) => !this.isEven(index));
   },
   handleValidDropdownElement: function (flexOrder, dropdownElement) {
-    if (flexOrder == this.state.elementsToRender.length) {
+    if (flexOrder == this.state.formElementsToRender.length) {
       this.setState(
-        (state) => { elementsToRender: state.elementsToRender[flexOrder - 1] = this.buildFormElement(state.elementsToRender[flexOrder - 1].props.selectComponent, dropdownElement) },
+        (state) => { formElementsToRender: state.formElementsToRender[flexOrder - 1] = this.buildFormElement(state.formElementsToRender[flexOrder - 1].props.selectComponent, dropdownElement) },
         () => {
           if (dropdownElement.props.value != "=") {
-            this.setState((state) => { elementsToRender: state.elementsToRender.push(this.buildFormElement(this.determineNextSelectComponent(flexOrder))) });
+            this.setState((state) => { formElementsToRender: state.formElementsToRender.push(this.buildFormElement(this.determineNextSelectComponent(flexOrder))) });
           } else {
             this.fetchRecommendedSongs();
           }
@@ -68,16 +68,16 @@ var NaturalLanguageForm = React.createClass({
     return integer % 2 == 0;
   },
   render: function () {
-    let elementsToRender = this.state.elementsToRender.map(function(element) {
+    let formElementsToRender = this.state.formElementsToRender.map(function(formElement) {
       return (
-        <span className="natural-language-form-element" key={element.props.selectComponent.props.flexOrder}>
-          {element.props.selectComponent}
+        <span className="natural-language-form-element" key={formElement.props.selectComponent.props.flexOrder}>
+          {formElement.props.selectComponent}
         </span>
       );
     });
     return (
       <div id="natural-language-form">
-        {elementsToRender}
+        {formElementsToRender}
       </div>
     );
   }

@@ -83,8 +83,9 @@ var RecommendationForm = React.createClass({
     });
     return (
       <div id="recommendation-form">
-        <NaturalLanguageForm elements={formElementsToRender} />
-        <RecommendedSongs songs={this.state.songs} />
+          <NaturalLanguageForm elements={formElementsToRender} />
+          <div id="vertical-line"></div>
+          <RecommendedSongs songs={this.state.songs} />
       </div>
     );
   }

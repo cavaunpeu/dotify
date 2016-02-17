@@ -6,9 +6,9 @@ var NaturalLanguageForm = React.createClass({
   },
   render: function() {
     return (
-      <div id="natural-language-form">
+      <span id="natural-language-form">
           {this.props.elements}
-      </div>
+      </span>
     )
   }
 })

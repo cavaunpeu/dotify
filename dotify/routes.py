@@ -25,16 +25,12 @@ def get_operators():
     return jsonify({'operators': operators}), 200
 
 
-@app.route('/songs', methods=['POST'])
-def get_songs():
+@app.route('/recommended_songs', methods=['POST'])
+def get_recommended_songs():
     country_ids = request.get_json()['country_ids']
     operator_ids = request.get_json()['operator_ids']
     country_vector_objects = session.query(CountryVector).filter(CountryVector.country_id.in_(country_ids)).all()
     operator_objects = session.query(Operator).filter(Operator.id.in_(operator_ids)).all()
-    recommended_song_generator = RecommendedSongGenerator(country_vector_objects, operator_objects)
-    return jsonify(
-        {
-            'songs': [{'artist': artist, 'title': title} for title, artist in recommended_song_generator]
-        }
-    ), 200
+    recommended_songs = [{'artist': artist, 'title': title} for title, artist in RecommendedSongGenerator(country_vector_objects, operator_objects)]
+    return jsonify({'songs': recommended_songs}), 200
     

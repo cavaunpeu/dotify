@@ -29,7 +29,7 @@ var NaturalLanguageForm = React.createClass({
   },
   fetchRecommendedSongs: function() {
     $.ajax({
-      url: "/songs",
+      url: "/recommended_songs",
       type: "POST",
       data: JSON.stringify({
         "operator_ids": this.getOperatorIds().filter((id) => id != 4), // 4 is the id of `=`

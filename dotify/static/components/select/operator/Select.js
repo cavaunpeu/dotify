@@ -15,13 +15,13 @@ var OperatorSelect = React.createClass({
     };
   },
   componentDidMount: function() {
-    this.serverRequest = $.get(this.source, function (response) {
+    this.serverRequest = $.get(this.source, response => {
       this.setState({
-        dropdownElements: response['operators'].map(function(operator) {
+        dropdownElements: response['operators'].map(operator => {
           return <Operator id={operator.id} name={operator.name} value={operator.value}/>;
         })
       });
-    }.bind(this));
+    });
   },
   componentWillUnmount: function() {
     this.serverRequest.abort();

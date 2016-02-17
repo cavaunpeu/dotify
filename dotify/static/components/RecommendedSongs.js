@@ -5,7 +5,7 @@ var RecommendedSongs = React.createClass({
     songs: React.PropTypes.array
   },
   render: function() {
-    let songs = this.props.songs.map(function(song) {
+    let songs = this.props.songs.map((song) => {
       return (
         <li key={song.props.id}>
           <span>{song.props.title}: {song.props.artist}</span>

@@ -15,13 +15,13 @@ var CountrySelect = React.createClass({
     };
   },
   componentDidMount: function() {
-    this.serverRequest = $.get(this.source, function (response) {
+    this.serverRequest = $.get(this.source, response => {
       this.setState({
-        dropdownElements: response['countries'].map(function(country) {
+        dropdownElements: response['countries'].map(country => {
           return <Country id={country.id} name={country.name} value={country.value}/>;
         })
       });
-    }.bind(this));
+    });
   },
   componentWillUnmount: function() {
     this.serverRequest.abort();

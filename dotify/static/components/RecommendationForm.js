@@ -27,7 +27,7 @@ var RecommendationForm = React.createClass({
       :<OperatorSelect flexOrder={flexOrder + 1} handleValidDropdownElement={this.handleValidDropdownElement}/>;
   },
   formElementIds: function () {
-    return this.state.formElementsToRender.map(function(formElement) {
+    return this.state.formElementsToRender.map(formElement => {
       return formElement.props.dropdownElement.props.id;
     });
   },
@@ -36,17 +36,18 @@ var RecommendationForm = React.createClass({
       url: "/recommended_songs",
       type: "POST",
       data: JSON.stringify({
-        "operator_ids": this.getOperatorIds().filter((id) => id != 4), // 4 is the id of `=`
+        "operator_ids": this.getOperatorIds().filter(id => id != 4), // 4 is the id of `=`
         "country_ids": this.getCountryIds()
       }, null, '\t'),
       contentType: "application/json",
-      success: function(response) {
-        let blah = response["songs"].map(function(song, index) { return <Song id={index} title={song.title} artist={song.artist} />; });
-        this.setState({songs: blah});
-      }.bind(this),
-      error: function(xhr, status, err) {
+      success: response => {
+        this.setState({
+          songs: response["songs"].map((song, index) => { return <Song id={index} title={song.title} artist={song.artist} />; })
+        });
+      },
+      error: (xhr, status, err) => {
         console.error(this.props.url, status, err.toString());
-      }.bind(this)
+      }
     });
   },
   getCountryIds: function() {
@@ -58,10 +59,10 @@ var RecommendationForm = React.createClass({
   handleValidDropdownElement: function (flexOrder, dropdownElement) {
     if (flexOrder == this.state.formElementsToRender.length) {
       this.setState(
-        (state) => { formElementsToRender: state.formElementsToRender[flexOrder - 1] = this.buildFormElement(state.formElementsToRender[flexOrder - 1].props.selectComponent, dropdownElement) },
+        state => { formElementsToRender: state.formElementsToRender[flexOrder - 1] = this.buildFormElement(state.formElementsToRender[flexOrder - 1].props.selectComponent, dropdownElement) },
         () => {
           if (dropdownElement.props.value != "=") {
-            this.setState((state) => { formElementsToRender: state.formElementsToRender.push(this.buildFormElement(this.determineNextSelectComponent(flexOrder))) });
+            this.setState(state => { formElementsToRender: state.formElementsToRender.push(this.buildFormElement(this.determineNextSelectComponent(flexOrder))) });
           } else {
             this.fetchRecommendedSongs();
           }
@@ -73,7 +74,7 @@ var RecommendationForm = React.createClass({
     return integer % 2 == 0;
   },
   render: function () {
-    let formElementsToRender = this.state.formElementsToRender.map(function(formElement) {
+    let formElementsToRender = this.state.formElementsToRender.map(formElement => {
       return (
         <span className="natural-language-form-element" key={formElement.props.selectComponent.props.flexOrder}>
           {formElement.props.selectComponent}

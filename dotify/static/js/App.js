@@ -1,5 +1,6 @@
 import React from 'react'
-import NaturalLanguageForm from '../components/NaturalLanguageForm'
+
+import RecommendationForm from '../components/RecommendationForm'
 
 class App extends React.Component {
     render() {
@@ -8,7 +9,7 @@ class App extends React.Component {
                 <div id="i-want-music-like">
                     I want music like:
                 </div>
-                <NaturalLanguageForm />
+                <RecommendationForm />
             </div>
         );
     }

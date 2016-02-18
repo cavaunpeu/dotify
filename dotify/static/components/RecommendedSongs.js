@@ -8,8 +8,10 @@ var RecommendedSongs = React.createClass({
     let songs = this.props.songs.map((song) => {
       return (
         <li className="recommended-song" key={song.props.id}>
-          <div className="title">{song.props.title}</div>
-          <div className="artist">{song.props.artist}</div>
+          <a href={song.props.url}>
+            <div className="title">{song.props.title}</div>
+            <div className="artist">{song.props.artist}</div>
+          </a>
         </li>
       )
     });

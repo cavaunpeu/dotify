@@ -45,7 +45,7 @@ class SongGenerator:
         predicted_preferences = pd.DataFrame(self.song_vectors).apply(lambda vec: np.dot(vec, aggregate_vector), axis=1)
         for song_id, vector in predicted_preferences.sort_values(ascending=False).head(self.NUM_SONGS_TO_RECOMMEND).iteritems():
             song = session.query(Song).filter(Song.id == int(song_id)).first()
-            yield (song.title, song.artist)
+            yield (song.title, song.artist, song.url)
 
     @property
     def _number_of_vector_dimensions(self):

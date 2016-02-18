@@ -42,7 +42,7 @@ var RecommendationForm = React.createClass({
       contentType: "application/json",
       success: response => {
         this.setState({
-          songs: response["songs"].map((song, index) => { return <Song id={index} title={song.title} artist={song.artist} />; })
+          songs: response["songs"].map((song, index) => { return <Song id={index} title={song.title} artist={song.artist} url={song.url}/>; })
         });
       },
       error: (xhr, status, err) => {

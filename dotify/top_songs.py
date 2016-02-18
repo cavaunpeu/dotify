@@ -42,8 +42,7 @@ class DailyChart:
 
     def __iter__(self):
         for rank, song in self.dataframe.iterrows():
-            yield rank, Song(title=song['Track Name'], artist=song['Artist'])
-
+            yield (rank, song['Streams']), Song(title=song['Track Name'], artist=song['Artist'], url=song['URL'])
 
 class TopSongsGenerator:
 
@@ -63,12 +62,13 @@ class TopSongsGenerator:
         session.commit()
 
     def __iter__(self):
-        for rank, song in self.daily_chart:
+        for (rank, streams), song in self.daily_chart:
             if not self._song_exists(song):
                 self._insert_song(song)
             yield TopSong(
                 song_id=int(session.query(Song.id).filter(Song.title == song.title, Song.artist == song.artist).scalar()),
                 country_id=int(session.query(Country.id).filter(Country.name == self.daily_chart.country_name).scalar()),
                 rank=int(rank),
+                streams=int(streams),
                 date=self.daily_chart.current_datetime.date()
             )

@@ -33,6 +33,7 @@ class Song(Base):
     id = sa.Column(sa.Integer(), primary_key=True, index=True)
     title = sa.Column(sa.String(255))
     artist = sa.Column(sa.String(255))
+    url = sa.Column(sa.String(255))
 
 
 class TopSong(Base):
@@ -41,6 +42,7 @@ class TopSong(Base):
     song_id = sa.Column(sa.Integer(), primary_key=True)
     country_id = sa.Column(sa.Integer(), primary_key=True)
     rank = sa.Column(sa.Integer(), primary_key=True)
+    streams = sa.Column(sa.Integer())
     date = sa.Column(sa.DateTime(), primary_key=True)
     ForeignKeyConstraint(['song_id', 'country_id'], ['songs.id', 'countries.id'])
 

@@ -3,8 +3,12 @@
 @font-family: 'Lato', Calibri, Arial, sans-serif;
 @background-color-main: #CCE5FF;
 @font-color-main: #004a99;
+@href-hover-color: #bd4a43;
 @nl-form-font-size: 3.5em;
 @country-select-text-color: #006600;
+@vertical-line-height: 325px;
+@recommended-songs-width: 350px;
+@natural-language-form-width: 800px;
 
 body, html { font-size: 100%; padding: 0; margin: 0;}
 
@@ -16,13 +20,7 @@ body {
 }
 
 a {
-	color: #888;
 	text-decoration: none;
-}
-
-a:hover,
-a:active {
-	color: #333;
 }
 
 .top-nav {
@@ -44,7 +42,7 @@ a:active {
 
 .top-nav > a:hover {
 	background: rgba(255,255,255,0.5);
-	color: #bd4a43;
+	color: @href-hover-color;
 }
 
 .top-nav > a.top-nav-main {
@@ -70,27 +68,41 @@ a:active {
 	justify-content: space-around;
 	margin-left: 50px;
 	padding: 0px 10px;
-	width: 800px;
+	width: @natural-language-form-width;
 }
 
 #vertical-line {
 	border-right: thin solid;
 	color: @font-color-main;
-	height: 300px;
+	height: @vertical-line-height;
 	margin: 0px 10px;
 }
 
 #recommended-songs {
-	display: inline-block;
 	& > ol {
 		margin: 0px;
-		padding-left: 20px;
-		padding-top: 5px;
+		padding: 5px 5px 0px 25px;
 		& > li {
 			list-style-type: none;
+			& > a {
+				color: @font-color-main;
+				&:hover {
+					color: @href-hover-color;
+				}
+			}
 		}
 	}
-	width: 350px;
+	width: @recommended-songs-width;
+}
+
+.recommended-song {
+	padding-bottom: 25px;
+	padding-right: 5px;
+}
+
+.title {
+	font-style: italic;
+	font-weight: bold;
 }
 
 .natural-language-form-element {
@@ -127,7 +139,7 @@ a:active {
 		margin: 0px;
 		padding: 10px 0px 0px;
 		& > li {
-		font-size: .2 * @nl-form-font-size;
+			font-size: .2 * @nl-form-font-size;
 		}
 	}
 }
@@ -161,13 +173,3 @@ a:active {
 		}
 	}
 };
-
-.recommended-song {
-	padding-bottom: 25px;
-}
-
-.title {
-	font-style: italic;
-	font-weight: bold;
-}
-

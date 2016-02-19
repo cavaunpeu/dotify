@@ -6,6 +6,7 @@ var $ = require('jquery');
 
 var OperatorSelect = React.createClass({
 
+  equalsSign: "=",
   placeholder: "+",
   source: "/operators",
 
@@ -27,7 +28,7 @@ var OperatorSelect = React.createClass({
     this.serverRequest.abort();
   },
   elementNameMatchesDropdownValue: function(element, inputName) {
-    return inputName != this.placeholder ? element.props.value.includes(inputName) : false;
+    return [this.placeholder, this.equalsSign].indexOf(inputName) > -1 ? false : element.props.value.includes(inputName);
   },
   render: function () {
     return (

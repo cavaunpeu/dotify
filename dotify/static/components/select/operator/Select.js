@@ -26,10 +26,13 @@ var OperatorSelect = React.createClass({
   componentWillUnmount: function() {
     this.serverRequest.abort();
   },
+  elementNameMatchesDropdownValue: function(element, inputName) {
+    return inputName != this.placeholder ? element.props.value.includes(inputName) : false;
+  },
   render: function () {
     return (
       <div className="operator-select">
-        <Select dropdownElements={this.state.dropdownElements} flexOrder={this.props.flexOrder} handleValidDropdownElement={this.props.handleValidDropdownElement} placeholder={this.placeholder}/>
+        <Select dropdownElements={this.state.dropdownElements} elementNameMatchesDropdownValue={this.elementNameMatchesDropdownValue} flexOrder={this.props.flexOrder} handleValidDropdownElement={this.props.handleValidDropdownElement} placeholder={this.placeholder}/>
       </div>
     );
   }

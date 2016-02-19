@@ -8,6 +8,7 @@ var Select = React.createClass({
 
   propTypes: {
     dropdownElements: React.PropTypes.array.isRequired,
+    elementNameMatchesDropdownValue: React.PropTypes.func.isRequired,
     handleValidDropdownElement: React.PropTypes.func.isRequired,
     placeholder: React.PropTypes.string.isRequired
   },
@@ -26,10 +27,10 @@ var Select = React.createClass({
     }
   },
   getEligibleDropdownElements: function (inputName) {
-    function elementIsEligible(element) {
-      return element.props.name.includes(inputName) && element.props.name != inputName;
-    }
-    return this.props.dropdownElements.filter(elementIsEligible);
+    let elementNameMatchesDropdownValue = function(element) {
+      return this.props.elementNameMatchesDropdownValue(element, inputName);
+    }.bind(this)
+    return this.props.dropdownElements.filter(elementNameMatchesDropdownValue);
   },
   getEnteredDropdownElement: function (inputName) {
     function elementIsEligible(element) {

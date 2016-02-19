@@ -26,10 +26,13 @@ var CountrySelect = React.createClass({
   componentWillUnmount: function() {
     this.serverRequest.abort();
   },
+  elementNameMatchesDropdownValue: function(element, inputName) {
+    return element.props.value.includes(inputName) && element.props.value != inputName;
+  },
   render: function () {
     return (
       <div className="country-select">
-        <Select dropdownElements={this.state.dropdownElements} flexOrder={this.props.flexOrder} handleValidDropdownElement={this.props.handleValidDropdownElement} placeholder={this.placeholder}/>
+        <Select dropdownElements={this.state.dropdownElements} elementNameMatchesDropdownValue={this.elementNameMatchesDropdownValue} flexOrder={this.props.flexOrder} handleValidDropdownElement={this.props.handleValidDropdownElement} placeholder={this.placeholder}/>
       </div>
     );
   }

@@ -11,11 +11,10 @@
             <a class="top-nav-main" href="/">
                 <span>spotify music recommender</span>
             </a>
-            <a href="/">
+            <a href="/info">
                 <span>how's this work?</span>
             </a>
         </div>
-        <div id="app"></div>
-        {{ javascript_tag('main_js') | safe }}
+        {% block content %}{% endblock %}
     </body>
 </html>

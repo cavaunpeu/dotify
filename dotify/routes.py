@@ -10,7 +10,12 @@ from dotify.recommendation.song_generator import SongGenerator as RecommendedSon
 
 @app.route('/', methods=['GET'])
 def main():
-    return render_template('index.html')
+    return render_template('main.html')
+
+
+@app.route('/info', methods=['GET'])
+def info():
+    return render_template('info.html')
 
 
 @app.route('/countries', methods=['GET'])
@@ -33,4 +38,3 @@ def get_recommended_songs():
     operator_objects = session.query(Operator).filter(Operator.id.in_(operator_ids)).all()
     recommended_songs = [{'artist': artist, 'title': title, 'url': url} for title, artist, url in RecommendedSongGenerator(country_vector_objects, operator_objects)]
     return jsonify({'songs': recommended_songs}), 200
-    

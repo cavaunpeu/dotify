@@ -8,6 +8,9 @@ module.exports = {
     entry: {
         main_js: [
             rootAssetPath + '/js/main.js'
+        ],
+        info_js: [
+            rootAssetPath + '/js/info.js'
         ]
     },
     output: {

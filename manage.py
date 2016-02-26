@@ -17,8 +17,8 @@ manager = Manager(app)
 
 
 F = 30
-ALPHA = 1
-LAMBDA = 10
+ALPHA = 10e0
+LAMBDA = 25e1
 
 
 @manager.command
@@ -63,4 +63,3 @@ manager.add_command('db', MigrateCommand)
 
 if __name__ == '__main__':
     manager.run()
-

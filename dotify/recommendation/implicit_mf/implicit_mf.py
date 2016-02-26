@@ -9,7 +9,7 @@ class ImplicitMF:
         self.country_vectors = CountryVectors(ratings_matrix, f)
         self.song_vectors = SongVectors(ratings_matrix, f)
         self.P_ui = ratings_matrix.R_ui > 0
-        self.C_ui = 1 + alpha*ratings_matrix.R_ui
+        self.C_ui = 1 + alpha*np.log(1 + ratings_matrix.R_ui)
         self.lmbda = lmbda
         self.n_iterations = n_iterations
 

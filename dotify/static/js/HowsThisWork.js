@@ -5,9 +5,9 @@ import RecommendationForm from '../components/RecommendationForm'
 class HowsThisWork extends React.Component {
     render() {
         return (
-            <div class="container">
-                <p>
-                    When you enter an arithmetic expression, this application will return the 5 songs most similar to your composite locale. These songs are discovered as follows:
+            <div id="hows-this-work">
+                <p id="info-title">
+                    When you enter an arithmetic expression, dotify will return the 5 songs most similar to your composite locale. These songs are discovered as follows:
                 </p>
                 <ol>
                     <li>
@@ -28,4 +28,4 @@ class HowsThisWork extends React.Component {
     }
 }
 
-export default HowsThisWork
+export default HowsThisWork;

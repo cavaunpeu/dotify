@@ -5,6 +5,7 @@
 @font-color-main: #004a99;
 @href-hover-color: #bd4a43;
 @nl-form-font-size: 3.5em;
+@info-font-size: 2.05em;
 @country-select-text-color: #006600;
 @vertical-line-height: 325px;
 @recommended-songs-width: 350px;
@@ -173,3 +174,17 @@ a {
 		}
 	}
 };
+
+#info-title {
+	font-size: @info-font-size;
+	margin: 50px;
+}
+
+#hows-this-work > ol {
+	margin: 50px 75px 0px;
+	padding: 5px 0px 0px;
+	& > li {
+		font-size: .6 * @info-font-size;
+		margin: 20px;
+	}
+}

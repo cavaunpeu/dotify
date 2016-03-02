@@ -9,8 +9,8 @@ var RecommendedSongs = React.createClass({
       return (
         <li className="recommended-song" key={song.props.id}>
           <a href={song.props.url}>
-            <div className="title">{song.props.title}</div>
-            <div className="artist">{song.props.artist}</div>
+            <div className="recommended-song-title">{song.props.title}</div>
+            <div>{song.props.artist}</div>
           </a>
         </li>
       )

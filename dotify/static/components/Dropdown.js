@@ -8,8 +8,9 @@ var Dropdown = React.createClass({
   render: function() {
     var dropdownElements = this.props.dropdownElements.map(element => {
       let className = this.props.focusedDropdownElement && (element.props.id == this.props.focusedDropdownElement.props.id) ? "focused" : null;
+      let id = (element.type.displayName == "Operator") && (element.props.id == 4) ? "equals-sign" : null;
       return (
-        <li className={className} key={element.props.id} onClick={this.props.handleOnClick}>{element.props.name}</li>
+        <li id={id} className={className} key={element.props.id} onClick={this.props.handleOnClick}>{element.props.name}</li>
       );
     });
     return (

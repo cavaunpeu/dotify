@@ -4,7 +4,7 @@ import CountrySelect from './select/country/Select'
 import OperatorSelect from './select/operator/Select'
 import NaturalLanguageForm from './NaturalLanguageForm'
 import NaturalLanguageFormElement from './NaturalLanguageFormElement'
-import RecommendedSongs from './RecommendedSongs'
+import RecommendedSongsContainer from './RecommendedSongsContainer'
 import Song from './Song'
 
 var $ = require('jquery');
@@ -56,6 +56,9 @@ var RecommendationForm = React.createClass({
   getOperatorIds: function() {
     return this.formElementIds().filter((formElement, index) => !this.isEven(index));
   },
+  handleClearButtonOnClick: function() {
+    this.replaceState(this.getInitialState());
+  },
   handleValidDropdownElement: function (flexOrder, dropdownElement) {
     if (flexOrder == this.state.formElementsToRender.length) {
       this.setState(
@@ -85,7 +88,7 @@ var RecommendationForm = React.createClass({
       <div id="recommendation-form">
           <NaturalLanguageForm elements={formElementsToRender} />
           <div id="vertical-line"></div>
-          <RecommendedSongs songs={this.state.songs} />
+          <RecommendedSongsContainer songs={this.state.songs} handleClearButtonOnClick={this.handleClearButtonOnClick} />
       </div>
     );
   }

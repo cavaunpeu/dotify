@@ -16,11 +16,9 @@ var RecommendedSongs = React.createClass({
       )
     });
     return (
-      <span id="recommended-songs">
-        <ol>
-          {songs}
-        </ol>
-      </span>
+      <ol>
+        {songs}
+      </ol>
     )
   }
 })

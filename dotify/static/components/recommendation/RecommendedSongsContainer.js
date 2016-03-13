@@ -1,7 +1,7 @@
 import React from 'react'
 
 import RecommendedSongs from './RecommendedSongs'
-import ClearButton from './ClearButton'
+import ClearButton from '../ClearButton'
 
 var RecommendedSongsContainer = React.createClass({
   propTypes: {

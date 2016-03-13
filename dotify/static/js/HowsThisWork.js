@@ -1,7 +1,7 @@
 import React from 'react'
 
-import RecommendationForm from '../components/RecommendationForm'
-import InlineLatex from '../components/math/InlineLatex'
+import RecommendationForm from '../components/recommendation/RecommendationForm'
+import InlineLatex from '../components/latex/InlineLatex'
 
 class HowsThisWork extends React.Component {
     render() {

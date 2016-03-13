@@ -1,6 +1,6 @@
 import React from 'react'
 
-import RecommendationForm from '../components/RecommendationForm'
+import RecommendationForm from '../components/recommendation/RecommendationForm'
 
 class App extends React.Component {
     render() {

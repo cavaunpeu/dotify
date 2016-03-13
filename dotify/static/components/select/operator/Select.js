@@ -1,5 +1,5 @@
 import React from 'react'
-import Select from '../../Select'
+import Select from '../Select'
 import Operator from './Operator'
 
 var $ = require('jquery');

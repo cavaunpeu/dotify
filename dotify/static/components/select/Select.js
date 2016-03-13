@@ -1,6 +1,6 @@
 import React from 'react';
-import Input from './Input';
-import Dropdown from './Dropdown';
+import Input from '../Input';
+import Dropdown from '../Dropdown';
 
 var Select = React.createClass({
 

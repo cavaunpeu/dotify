@@ -1,11 +1,11 @@
 import React from 'react'
 
-import CountrySelect from './select/country/Select'
-import OperatorSelect from './select/operator/Select'
-import NaturalLanguageForm from './NaturalLanguageForm'
-import NaturalLanguageFormElement from './NaturalLanguageFormElement'
+import CountrySelect from '../select/country/Select'
+import OperatorSelect from '../select/operator/Select'
+import NaturalLanguageForm from '../natural_language_form/NaturalLanguageForm'
+import NaturalLanguageFormElement from '../natural_language_form/NaturalLanguageFormElement'
 import RecommendedSongsContainer from './RecommendedSongsContainer'
-import Song from './Song'
+import Song from '../Song'
 
 var $ = require('jquery');
 

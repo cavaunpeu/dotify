@@ -6,6 +6,7 @@
 @href-hover-color: #bd4a43;
 @nl-form-font-size: 3.5em;
 @info-font-size: 2.05em;
+@clear-button-font-size: 1.25em;
 @country-select-text-color: #006600;
 @vertical-line-height: 325px;
 @recommended-songs-width: 350px;
@@ -97,7 +98,7 @@ a {
 }
 
 .recommended-song {
-	padding-bottom: 25px;
+	padding-bottom: 22px;
 	padding-right: 5px;
 }
 
@@ -194,4 +195,19 @@ a {
 		font-size: .6 * @info-font-size;
 		margin: 20px;
 	}
+}
+
+#clear-button{
+	display: flex;
+	justify-content: center;
+	& > button {
+		background: none;
+		border: none;
+		color: fade(@href-hover-color, 70%);
+		font-size: @clear-button-font-size;
+		&:hover {
+			color: @href-hover-color;
+		}
+	}
+	padding-bottom: 10px;
 }

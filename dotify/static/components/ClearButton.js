@@ -6,8 +6,8 @@ var ClearButton = React.createClass({
   },
   render: function() {
     return (
-      <div>
-        <button id="clear-button" onClick={this.props.handleOnClick}>clear</button>
+      <div id="clear-button">
+        <button onClick={this.props.handleOnClick}>clear</button>
       </div>
     )
   }

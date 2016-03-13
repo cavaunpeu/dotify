@@ -27,7 +27,7 @@ var CountrySelect = React.createClass({
     this.serverRequest.abort();
   },
   elementNameMatchesDropdownValue: function(element, inputName) {
-    return element.props.value.includes(inputName) && element.props.value != inputName;
+    return element.props.value.toLowerCase().includes(inputName.toLowerCase()) && element.props.value != inputName;
   },
   generateUniqueId: function() {
     return (new Date).getTime();

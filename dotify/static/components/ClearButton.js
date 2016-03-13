@@ -1,6 +1,6 @@
 import React from 'react'
 
-var Clear = React.createClass({
+var ClearButton = React.createClass({
   propTypes: {
     handleOnClick: React.PropTypes.func.isRequired,
   },
@@ -13,4 +13,4 @@ var Clear = React.createClass({
   }
 })
 
-module.exports = Clear;
+module.exports = ClearButton;

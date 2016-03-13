@@ -1,7 +1,7 @@
 import React from 'react'
 
 import RecommendedSongs from './RecommendedSongs'
-import Clear from './Clear'
+import ClearButton from './ClearButton'
 
 var RecommendedSongsContainer = React.createClass({
   propTypes: {
@@ -12,7 +12,7 @@ var RecommendedSongsContainer = React.createClass({
     return (
       <span id="recommended-songs-container">
         <RecommendedSongs songs={this.props.songs} />
-        {this.props.songs.length > 0 ? <Clear handleOnClick={this.props.handleClearButtonOnClick} /> : null}
+        {this.props.songs.length > 0 ? <ClearButton handleOnClick={this.props.handleClearButtonOnClick} /> : null}
       </span>
     )
   }

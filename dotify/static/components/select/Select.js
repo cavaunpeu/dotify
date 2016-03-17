@@ -27,9 +27,9 @@ var Select = React.createClass({
     }
   },
   getEligibleDropdownElements: function (inputName) {
-    let elementNameMatchesDropdownValue = function(element) {
+    let elementNameMatchesDropdownValue = element => {
       return this.props.elementNameMatchesDropdownValue(element, inputName);
-    }.bind(this)
+    }
     return this.props.dropdownElements.filter(elementNameMatchesDropdownValue);
   },
   getEnteredDropdownElement: function (inputName) {

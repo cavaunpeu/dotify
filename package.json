@@ -17,8 +17,8 @@
     "less-loader": "^2.2.2"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-dev-server --content-base build/public"
+    "build": "webpack --config webpack.config.js --progress",
+    "start": "webpack-dev-server --config webpack.config.js --content-base build/public"
   },
   "repository": {
     "type": "git",

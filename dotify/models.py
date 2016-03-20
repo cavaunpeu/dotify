@@ -7,14 +7,14 @@ import sqlalchemy as sa
 from sqlalchemy import ForeignKey, ForeignKeyConstraint
 from sqlalchemy.orm import relationship
 
-from .database import Base, engine
+from .database import Base
 from .resources.countries import countries
 
 
 class Country(Base):
     __tablename__ = 'countries'
 
-    id = sa.Column(sa.Integer(), primary_key=True, index=True)
+    id = sa.Column(sa.Integer(), primary_key=True)
     name = sa.Column(sa.String(255), nullable=False)
     value = sa.Column(sa.String(255), nullable=False)
 
@@ -30,7 +30,7 @@ class Operator(Base):
 class Song(Base):
     __tablename__ = 'songs'
 
-    id = sa.Column(sa.Integer(), primary_key=True, index=True)
+    id = sa.Column(sa.Integer(), primary_key=True)
     title = sa.Column(sa.String(255))
     artist = sa.Column(sa.String(255))
     url = sa.Column(sa.String(255))
@@ -39,18 +39,17 @@ class Song(Base):
 class TopSong(Base):
     __tablename__ = 'top_songs'
 
-    song_id = sa.Column(sa.Integer(), primary_key=True)
-    country_id = sa.Column(sa.Integer(), primary_key=True)
+    song_id = sa.Column(sa.Integer(), ForeignKey('songs.id'), primary_key=True)
+    country_id = sa.Column(sa.Integer(), ForeignKey('countries.id'), primary_key=True)
     rank = sa.Column(sa.Integer(), primary_key=True)
     streams = sa.Column(sa.Integer())
     date = sa.Column(sa.DateTime(), primary_key=True)
-    ForeignKeyConstraint(['song_id', 'country_id'], ['songs.id', 'countries.id'])
 
 
 class CountryVector(Base):
     __tablename__ = 'country_vectors'
 
-    country_id = sa.Column(sa.Integer(), ForeignKey('countries.id'), primary_key=True, index=True)
+    country_id = sa.Column(sa.Integer(), ForeignKey('countries.id'), primary_key=True)
     dim_0  = sa.Column(sa.Float(precision=11, decimal_return_scale=10))
     dim_1  = sa.Column(sa.Float(precision=11, decimal_return_scale=10))
     dim_2  = sa.Column(sa.Float(precision=11, decimal_return_scale=10))
@@ -86,7 +85,7 @@ class CountryVector(Base):
 class SongVector(Base):
     __tablename__ = 'song_vectors'
 
-    song_id = sa.Column(sa.Integer(), ForeignKey('songs.id'), primary_key=True, index=True)
+    song_id = sa.Column(sa.Integer(), ForeignKey('songs.id'), primary_key=True)
     dim_0  = sa.Column(sa.Float(precision=11, decimal_return_scale=10))
     dim_1  = sa.Column(sa.Float(precision=11, decimal_return_scale=10))
     dim_2  = sa.Column(sa.Float(precision=11, decimal_return_scale=10))
@@ -117,7 +116,3 @@ class SongVector(Base):
     dim_27 = sa.Column(sa.Float(precision=11, decimal_return_scale=10))
     dim_28 = sa.Column(sa.Float(precision=11, decimal_return_scale=10))
     dim_29 = sa.Column(sa.Float(precision=11, decimal_return_scale=10))
-
-
-Base.metadata.create_all(engine)
-

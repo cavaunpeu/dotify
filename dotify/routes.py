@@ -4,7 +4,7 @@ from flask import jsonify, request, render_template
 
 from dotify import app
 from dotify.database import session
-from dotify.models import Country, Operator, CountryVector, Song, SongVector
+from dotify.models import Country, Operator, Song, CountryVector, SongVector
 from dotify.recommendation.song_generator import SongGenerator as RecommendedSongGenerator
 
 

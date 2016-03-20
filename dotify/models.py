@@ -117,7 +117,6 @@ class SongVector(Base):
     dim_27 = sa.Column(sa.Float(precision=11, decimal_return_scale=10))
     dim_28 = sa.Column(sa.Float(precision=11, decimal_return_scale=10))
     dim_29 = sa.Column(sa.Float(precision=11, decimal_return_scale=10))
-    ForeignKeyConstraint(['song_id'], ['song.id'])
 
 
 Base.metadata.create_all(engine)

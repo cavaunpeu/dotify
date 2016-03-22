@@ -32,7 +32,8 @@ def insert_countries():
     for country_name in countries.keys():
         country = Country(
             id=countries[country_name]['id'],
-            name=country_name
+            name=country_name,
+            value=country_name
         )
         session.add(country)
     session.commit()

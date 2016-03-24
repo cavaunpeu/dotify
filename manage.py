@@ -5,8 +5,9 @@ from flask.ext.script import Manager
 
 from dotify import app
 from dotify.database import Base, session
-from dotify.models import Country, CountryVector, SongVector
+from dotify.models import Country, Operator, CountryVector, SongVector
 from dotify.resources.countries import countries
+from dotify.resources.operators import operators
 from dotify.top_songs import TopSongsGenerator
 from dotify.recommendation.implicit_mf.ratings_matrix import RatingsMatrix
 from dotify.recommendation.implicit_mf.implicit_mf import ImplicitMF
@@ -36,6 +37,18 @@ def insert_countries():
             value=country_name
         )
         session.add(country)
+    session.commit()
+
+
+@manager.command
+def insert_operators():
+    for operator_name in operators.keys():
+        operator = Operator(
+            id=operators[operator_name]['id'],
+            name=operator_name,
+            value=operators[operator_name]['value']
+        )
+        session.add(operator)
     session.commit()
 
 

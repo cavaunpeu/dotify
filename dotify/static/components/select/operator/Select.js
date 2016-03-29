@@ -28,7 +28,9 @@ var OperatorSelect = React.createClass({
     this.serverRequest.abort();
   },
   elementNameMatchesDropdownValue: function(element, inputName) {
-    return [this.placeholder, this.equalsSign].indexOf(inputName) > -1 ? false : element.props.value.includes(inputName);
+    if ( (element.props.id == 2) || (element.props.id == 3)) {
+      return element.props.value.includes(inputName)
+    }
   },
   render: function () {
     return (

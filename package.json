@@ -17,8 +17,8 @@
     "less-loader": "^2.2.2"
   },
   "scripts": {
-    "build": "webpack --build --config webpack.config.js --progress",
-    "start": "webpack-dev-server --config webpack.config.js --content-base build/public"
+    "build": "webpack --build --config webpack.config.js --progress --colors",
+    "start": "webpack-dev-server --config webpack.config.js --content-base dotify/static/js"
   },
   "repository": {
     "type": "git",

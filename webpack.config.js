@@ -2,7 +2,7 @@ var path = require('path');
 
 var ManifestRevisionPlugin = require('manifest-revision-webpack-plugin');
 
-var rootAssetPath = './dotify/static'
+var rootAssetPath = './dotify/assets'
 
 module.exports = {
   context: __dirname,
@@ -15,8 +15,8 @@ module.exports = {
     ]
   },
   output: {
-    path: path.join(__dirname, 'build', 'public'),
-    publicPath: 'http://localhost:2992/assets/',
+    path: path.join(__dirname, 'dotify', 'static', 'js'),
+    publicPath: 'http://localhost:2992/static/',
     filename: '[name].[chunkhash].js',
     chunkFilename: '[id].[chunkhash].js'
   },
@@ -45,7 +45,7 @@ module.exports = {
     ]
   },
   plugins: [
-    new ManifestRevisionPlugin(path.join(__dirname, 'build', 'manifest.json'), {
+    new ManifestRevisionPlugin(path.join(__dirname, 'dotify', 'static', 'manifest.json'), {
       rootAssetPath: rootAssetPath,
       ignorePaths: ['/js']
     })

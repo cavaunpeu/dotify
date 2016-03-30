@@ -17,7 +17,7 @@
     "less-loader": "^2.2.2"
   },
   "scripts": {
-    "build": "webpack --config webpack.config.js --progress",
+    "build": "webpack --build --config webpack.config.js --progress",
     "start": "webpack-dev-server --config webpack.config.js --content-base build/public"
   },
   "repository": {

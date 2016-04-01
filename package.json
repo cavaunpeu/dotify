@@ -4,6 +4,7 @@
   "description": "recommend spotify songs",
   "main": "index.js",
   "dependencies": {
+    "babel-core": "6.3.26",
     "css-loader": "^0.23.1",
     "jquery": "^2.2.0",
     "less": "^2.5.3",

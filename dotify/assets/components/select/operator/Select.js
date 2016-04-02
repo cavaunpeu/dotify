@@ -31,7 +31,7 @@ var OperatorSelect = React.createClass({
     if ([this.minusSign, this.equalsSign, this.placeholder].indexOf(inputName) > -1) {
       return false;
     }
-    return element.props.value.includes(inputName);
+    return element.props.value.indexOf(inputName) > -1;
   },
   render: function () {
     return (

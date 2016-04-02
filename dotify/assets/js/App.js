@@ -8,6 +8,9 @@ class App extends React.Component {
             <div className="container">
                 <div id="i-want-music-like">
                     I want music like:
+                    <div id="example-natural-language-form-input">
+                        (e.g. "Colombia x Turkey - Germany =")
+                    </div>
                 </div>
                 <RecommendationForm />
             </div>

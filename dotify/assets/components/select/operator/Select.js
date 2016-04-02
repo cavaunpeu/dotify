@@ -6,7 +6,6 @@ var $ = require('jquery');
 
 var OperatorSelect = React.createClass({
 
-  minusSign: "-",
   equalsSign: "=",
   placeholder: "+",
   source: "/operators",

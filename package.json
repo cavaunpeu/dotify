@@ -5,7 +5,8 @@
   "main": "webpack.config.js",
   "scripts": {
     "build": "webpack --build --config webpack.config.js --progress --colors",
-    "start": "webpack-dev-server --config webpack.config.js --content-base dotify/static/js"
+    "start": "webpack-dev-server --config webpack.config.js --content-base dotify/static/js",
+    "postinstall": "npm run build"
   },
   "repository": {
     "type": "git",

@@ -20,7 +20,7 @@ var Select = React.createClass({
   },
   getInitialState: function () {
     return {
-      dropdownShouldBeOpen: false,
+      dropdownShouldBeOpen: this.props.openDropdownOnRender,
       eligibleDropdownElements: this.props.dropdownElements,
       focusedDropdownElementIndex: this.initialfocusedDropdownElementIndex,
       inputName: ""

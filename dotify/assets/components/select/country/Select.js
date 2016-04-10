@@ -35,7 +35,7 @@ var CountrySelect = React.createClass({
   render: function () {
     return (
       <div className="country-select">
-        <Select key={this.generateUniqueId()} dropdownElements={this.state.dropdownElements} elementNameMatchesDropdownValue={this.elementNameMatchesDropdownValue} flexOrder={this.props.flexOrder} handleValidDropdownElement={this.props.handleValidDropdownElement} placeholder={this.placeholder}/>
+        <Select key={this.generateUniqueId()} dropdownElements={this.state.dropdownElements} elementNameMatchesDropdownValue={this.elementNameMatchesDropdownValue} flexOrder={this.props.flexOrder} handleValidDropdownElement={this.props.handleValidDropdownElement} openDropdownOnRender={false} placeholder={this.placeholder}/>
       </div>
     );
   }

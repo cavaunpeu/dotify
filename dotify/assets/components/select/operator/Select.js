@@ -7,7 +7,7 @@ var $ = require('jquery');
 var OperatorSelect = React.createClass({
 
   equalsSign: "=",
-  placeholder: "+",
+  placeholder: "",
   source: "/operators",
 
   getInitialState: function () {
@@ -28,15 +28,15 @@ var OperatorSelect = React.createClass({
     this.serverRequest.abort();
   },
   elementNameMatchesDropdownValue: function(element, inputName) {
-    if ([this.minusSign, this.equalsSign, this.placeholder].indexOf(inputName) > -1) {
-      return false;
-    }
     return element.props.value.indexOf(inputName) > -1;
+  },
+  generateUniqueId: function() {
+    return (new Date).getTime();
   },
   render: function () {
     return (
       <div className="operator-select">
-        <Select dropdownElements={this.state.dropdownElements} elementNameMatchesDropdownValue={this.elementNameMatchesDropdownValue} flexOrder={this.props.flexOrder} handleValidDropdownElement={this.props.handleValidDropdownElement} placeholder={this.placeholder}/>
+        <Select key={this.generateUniqueId()} dropdownElements={this.state.dropdownElements} elementNameMatchesDropdownValue={this.elementNameMatchesDropdownValue} flexOrder={this.props.flexOrder} handleValidDropdownElement={this.props.handleValidDropdownElement} openDropdownOnRender={true} placeholder={this.placeholder}/>
       </div>
     );
   }

@@ -7,7 +7,7 @@ from dotify import app
 from dotify.database import Base, session
 from dotify.models import Country, Operator, CountryVector, SongVector
 from dotify.resources.countries import countries
-from dotify.resources.operators import operators
+from dotify.resources.operators import OPERATORS
 from dotify.top_songs import TopSongsGenerator
 from dotify.recommendation.implicit_mf.ratings_matrix import RatingsMatrix
 from dotify.recommendation.implicit_mf.implicit_mf import ImplicitMF
@@ -42,11 +42,11 @@ def insert_countries():
 
 @manager.command
 def insert_operators():
-    for operator_name in operators.keys():
+    for operator_id in OPERATORS.keys():
         operator = Operator(
-            id=operators[operator_name]['id'],
-            name=operator_name,
-            value=operators[operator_name]['value']
+            id=operator_id,
+            name=OPERATORS[operator_id]['name'],
+            value=OPERATORS[operator_id]['value']
         )
         session.add(operator)
     session.commit()

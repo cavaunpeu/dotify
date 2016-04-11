@@ -64,7 +64,7 @@ var RecommendationForm = React.createClass({
       this.setState(
         state => { formElementsToRender: state.formElementsToRender[flexOrder - 1] = this.buildFormElement(state.formElementsToRender[flexOrder - 1].props.selectComponent, dropdownElement) },
         () => {
-          if (dropdownElement.props.value != "=") {
+          if ( !(dropdownElement.props.value.indexOf("=") > -1) ) {
             this.setState(state => { formElementsToRender: state.formElementsToRender.push(this.buildFormElement(this.determineNextSelectComponent(flexOrder))) });
           } else {
             this.fetchRecommendedSongs();

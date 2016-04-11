@@ -1,20 +1,13 @@
-import operator
-
 import numpy as np
 import pandas as pd
 
 from dotify.database import session
 from dotify.models import Song, SongVector
+from dotify.resources.operators import OPERATORS
 
 
 class SongGenerator:
 
-    OPERATOR_LOOKUP = {
-        '+': operator.add,
-        '-': operator.sub,
-        '*': operator.mul,
-        '/': operator.truediv
-    }
     DIMENSION_COLUMN_PREFIX = 'dim_'
     NUM_SONGS_TO_RECOMMEND = 5
 
@@ -28,7 +21,7 @@ class SongGenerator:
     def _compute_aggregate_vector(self):
         aggregate_vector = self.country_vectors.pop(0)
         for operator, vector in zip(self.operator_objects, self.country_vectors):
-            aggregate_vector = self.OPERATOR_LOOKUP[operator.value](aggregate_vector, vector)
+            aggregate_vector = self.OPERATORS[operator.id]['function'](aggregate_vector, vector)
         return aggregate_vector
 
     def _extract_country_vectors(self):

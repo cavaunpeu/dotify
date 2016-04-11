@@ -1,7 +1,29 @@
-operators = {
-    '+': {'id': 0, 'value': '+'},
-    '–': {'id': 1, 'value': '-'},
-    '×': {'id': 2, 'value': ['*', 'x']},
-    '÷': {'id': 3, 'value': '/'},
-    '=': {'id': 4, 'value': '='}
+import operator
+
+OPERATORS = {
+    0: {
+        'name': '+',
+        'value': ['+'],
+        'function': operator.add
+    },
+    1: {
+        'name': '–',
+        'value': ['-'],
+        'function': operator.sub
+    },
+    2: {
+        'name': '×',
+        'value': ['*', 'x'],
+        'function': operator.mul
+    },
+    3: {
+        'name': '÷',
+        'value': ['/'],
+        'function': operator.truediv
+    },
+    4: {
+        'name': '=',
+        'value': ['='],
+        'function': None
+    }
 }

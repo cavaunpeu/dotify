@@ -6,7 +6,6 @@ var $ = require('jquery');
 
 var OperatorSelect = React.createClass({
 
-  equalsSign: "=",
   placeholder: "",
   source: "/operators",
 
@@ -28,7 +27,7 @@ var OperatorSelect = React.createClass({
     this.serverRequest.abort();
   },
   elementNameMatchesDropdownValue: function(element, inputName) {
-    return element.props.value.indexOf(inputName) > -1;
+    return (element.props.value.indexOf(inputName) > -1) && (element.props.name != inputName);
   },
   generateUniqueId: function() {
     return (new Date).getTime();

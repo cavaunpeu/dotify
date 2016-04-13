@@ -21,7 +21,7 @@ class SongGenerator:
     def _compute_aggregate_vector(self):
         aggregate_vector = self.country_vectors.pop(0)
         for operator, vector in zip(self.operator_objects, self.country_vectors):
-            aggregate_vector = self.OPERATORS[operator.id]['function'](aggregate_vector, vector)
+            aggregate_vector = OPERATORS[operator.id]['function'](aggregate_vector, vector)
         return aggregate_vector
 
     def _extract_country_vectors(self):

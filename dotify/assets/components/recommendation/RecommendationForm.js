@@ -10,6 +10,9 @@ import Song from '../Song'
 var $ = require('jquery');
 
 var RecommendationForm = React.createClass({
+
+  ajaxLoaderHtmlId: "ajax-loader",
+
   getInitialState: function () {
     return {
       formElementsToRender: [
@@ -32,6 +35,7 @@ var RecommendationForm = React.createClass({
     });
   },
   fetchRecommendedSongs: function() {
+    $("#ajax-loader").show()
     $.ajax({
       url: "/recommended_songs",
       type: "POST",
@@ -41,6 +45,7 @@ var RecommendationForm = React.createClass({
       }, null, '\t'),
       contentType: "application/json",
       success: response => {
+        $("#ajax-loader").hide()
         this.setState({
           songs: response["songs"].map((song, index) => { return <Song id={index} title={song.title} artist={song.artist} url={song.url}/>; })
         });

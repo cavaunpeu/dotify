@@ -65,6 +65,7 @@ var RecommendationForm = React.createClass({
     this.replaceState(this.getInitialState());
   },
   handleValidDropdownElement: function (flexOrder, dropdownElement) {
+    this.setState({ songs: [] })
     if (flexOrder == this.state.formElementsToRender.length) {
       this.setState(
         state => { formElementsToRender: state.formElementsToRender[flexOrder - 1] = this.buildFormElement(state.formElementsToRender[flexOrder - 1].props.selectComponent, dropdownElement) },

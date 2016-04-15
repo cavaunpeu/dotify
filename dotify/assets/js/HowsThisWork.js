@@ -24,6 +24,12 @@ class HowsThisWork extends React.Component {
                         Take dot products of our composite country vector and every song vector. Sort dot products in decreasing order, and return the 5 songs that yield the highest values.
                     </li>
                 </ol>
+                <p id="technologies-used">
+                    This app is built with the following core technologies: Flask as both API endpoints and a web server; React and LESS on the front-end; Webpack for asset compilaton; Postgres database; Heroku for deployment.
+                    <br />
+                    <br />
+                    Code found <a href="https://github.com/cavaunpeu/dotify">here</a>.
+                </p>
             </div>
         );
     }

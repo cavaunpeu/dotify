@@ -1,1 +1,5 @@
-weekly top 200 from 12/1/2015
+Recommend songs via country arithmetic. 
+
+Full "How's This Work" found [here](http://dotify.herokuapp.com/info).
+
+![](http://i.imgur.com/wwnwT6X.png)

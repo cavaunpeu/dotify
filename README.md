@@ -1,4 +1,4 @@
-Recommend songs via country arithmetic.
+[dotify](http://dotify.herokuapp.com): recommend songs via country arithmetic. 
 
 Full "How's This Work" found [here](http://dotify.herokuapp.com/info).
 

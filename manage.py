@@ -55,8 +55,12 @@ def insert_operators():
 @manager.command
 def insert_top_songs():
     for country_name in countries.keys():
-        for top_song in TopSongsGenerator(country_name):
-            session.add(top_song)
+        top_songs_generator = TopSongsGenerator(country_name)
+
+        if not top_songs_generator.daily_chart.dataframe.empty:
+            for top_song in top_songs_generator:
+                session.add(top_song)
+
     session.commit()
 
 

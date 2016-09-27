@@ -12,7 +12,7 @@ from .resources.countries import countries
 
 class DailyChart:
 
-    BASE_URL = 'https://spotifycharts.com/api/?download=true&limit=200&country={}&recurrence=weekly&date=latest&type=regional'
+    BASE_URL = 'https://spotifycharts.com/regional/{}/daily/latest/download'
     BASE_LOCAL_PATH = os.path.join(os.path.dirname(__file__), '..', 'tmp', '{}_{}.csv')
 
     def __init__(self, country_name):
@@ -21,7 +21,8 @@ class DailyChart:
         self.current_datetime = datetime.now()
         self.local_path = self._generate_local_path()
         self.response = self._request_daily_chart()
-        self.dataframe = self._response_to_dataframe()
+        self._response_to_local_csv()
+        self.dataframe = self._response_to_dataframe() if self._valid_response else pd.DataFrame()
 
     def _generate_local_path(self):
         datetime_string = self.current_datetime.strftime('%Y%m%d%H%M')
@@ -35,10 +36,15 @@ class DailyChart:
         open(self.local_path, 'w').write(self.response.text)
 
     def _response_to_dataframe(self):
-        self._response_to_local_csv()
         dataframe = pd.read_csv(self.local_path, index_col='Position')
+        dataframe.dropna(inplace=True)
         os.remove(self.local_path)
         return dataframe
+
+    @property
+    def _valid_response(self):
+        return self.response.status_code == 200 and \
+            self.response.headers['Content-Type'] == 'text/csv;charset=UTF-8'
 
     def __iter__(self):
         for rank, song in self.dataframe.iterrows():

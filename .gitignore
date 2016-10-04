@@ -8,3 +8,5 @@ npm-debug.log
 build/*
 notebooks
 psql_backup
+tmp/*
+*.pyc

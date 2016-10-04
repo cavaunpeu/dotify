@@ -20,6 +20,8 @@ class DailyChart:
         self.country_abbrev = countries[country_name]['abbrev']
         self.current_datetime = datetime.now()
         self.local_path = self._generate_local_path()
+
+    def download(self):
         self.response = self._request_daily_chart()
         self._response_to_local_csv()
         self.dataframe = self._response_to_dataframe() if self._valid_response else pd.DataFrame()

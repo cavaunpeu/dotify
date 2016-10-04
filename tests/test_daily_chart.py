@@ -1,23 +1,21 @@
 import unittest
+from unittest.mock import patch
 
 import requests_mock
 
 from dotify.top_songs import DailyChart
+from dotify.resources.countries import countries
 
 
 class TestDailyChart(unittest.TestCase):
 
-    DAILY_CHART_BASE_URL = 'https://spotifycharts.com/regional/{}/daily/latest/download'
-    VALID_COUNTRY_CODES = ['ab', 'cd', 'ef']
-    INVALID_COUNTRY_CODE = 'xy'
+    INVALID_COUNTRY_NAME = 'Xylophonia'
+    VALID_COUNTRIES_LOOKUP = {
+        'Abalonia': {'id': 1, 'abbrev': 'ab'},
+        'Condominia': {'id': 2, 'abbrev': 'cd'},
+        'Efravania': {'id': 3, 'abbrev': 'ef'},
+    }
 
-    def _daily_chart_request_callback(self, request, context):
-        if self._country_code_is_valid(request):
-            pass
-
-    def _country_code_is_valid(self, country_code):
-        return country_code in self.VALID_COUNTRY_CODES
-
-    @requests_mock.mock()
-    def test_daily_chart_empty_when_querying_invalid_country_code(self, mock_request):
-        pass
+    @patch.dict(countries, values=VALID_COUNTRIES_LOOKUP, clear=True)
+    def test_daily_chart_raises_key_error_for_invalid_country_name(self):
+        self.assertRaises(KeyError, DailyChart, self.INVALID_COUNTRY_NAME)

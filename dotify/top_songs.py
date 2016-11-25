@@ -56,6 +56,7 @@ class TopSongsGenerator:
 
     def __init__(self, country_name):
         self.daily_chart = DailyChart(country_name)
+        self.daily_chart.download()
 
     @staticmethod
     def _song_exists(song):

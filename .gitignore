@@ -10,3 +10,4 @@ notebooks
 psql_backup
 tmp/*
 *.pyc
+notes.md

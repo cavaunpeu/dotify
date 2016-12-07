@@ -1,0 +1,4 @@
+*.pyc
+psql_backup
+npm-debug.log
+notes.md

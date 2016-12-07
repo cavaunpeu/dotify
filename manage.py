@@ -81,20 +81,23 @@ class InsertTopSongs(Command):
     def run(self, date):
         for country_name in countries.keys():
             top_songs_generator = TopSongsGenerator(country_name=country_name, date=date)
-
             if not top_songs_generator.daily_chart.dataframe.empty:
+
                 for top_song in top_songs_generator:
-                    top_song_exists = session.query(exists()\
-                            .where(TopSong.song_id==top_song.song_id)\
-                            .where(TopSong.country_id==top_song.country_id)\
-                            .where(TopSong.rank==top_song.rank)\
-                            .where(TopSong.streams==top_song.streams)\
-                            .where(TopSong.date==top_song.date)
-                    ).scalar()
-                    if not top_song_exists:
+                    if not self._top_song_exists(top_song):
                         session.add(top_song)
 
                 session.commit()
+
+    @staticmethod
+    def _top_song_exists(top_song):
+        return session.query(exists()\
+            .where(TopSong.song_id==top_song.song_id)\
+            .where(TopSong.country_id==top_song.country_id)\
+            .where(TopSong.rank==top_song.rank)\
+            .where(TopSong.streams==top_song.streams)\
+            .where(TopSong.date==top_song.date)
+        ).scalar()
 
 
 manager.add_command('insert_top_songs', InsertTopSongs())

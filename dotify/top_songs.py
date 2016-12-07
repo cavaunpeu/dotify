@@ -73,8 +73,8 @@ class TopSongsGenerator:
     @staticmethod
     def _song_exists(song):
         return session.query(exists()\
-                .where(Song.title==song.title)\
-                .where(Song.artist==song.artist)
+            .where(Song.title==song.title)\
+            .where(Song.artist==song.artist)
         ).scalar()
 
     @staticmethod

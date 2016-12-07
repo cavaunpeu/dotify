@@ -11,3 +11,4 @@ psql_backup
 tmp/*
 *.pyc
 notes.md
+log/*.log

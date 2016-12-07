@@ -1,4 +1,5 @@
 from datetime import datetime
+import logging
 import os
 import requests
 
@@ -8,6 +9,15 @@ from sqlalchemy import exists
 from .database import session
 from .models import Country, Song, TopSong
 from .resources.countries import countries
+
+
+LOG_FILE = os.path.join(os.path.dirname(__file__), '..', 'log', 'top_songs.log')
+
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+handler = logging.FileHandler(LOG_FILE)
+logger.addHandler(handler)
 
 
 class DailyChart:
@@ -52,17 +62,19 @@ class DailyChart:
         for rank, song in self.dataframe.iterrows():
             yield (rank, song['Streams']), Song(title=song['Track Name'], artist=song['Artist'], url=song['URL'])
 
+
 class TopSongsGenerator:
 
-    def __init__(self, country_name):
+    def __init__(self, country_name, date=None):
+        self.date = date
         self.daily_chart = DailyChart(country_name)
         self.daily_chart.download()
 
     @staticmethod
     def _song_exists(song):
         return session.query(exists()\
-                .where(Song.title==song.title)\
-                .where(Song.artist==song.artist)
+            .where(Song.title==song.title)\
+            .where(Song.artist==song.artist)
         ).scalar()
 
     @staticmethod
@@ -79,5 +91,5 @@ class TopSongsGenerator:
                 country_id=int(session.query(Country.id).filter(Country.name == self.daily_chart.country_name).scalar()),
                 rank=int(rank),
                 streams=int(streams),
-                date=self.daily_chart.current_datetime.date()
+                date=self.date or self.daily_chart.current_datetime.date()
             )

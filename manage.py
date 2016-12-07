@@ -2,7 +2,7 @@ from datetime import datetime, timedelta
 import os
 
 from flask.ext.migrate import Migrate, MigrateCommand
-from flask.ext.script import Manager
+from flask.ext.script import Command, Manager, Option
 from sqlalchemy import exists
 
 from dotify import app
@@ -54,27 +54,6 @@ def insert_operators():
     session.commit()
 
 
-@manager.option('-d', '--date', help='Insert songs from this date')
-def insert_top_songs(date=None):
-    """If no date passed, inserts songs for current date."""
-    for country_name in countries.keys():
-        top_songs_generator = TopSongsGenerator(country_name=country_name, date=date)
-
-        if not top_songs_generator.daily_chart.dataframe.empty:
-            for top_song in top_songs_generator:
-                top_song_exists = session.query(exists()\
-                        .where(TopSong.song_id==top_song.song_id)\
-                        .where(TopSong.country_id==top_song.country_id)\
-                        .where(TopSong.rank==top_song.rank)\
-                        .where(TopSong.streams==top_song.streams)\
-                        .where(TopSong.date==top_song.date)
-                ).scalar()
-                if not top_song_exists:
-                    session.add(top_song)
-
-            session.commit()
-
-
 @manager.option('-d', '--start-date', help='Backfill to this date')
 def backfill_top_songs(start_date):
     start_date = datetime.strptime(start_date, '%Y-%m-%d')
@@ -82,7 +61,7 @@ def backfill_top_songs(start_date):
     current_date = start_date
 
     while current_date < end_date:
-        insert_top_songs(date=current_date)
+        InsertTopSongs().run(date=current_date)
         logger.info( current_date.strftime('%Y-%m-%d') + ' √' )
         current_date += timedelta(days=1)
 
@@ -91,6 +70,34 @@ def backfill_top_songs(start_date):
 def compute_latent_vectors():
     implicit_mf = ImplicitMF(ratings_matrix=RatingsMatrix(), f=F, alpha=ALPHA, lmbda=LAMBDA)
     ImplicitMFPipeline(implicit_mf).run()
+
+
+class InsertTopSongs(Command):
+
+    option_list = (
+        Option('-d', '--date', help='If no date passed, today\'s date is used'),
+    )
+
+    def run(self, date):
+        for country_name in countries.keys():
+            top_songs_generator = TopSongsGenerator(country_name=country_name, date=date)
+
+            if not top_songs_generator.daily_chart.dataframe.empty:
+                for top_song in top_songs_generator:
+                    top_song_exists = session.query(exists()\
+                            .where(TopSong.song_id==top_song.song_id)\
+                            .where(TopSong.country_id==top_song.country_id)\
+                            .where(TopSong.rank==top_song.rank)\
+                            .where(TopSong.streams==top_song.streams)\
+                            .where(TopSong.date==top_song.date)
+                    ).scalar()
+                    if not top_song_exists:
+                        session.add(top_song)
+
+                session.commit()
+
+
+manager.add_command('insert_top_songs', InsertTopSongs())
 
 
 class DB:

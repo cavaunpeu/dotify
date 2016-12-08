@@ -22,26 +22,31 @@ logger.addHandler(handler)
 
 class DailyChart:
 
-    BASE_URL = 'https://spotifycharts.com/regional/{}/daily/latest/download'
+    BASE_URL = 'https://spotifycharts.com/regional/{}/daily'
     BASE_LOCAL_PATH = os.path.join(os.path.dirname(__file__), '..', 'tmp', '{}_{}.csv')
 
-    def __init__(self, country_name):
+    def __init__(self, country_name, date=None):
+        self.date = date
         self.country_name = country_name
         self.country_abbrev = countries[country_name]['abbrev']
         self.current_datetime = datetime.now()
+        self.download_url = self._generate_download_url()
         self.local_path = self._generate_local_path()
 
     def download(self):
-        self.response = self._request_daily_chart()
+        self.response = requests.get(self.download_url)
         self.dataframe = self._response_to_dataframe() if self._valid_response else pd.DataFrame()
+
+    def _generate_download_url(self):
+        return os.path.join(
+            self.BASE_URL.format(self.country_abbrev),
+            self.date if self.date else 'latest',
+            'download'
+        )
 
     def _generate_local_path(self):
         datetime_string = self.current_datetime.strftime('%Y%m%d%H%M')
         return self.BASE_LOCAL_PATH.format(datetime_string, self.country_abbrev)
-
-    def _request_daily_chart(self):
-        daily_chart_url = self.BASE_URL.format(self.country_abbrev)
-        return requests.get(daily_chart_url)
 
     def _response_to_local_csv(self):
         open(self.local_path, 'w').write(self.response.text)
@@ -67,7 +72,7 @@ class TopSongsGenerator:
 
     def __init__(self, country_name, date=None):
         self.date = date
-        self.daily_chart = DailyChart(country_name)
+        self.daily_chart = DailyChart(country_name=country_name, date=date)
         self.daily_chart.download()
 
     @staticmethod

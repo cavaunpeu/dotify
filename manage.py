@@ -61,8 +61,9 @@ def backfill_top_songs(start_date):
     current_date = start_date
 
     while current_date < end_date:
-        InsertTopSongs().run(date=current_date)
-        logger.info( current_date.strftime('%Y-%m-%d') + ' √' )
+        current_date_string = current_date.strftime('%Y-%m-%d')
+        InsertTopSongs().run(date=current_date_string)
+        logger.info( current_date_string + ' √' )
         current_date += timedelta(days=1)
 
 

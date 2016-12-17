@@ -1,4 +1,5 @@
 import numpy as np
+from scipy import sparse
 
 from .vectors import CountryVectors, SongVectors
 
@@ -21,7 +22,7 @@ class ImplicitMF:
     def _update_country_vectors(self):
         YtY = self._compute_ZtZ(self.song_vectors.vectors)
         for country in self.country_vectors.vectors.index:
-            Cu = np.diag(self.C_ui.ix[country])
+            Cu = sparse.diags( self.C_ui.ix[country].tolist() )
             Pu = np.array( self.P_ui.ix[country] )
             YtCuY = self._compute_ZtCuZ(YtY, self.song_vectors.vectors, Cu)
             Xu = self._compute_updated_record(self.song_vectors.vectors, YtCuY, Cu, Pu)
@@ -31,7 +32,7 @@ class ImplicitMF:
     def _update_song_vectors(self):
         XtX = self._compute_ZtZ(self.country_vectors.vectors)
         for song in self.song_vectors.vectors.index:
-            Cu = np.diag(self.C_ui[song])
+            Cu = sparse.diags( self.C_ui[song].tolist() )
             Pu = np.array( self.P_ui[song] )
             XtCuX = self._compute_ZtCuZ(XtX, self.country_vectors.vectors, Cu)
             Yu = self._compute_updated_record(self.country_vectors.vectors, XtCuX, Cu, Pu)
@@ -39,11 +40,11 @@ class ImplicitMF:
             self.song_vectors.vectors.ix[song] = Yu
 
     def _compute_ZtCuZ(self, ZtZ, vectors, Cu):
-        I = self._compute_I(len(Cu))
+        I = self._compute_I( Cu.shape[0] )
         return ZtZ + vectors.T @ (Cu - I) @ vectors
 
     def _compute_updated_record(self, vectors, ZtCuZ, Cu, Pu):
-        I = self._compute_I(len(ZtCuZ))
+        I = self._compute_I( ZtCuZ.shape[0] )
         return np.linalg.inv(ZtCuZ + self.lmbda*I) @ vectors.T @ Cu @ Pu
 
     @staticmethod

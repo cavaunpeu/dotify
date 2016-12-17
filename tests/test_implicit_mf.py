@@ -38,9 +38,24 @@ class TestImplicitMF(unittest.TestCase):
             'dim_4': {1: -0.77886329530171627, 2: -0.8050757157420847, 3: -0.59677397755144379}
         }
     )
+    EXPECTED_SONG_VECTORS = pd.DataFrame(
+        {
+            'dim_0': {1: -0.073471489685433544, 2: -0.072131218749204196, 3: -0.070974800976172453, 4: -0.057686930532980102, 5: 0.0, 6: -0.071961912455110771, 7: 0.0, 8: -0.036630184849776329},
+            'dim_1': {1: 0.0068812183124358625, 2: 0.0067599595521328475, 3: 0.0066812930564791647, 4: 0.0056697030783678312, 5: 0.0, 6: 0.0067667663651392136, 7: 0.0, 8: 0.0038244483293922819},
+            'dim_2': {1: 0.16972801507589663, 2: 0.16664458704733526, 3: 0.16405191555318974, 4: 0.13394142510494544, 5: 0.0, 6: 0.16630879361318535, 7: 0.0, 8: 0.085739868376249473},
+            'dim_3': {1: -0.024099409333460473, 2: -0.023660010131547761, 3: -0.023276261726736629, 4: -0.018862699440375851, 5: 0.0, 6: -0.023598085983679289, 7: 0.0, 8: -0.01200082839578122},
+            'dim_4': {1: -0.58376113966498233, 2: -0.57313154359919505, 3: -0.56406141744385385, 4: -0.45935557494534784, 5: 0.0, 6: -0.57186826288808235, 7: 0.0, 8: -0.29273465622788053}
+        }
+    )
 
     def test_implicit_mf_return_correct_country_vectors(self):
         implicit_mf = ImplicitMF(ratings_matrix=DummyRatingsMatrix(), f=self.LATENT_FEATURES, alpha=self.ALPHA, lmbda=self.LAMBDA, n_iterations=self.N_ITERATIONS)
         implicit_mf.run()
 
         assert_frame_equal(implicit_mf.country_vectors.vectors, self.EXPECTED_COUNTRY_VECTORS)
+
+    def test_implicit_mf_return_correct_song_vectors(self):
+        implicit_mf = ImplicitMF(ratings_matrix=DummyRatingsMatrix(), f=self.LATENT_FEATURES, alpha=self.ALPHA, lmbda=self.LAMBDA, n_iterations=self.N_ITERATIONS)
+        implicit_mf.run()
+
+        assert_frame_equal(implicit_mf.song_vectors.vectors, self.EXPECTED_SONG_VECTORS)

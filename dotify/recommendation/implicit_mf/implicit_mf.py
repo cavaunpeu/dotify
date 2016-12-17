@@ -5,9 +5,9 @@ from .vectors import CountryVectors, SongVectors
 
 class ImplicitMF:
 
-    def __init__(self, ratings_matrix, f, alpha, lmbda, n_iterations=10):
-        self.country_vectors = CountryVectors(ratings_matrix, f)
-        self.song_vectors = SongVectors(ratings_matrix, f)
+    def __init__(self, ratings_matrix, f, alpha, lmbda, n_iterations=10, random_state=123):
+        self.country_vectors = CountryVectors(ratings_matrix, f, random_state)
+        self.song_vectors = SongVectors(ratings_matrix, f, random_state)
         self.P_ui = ratings_matrix.R_ui > 0
         self.C_ui = 1 + alpha*np.log(1 + ratings_matrix.R_ui)
         self.lmbda = lmbda

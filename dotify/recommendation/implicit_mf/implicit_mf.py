@@ -53,4 +53,4 @@ class ImplicitMF:
 
     @staticmethod
     def _compute_I(size):
-        return np.eye(size)
+        return sparse.diags( size * [1.] )

@@ -23,7 +23,7 @@ class VectorCollection(metaclass=ABCMeta):
         self._query_timestamp = datetime.now()
 
     def _query_all_vectors(self):
-        return session.query(self.model).all()
+        return session.query(self._model).all()
 
     @property
     def vector_objects(self):
@@ -31,21 +31,21 @@ class VectorCollection(metaclass=ABCMeta):
 
     @property
     @abstractmethod
-    def model(self):
+    def _model(self):
         pass
 
 
 class SongVectorCollection(VectorCollection):
 
     @property
-    def model(self):
+    def _model(self):
         return SongVector
 
 
 class CountryVectorCollection(VectorCollection):
 
     @property
-    def model(self):
+    def _model(self):
         return CountryVector
 
 

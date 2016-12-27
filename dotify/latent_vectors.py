@@ -61,6 +61,10 @@ class VectorCollection(metaclass=ABCMeta):
 class SongVectorCollection(VectorCollection):
 
     @property
+    def index(self):
+        return [song_object.song_id for song_object in self.vector_objects]
+
+    @property
     def _model(self):
         return SongVector
 

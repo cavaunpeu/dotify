@@ -46,7 +46,8 @@ def get_recommended_songs():
     recommended_songs_generator = RecommendedSongGenerator(
         operator_objects=operator_objects,
         country_vectors=country_vectors,
-        song_vectors=SONG_VECTOR_COLLECTION.numeric_vectors
+        song_vectors=SONG_VECTOR_COLLECTION.numeric_vectors,
+        song_vectors_index=SONG_VECTOR_COLLECTION.index
     )
     recommended_songs = [{'artist': artist, 'title': title, 'url': url} for title, artist, url in recommended_songs_generator]
     return jsonify({'songs': recommended_songs}), 200

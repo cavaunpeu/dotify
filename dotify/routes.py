@@ -9,6 +9,11 @@ from dotify.models import Country, Operator, Song, CountryVector, SongVector
 from dotify.recommendation.song_generator import SongGenerator as RecommendedSongGenerator
 
 
+def filter_country_vectors(country_vectors, country_ids):
+    country_vectors_dict = {vector.name: vector for vector in country_vectors}
+    return [country_vectors_dict[country_id] for country_id in country_ids]
+
+
 @app.route('/', methods=['GET'])
 def main():
     return render_template('main.html')
@@ -35,13 +40,13 @@ def get_operators():
 def get_recommended_songs():
     country_ids = request.get_json()['country_ids']
     operator_ids = request.get_json()['operator_ids']
-    country_vector_objects = [vector_object for vector_object in COUNTRY_VECTOR_COLLECTION.vector_objects if vector_object.country_id in country_ids]
     operator_objects = session.query(Operator).filter(Operator.id.in_(operator_ids)).all()
+    country_vectors = filter_country_vectors(country_vectors=COUNTRY_VECTOR_COLLECTION.numeric_vectors, country_ids=country_ids)
 
     recommended_songs_generator = RecommendedSongGenerator(
-        country_vector_objects=country_vector_objects,
         operator_objects=operator_objects,
-        song_vector_objects=SONG_VECTOR_COLLECTION.vector_objects
+        country_vectors=country_vectors,
+        song_vectors=SONG_VECTOR_COLLECTION.numeric_vectors
     )
     recommended_songs = [{'artist': artist, 'title': title, 'url': url} for title, artist, url in recommended_songs_generator]
     return jsonify({'songs': recommended_songs}), 200

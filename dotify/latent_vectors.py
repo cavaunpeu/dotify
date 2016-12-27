@@ -2,7 +2,7 @@ from abc import ABCMeta, abstractmethod
 from datetime import datetime
 
 from dotify.database import session
-from dotify.models import SongVector
+from dotify.models import SongVector, CountryVector
 
 
 class VectorCollection(metaclass=ABCMeta):
@@ -42,4 +42,12 @@ class SongVectorCollection(VectorCollection):
         return SongVector
 
 
+class CountryVectorCollection(VectorCollection):
+
+    @property
+    def model(self):
+        return CountryVector
+
+
 SONG_VECTOR_COLLECTION = SongVectorCollection()
+COUNTRY_VECTOR_COLLECTION = CountryVectorCollection()

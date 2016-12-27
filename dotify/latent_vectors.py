@@ -1,33 +1,45 @@
+from abc import ABCMeta, abstractmethod
 from datetime import datetime
 
 from dotify.database import session
 from dotify.models import SongVector
 
 
-class SongVectorsCollection:
+class VectorCollection(metaclass=ABCMeta):
 
     REFRESH_WINDOW_IN_SECONDS = 16 * 3600
 
     def __init__(self):
-        self._vector_objects = self._query_song_vectors()
+        self._vector_objects = self._query_all_vectors()
         self._reset_query_timestamp()
 
     def refresh(self):
         time_since_last_query = (datetime.now() - self._query_timestamp).total_seconds()
         if time_since_last_query > self.REFRESH_WINDOW_IN_SECONDS:
-            self._vector_objects = self._query_song_vectors()
+            self._vector_objects = self._query_all_vectors()
             self._reset_query_timestamp()
 
     def _reset_query_timestamp(self):
         self._query_timestamp = datetime.now()
 
+    def _query_all_vectors(self):
+        return session.query(self.model).all()
+
     @property
     def vector_objects(self):
         return self._vector_objects
 
-    @staticmethod
-    def _query_song_vectors():
-        return session.query(SongVector).all()
+    @property
+    @abstractmethod
+    def model(self):
+        pass
 
 
-SONG_VECTOR_COLLECTION = SongVectorsCollection()
+class SongVectorCollection(VectorCollection):
+
+    @property
+    def model(self):
+        return SongVector
+
+
+SONG_VECTOR_COLLECTION = SongVectorCollection()

@@ -46,7 +46,7 @@ class VectorCollection(metaclass=ABCMeta):
 
     @property
     def _number_of_vector_dimensions(self):
-        return len([var for var in vars(self._vector_objects[0]) if var.startswith(self.DIMENSION_COLUMN_PREFIX)])
+        return len([var for var in vars(self.vector_objects[0]) if var.startswith(self.DIMENSION_COLUMN_PREFIX)])
 
     @property
     def _vector_dimension_names(self):
@@ -69,7 +69,7 @@ class SongVectorCollection(VectorCollection):
         return SongVector
 
     def _extract_numeric_vectors(self):
-        return [pd.Series(self._extract_single_numeric_vector(vector_object), name=vector_object.song_id, index=self._vector_dimension_names) for vector_object in self._vector_objects]
+        return [pd.Series(self._extract_single_numeric_vector(vector_object), name=vector_object.song_id, index=self._vector_dimension_names) for vector_object in self.vector_objects]
 
 
 class CountryVectorCollection(VectorCollection):
@@ -79,7 +79,7 @@ class CountryVectorCollection(VectorCollection):
         return CountryVector
 
     def _extract_numeric_vectors(self):
-        return [pd.Series(self._extract_single_numeric_vector(vector_object), name=vector_object.country_id, index=self._vector_dimension_names) for vector_object in self._vector_objects]
+        return [pd.Series(self._extract_single_numeric_vector(vector_object), name=vector_object.country_id, index=self._vector_dimension_names) for vector_object in self.vector_objects]
 
 
 SONG_VECTOR_COLLECTION = SongVectorCollection()

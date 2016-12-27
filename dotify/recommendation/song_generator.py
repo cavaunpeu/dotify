@@ -14,7 +14,7 @@ class SongGenerator:
         self.operator_objects = operator_objects
         self.country_vectors = country_vectors
         self.song_vectors = song_vectors
-        self.song_vectors_index = pd.DataFrame(song_vectors).index
+        self.song_vectors_index = [song_vector.name for song_vector in self.song_vectors]
 
     def _compute_aggregate_vector(self):
         aggregate_vector = self.country_vectors.pop(0)
@@ -28,6 +28,7 @@ class SongGenerator:
 
     def __iter__(self):
         predicted_preferences = self._compute_predicted_preferences()
+
         for song_id, vector in predicted_preferences.sort_values(ascending=False).head(self.NUM_SONGS_TO_RECOMMEND).iteritems():
             song = session.query(Song).filter(Song.id == int(song_id)).first()
             yield (song.title, song.artist, song.url)

@@ -37,7 +37,13 @@ def get_recommended_songs():
     operator_ids = request.get_json()['operator_ids']
     country_vector_objects = session.query(CountryVector).filter(CountryVector.country_id.in_(country_ids)).all()
     operator_objects = session.query(Operator).filter(Operator.id.in_(operator_ids)).all()
-    recommended_songs = [{'artist': artist, 'title': title, 'url': url} for title, artist, url in RecommendedSongGenerator(country_vector_objects, operator_objects)]
+
+    recommended_songs_generator = RecommendedSongGenerator(
+        country_vector_objects=country_vector_objects,
+        operator_objects=operator_objects,
+        song_vector_objects=SONG_VECTOR_COLLECTION.vector_objects
+    )
+    recommended_songs = [{'artist': artist, 'title': title, 'url': url} for title, artist, url in recommended_songs_generator]
     return jsonify({'songs': recommended_songs}), 200
 
 

@@ -11,10 +11,10 @@ class SongGenerator:
     DIMENSION_COLUMN_PREFIX = 'dim_'
     NUM_SONGS_TO_RECOMMEND = 5
 
-    def __init__(self, country_vector_objects, operator_objects):
+    def __init__(self, country_vector_objects, operator_objects, song_vector_objects):
         self.country_vector_objects = country_vector_objects
         self.operator_objects = operator_objects
-        self.song_vector_objects = session.query(SongVector).all()
+        self.song_vector_objects = song_vector_objects
         self.country_vectors = self._extract_country_vectors()
         self.song_vectors = self._extract_song_vectors()
 

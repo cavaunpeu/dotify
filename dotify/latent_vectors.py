@@ -21,6 +21,10 @@ class SongVectorsCollection:
     def _reset_query_timestamp(self):
         self._query_timestamp = datetime.now()
 
+    @property
+    def vector_objects(self):
+        return self._vector_objects
+
     @staticmethod
     def _query_song_vectors():
         return session.query(SongVector).all()

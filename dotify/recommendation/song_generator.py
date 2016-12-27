@@ -10,11 +10,11 @@ class SongGenerator:
 
     NUM_SONGS_TO_RECOMMEND = 5
 
-    def __init__(self, operator_objects, country_vectors, song_vectors, song_vectors_index):
+    def __init__(self, operator_objects, song_vector_objects, country_vectors):
         self.operator_objects = operator_objects
         self.country_vectors = country_vectors
-        self.song_vectors = song_vectors
-        self.song_vectors_index = song_vectors_index
+        self.song_vectors = song_vector_objects.numeric_vectors
+        self.song_vectors_index = song_vector_objects.index
 
     def _compute_aggregate_vector(self):
         aggregate_vector = self.country_vectors.pop(0)

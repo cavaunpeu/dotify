@@ -1,3 +1,4 @@
+import numpy as np
 import pandas as pd
 from sqlalchemy.sql import func, select
 
@@ -7,8 +8,9 @@ from dotify.models import TopSong
 
 class RatingsMatrix:
 
-    def __init__(self, n_top_songs=1000000):
+    def __init__(self, n_top_songs=1000000, eps=1):
         self.n_top_songs = n_top_songs
+        self.eps = eps
         self.R_ui = self._build_R_ui()
 
     def _build_R_ui(self):
@@ -24,5 +26,6 @@ class RatingsMatrix:
         .group_by(top_songs_sorted.c.country_id, top_songs_sorted.c.song_id)\
         .all()
 
-        return pd.DataFrame(top_songs).pivot(
+        ratings_matrix = pd.DataFrame(top_songs).pivot(
             'country_id', 'song_id', 'total_streams').fillna(0).astype(float)
+        return np.log(1 + ratings_matrix / self.eps)

@@ -10,12 +10,13 @@ class ImplicitMF:
         self.country_vectors = CountryVectors(ratings_matrix, f, random_state)
         self.song_vectors = SongVectors(ratings_matrix, f, random_state)
         self.P_ui = ratings_matrix.R_ui > 0
-        self.C_ui = 1 + alpha*np.log(1 + ratings_matrix.R_ui)
+        self.C_ui = 1 + alpha*ratings_matrix.R_ui
         self.lmbda = lmbda
         self.n_iterations = n_iterations
 
     def run(self):
         for i in range(self.n_iterations):
+            print(i)
             self._update_country_vectors()
             self._update_song_vectors()
 

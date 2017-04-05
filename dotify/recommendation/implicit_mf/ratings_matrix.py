@@ -26,6 +26,13 @@ class RatingsMatrix:
         .group_by(top_songs_sorted.c.country_id, top_songs_sorted.c.song_id)\
         .all()
 
+        from sklearn.preprocessing import MaxAbsScaler
+
         ratings_matrix = pd.DataFrame(top_songs).pivot(
             'country_id', 'song_id', 'total_streams').fillna(0).astype(float)
-        return np.log(1 + ratings_matrix / self.eps)
+        # return np.log(1 + ratings_matrix / self.eps)
+        return pd.DataFrame(
+            data=MaxAbsScaler().fit_transform(ratings_matrix),
+            index=ratings_matrix.index,
+            columns=ratings_matrix.columns
+        )

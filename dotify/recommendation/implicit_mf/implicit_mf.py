@@ -16,7 +16,6 @@ class ImplicitMF:
 
     def run(self):
         for i in range(self.n_iterations):
-            print(i)
             self._update_country_vectors()
             self._update_song_vectors()
 

@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-from sqlalchemy.sql import func, select
+from sqlalchemy.sql import func
 
 from dotify.database import session
 from dotify.models import TopSong

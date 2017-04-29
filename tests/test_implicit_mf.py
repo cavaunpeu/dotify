@@ -4,6 +4,8 @@ import pandas as pd
 from pandas.util.testing import assert_frame_equal
 
 from dotify.recommendation.implicit_mf.implicit_mf import ImplicitMF
+from dotify.recommendation.implicit_mf.pipeline import ImplicitMFPipeline
+from dotify.models import SongVector, CountryVector
 from dotify.latent_vectors import SongVectorCollection, CountryVectorCollection, VectorCollection
 
 
@@ -50,19 +52,40 @@ class TestImplicitMF(unittest.TestCase):
     )
 
     def test_implicit_mf_return_correct_country_vectors(self):
-        implicit_mf = ImplicitMF(ratings_matrix=DummyRatingsMatrix(), f=self.LATENT_FEATURES, alpha=self.ALPHA, lmbda=self.LAMBDA, n_iterations=self.N_ITERATIONS)
+        implicit_mf = ImplicitMF(
+            ratings_matrix=DummyRatingsMatrix(), f=self.LATENT_FEATURES, alpha=self.ALPHA, lmbda=self.LAMBDA, n_iterations=self.N_ITERATIONS
+        )
         implicit_mf.run()
 
         assert_frame_equal(implicit_mf.country_vectors.vectors, self.EXPECTED_COUNTRY_VECTORS)
 
     def test_implicit_mf_return_correct_song_vectors(self):
-        implicit_mf = ImplicitMF(ratings_matrix=DummyRatingsMatrix(), f=self.LATENT_FEATURES, alpha=self.ALPHA, lmbda=self.LAMBDA, n_iterations=self.N_ITERATIONS)
+        implicit_mf = ImplicitMF(
+            ratings_matrix=DummyRatingsMatrix(), f=self.LATENT_FEATURES, alpha=self.ALPHA, lmbda=self.LAMBDA, n_iterations=self.N_ITERATIONS
+        )
         implicit_mf.run()
 
         assert_frame_equal(implicit_mf.song_vectors.vectors, self.EXPECTED_SONG_VECTORS)
 
 
 class TestImplicitMFPipeline(unittest.TestCase):
+
+    def test_implicit_mf_pipeline_inserts_correct_country_vectors(self):
+        implicit_mf = ImplicitMF(
+            ratings_matrix=DummyRatingsMatrix(),
+            f=TestImplicitMF.LATENT_FEATURES,
+            alpha=TestImplicitMF.ALPHA,
+            lmbda=TestImplicitMF.LAMBDA,
+            n_iterations=TestImplicitMF.N_ITERATIONS
+        )
+        pipeline = ImplicitMFPipeline(implicit_mf=implicit_mf)
+        pipeline.run()
+
+        import ipdb; ipdb.set_trace()
+        actual_country_vectors = session.query(CountryVector).all()
+
+
+class TestLatentVectors(unittest.TestCase):
 
     def test_song_vectors_collection_inherits_from_vector_collection(self):
         self.assertTrue(issubclass(SongVectorCollection, SongVectorCollection))

@@ -13,7 +13,7 @@ from dotify.resources.operators import OPERATORS
 from dotify.top_songs import TopSongsGenerator, logger
 from dotify.recommendation.implicit_mf.ratings_matrix import RatingsMatrix
 from dotify.recommendation.implicit_mf.implicit_mf import ImplicitMF
-from dotify.recommendation.implicit_mf.pipeline import Pipeline as ImplicitMFPipeline
+from dotify.recommendation.implicit_mf.pipeline import ImplicitMFPipeline
 
 
 manager = Manager(app)
@@ -28,6 +28,7 @@ LAMBDA = 25e1
 def run():
     port = int(os.environ.get('PORT', 8080))
     app.run(host='0.0.0.0', port=port)
+    dotify.routes.refresh_latent_vectors()
 
 
 @manager.command

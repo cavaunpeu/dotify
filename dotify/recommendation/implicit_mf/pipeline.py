@@ -2,7 +2,7 @@ from dotify.database import session
 from dotify.models import CountryVector, SongVector
 
 
-class Pipeline:
+class ImplicitMFPipeline:
 
     def __init__(self, implicit_mf):
         self.implicit_mf = implicit_mf

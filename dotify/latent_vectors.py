@@ -11,18 +11,16 @@ class VectorCollection(metaclass=ABCMeta):
 
     REFRESH_WINDOW_IN_SECONDS = 16 * 3600
     DIMENSION_COLUMN_PREFIX = 'dim_'
-
-    # TODO: move this into a __call__ method; as is, things
-    # break when trying to reset our database
+    
     def __init__(self):
-        self._vector_objects = self._query_all_vectors()
-        self._numeric_vectors = self._extract_numeric_vectors()
+        self._vectors_loaded = False
         self._reset_query_timestamp()
 
     def refresh(self):
         time_since_last_query = (datetime.now() - self._query_timestamp).total_seconds()
-        if time_since_last_query > self.REFRESH_WINDOW_IN_SECONDS:
+        if time_since_last_query > self.REFRESH_WINDOW_IN_SECONDS or not self._vectors_loaded:
             self._vector_objects = self._query_all_vectors()
+            self._numeric_vectors = self._extract_numeric_vectors()
             self._reset_query_timestamp()
 
     @abstractmethod

@@ -4,6 +4,7 @@ import pandas as pd
 from pandas.util.testing import assert_frame_equal
 
 from dotify.recommendation.implicit_mf.implicit_mf import ImplicitMF
+from dotify.latent_vectors import SongVectorCollection, CountryVectorCollection, VectorCollection
 
 
 class DummyRatingsMatrix:
@@ -59,3 +60,12 @@ class TestImplicitMF(unittest.TestCase):
         implicit_mf.run()
 
         assert_frame_equal(implicit_mf.song_vectors.vectors, self.EXPECTED_SONG_VECTORS)
+
+
+class TestImplicitMFPipeline(unittest.TestCase):
+
+    def test_song_vectors_collection_inherits_from_vector_collection(self):
+        self.assertTrue(issubclass(SongVectorCollection, SongVectorCollection))
+
+    def test_country_vectors_collection_inherits_from_vector_collection(self):
+        self.assertTrue(issubclass(CountryVectorCollection, VectorCollection))

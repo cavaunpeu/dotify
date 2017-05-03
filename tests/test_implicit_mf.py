@@ -132,6 +132,26 @@ class TestImplicitMFPipeline(unittest.TestCase):
         assert_frame_equal(actual_country_vectors, TestImplicitMF.EXPECTED_COUNTRY_VECTORS)
 
 
+    def test_implicit_mf_pipeline_inserts_correct_song_vectors(self):
+        implicit_mf = ImplicitMF(
+            ratings_matrix=DummyRatingsMatrix(),
+            f=TestImplicitMF.LATENT_FEATURES,
+            alpha=TestImplicitMF.ALPHA,
+            lmbda=TestImplicitMF.LAMBDA,
+            n_iterations=TestImplicitMF.N_ITERATIONS
+        )
+        pipeline = ImplicitMFPipeline(implicit_mf=implicit_mf)
+        pipeline.run()
+
+        song_vector_objects = session.query(SongVector).all()
+        actual_song_vectors = self._extract_numeric_vectors(
+            vector_objects=song_vector_objects,
+            id_col='song_id'
+        )
+
+        assert_frame_equal(actual_song_vectors, TestImplicitMF.EXPECTED_SONG_VECTORS)
+
+
 class TestLatentVectors(unittest.TestCase):
 
     def test_song_vectors_collection_inherits_from_vector_collection(self):

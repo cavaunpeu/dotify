@@ -3,10 +3,23 @@ import unittest
 import pandas as pd
 from pandas.util.testing import assert_frame_equal
 
+from dotify.database import session
 from dotify.recommendation.implicit_mf.implicit_mf import ImplicitMF
 from dotify.recommendation.implicit_mf.pipeline import ImplicitMFPipeline
-from dotify.models import SongVector, CountryVector
+from dotify.models import Song, SongVector, CountryVector
 from dotify.latent_vectors import SongVectorCollection, CountryVectorCollection, VectorCollection
+
+
+DUMMY_SONGS = pd.DataFrame({
+    1: {'Track Name': 'skittles', 'Artist': 'reeses',  'URL': 'kitkat'},
+    2: {'Track Name': 'pizza',    'Artist': 'pasta',   'URL': 'pepperoni'},
+    3: {'Track Name': 'sashimi',  'Artist': 'unagi',   'URL': 'crab'},
+    4: {'Track Name': 'morocco',  'Artist': 'algeria', 'URL': 'tunisia'},
+    5: {'Track Name': 'cairo',    'Artist': 'beirut',  'URL': 'mosul'},
+    6: {'Track Name': 'iphone',   'Artist': 'android', 'URL': 'windows'},
+    7: {'Track Name': 'levis',    'Artist': 'buffalo', 'URL': 'no clue'},
+    8: {'Track Name': 'nyc',      'Artist': 'sf',      'URL': 'la'},
+}).T
 
 
 class DummyRatingsMatrix:
@@ -28,6 +41,7 @@ class DummyRatingsMatrix:
 class TestImplicitMF(unittest.TestCase):
 
     LATENT_FEATURES = 5
+    LATENT_FEATURE_NAMES = ['dim_0', 'dim_1', 'dim_2', 'dim_3', 'dim_4']
     ALPHA = 10e0
     LAMBDA = 25e1
     N_ITERATIONS = 3
@@ -70,6 +84,34 @@ class TestImplicitMF(unittest.TestCase):
 
 class TestImplicitMFPipeline(unittest.TestCase):
 
+    def _extract_single_numeric_vector(self, vector_object):
+        return [getattr(vector_object, dimension_name) for dimension_name in TestImplicitMF.LATENT_FEATURE_NAMES]
+
+    def _extract_numeric_vectors(self, vector_objects, id_col):
+        return pd.DataFrame(
+            data=[
+                self._extract_single_numeric_vector(vector_object) for vector_object in vector_objects
+            ],
+            columns=TestImplicitMF.LATENT_FEATURE_NAMES,
+            index=[getattr(vector_object, id_col) for vector_object in vector_objects]
+        )
+
+    def _setUp_songs(self):
+        for song_id, song in DUMMY_SONGS.iterrows():
+            session.add(
+                Song(id=int(song_id), title=song['Track Name'], artist=song['Artist'], url=song['URL'])
+            )
+        session.commit()
+
+    def setUp(self):
+        self._setUp_songs()
+
+    def tearDown(self):
+        session.query(CountryVector).delete()
+        session.query(SongVector).delete()
+        session.query(Song).delete()
+        session.commit()
+
     def test_implicit_mf_pipeline_inserts_correct_country_vectors(self):
         implicit_mf = ImplicitMF(
             ratings_matrix=DummyRatingsMatrix(),
@@ -81,8 +123,13 @@ class TestImplicitMFPipeline(unittest.TestCase):
         pipeline = ImplicitMFPipeline(implicit_mf=implicit_mf)
         pipeline.run()
 
-        import ipdb; ipdb.set_trace()
-        actual_country_vectors = session.query(CountryVector).all()
+        country_vector_objects = session.query(CountryVector).all()
+        actual_country_vectors = self._extract_numeric_vectors(
+            vector_objects=country_vector_objects,
+            id_col='country_id'
+        )
+
+        assert_frame_equal(actual_country_vectors, TestImplicitMF.EXPECTED_COUNTRY_VECTORS)
 
 
 class TestLatentVectors(unittest.TestCase):

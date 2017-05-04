@@ -1,6 +1,7 @@
 from abc import ABCMeta, abstractmethod
 from datetime import datetime
 
+import numpy as np
 import pandas as pd
 
 from dotify.database import session
@@ -11,7 +12,7 @@ class VectorCollection(metaclass=ABCMeta):
 
     REFRESH_WINDOW_IN_SECONDS = 16 * 3600
     DIMENSION_COLUMN_PREFIX = 'dim_'
-    
+
     def __init__(self):
         self._vectors_loaded = False
         self._reset_query_timestamp()
@@ -34,7 +35,15 @@ class VectorCollection(metaclass=ABCMeta):
         return session.query(self._model).all()
 
     def _extract_single_numeric_vector(self, vector_object):
-        return [getattr(vector_object, dimension_name) for dimension_name in self._vector_dimension_names]
+        vector = [getattr(vector_object, dimension_name) for dimension_name in self._vector_dimension_names]
+        return self._normalize_single_numeric_vector(vector)
+
+    @staticmethod
+    def _normalize_single_numeric_vector(vector):
+        vector_norm = np.linalg.norm(vector)
+        if vector_norm == 0:
+            return vector
+        return np.array(vector) / vector_norm
 
     @property
     def vector_objects(self):

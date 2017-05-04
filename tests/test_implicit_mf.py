@@ -1,4 +1,5 @@
 import unittest
+from unittest.mock import patch, PropertyMock
 
 import pandas as pd
 from pandas.util.testing import assert_frame_equal
@@ -55,6 +56,7 @@ class TestImplicitMF(unittest.TestCase):
             'dim_4': {1: -0.77886329530171627, 2: -0.8050757157420847, 3: -0.59677397755144379}
         }
     )
+
     EXPECTED_SONG_VECTORS = pd.DataFrame(
         {
             'dim_0': {1: -0.073471489685433544, 2: -0.072131218749204196, 3: -0.070974800976172453, 4: -0.057686930532980102, 5: 0.0, 6: -0.071961912455110771, 7: 0.0, 8: -0.036630184849776329},
@@ -62,6 +64,69 @@ class TestImplicitMF(unittest.TestCase):
             'dim_2': {1: 0.16972801507589663, 2: 0.16664458704733526, 3: 0.16405191555318974, 4: 0.13394142510494544, 5: 0.0, 6: 0.16630879361318535, 7: 0.0, 8: 0.085739868376249473},
             'dim_3': {1: -0.024099409333460473, 2: -0.023660010131547761, 3: -0.023276261726736629, 4: -0.018862699440375851, 5: 0.0, 6: -0.023598085983679289, 7: 0.0, 8: -0.01200082839578122},
             'dim_4': {1: -0.58376113966498233, 2: -0.57313154359919505, 3: -0.56406141744385385, 4: -0.45935557494534784, 5: 0.0, 6: -0.57186826288808235, 7: 0.0, 8: -0.29273465622788053}
+        }
+    )
+
+    EXPECTED_NORMALIZED_COUNTRY_VECTORS = pd.DataFrame({
+        'dim_0': {1: -0.12004517188499932,
+                  2: -0.11913410986846149,
+                  3: -0.12055744729575857},
+        'dim_1': {1: 0.01109241249696322,
+                  2: 0.012430500908662354,
+                  3: 0.0099632266668670255},
+        'dim_2': {1: 0.27656018648757008,
+                  2: 0.27883313734977266,
+                  3: 0.27516865004862923},
+        'dim_3': {1: -0.039180342041573453,
+                  2: -0.039031044538790284,
+                  3: -0.039862460524261727},
+        'dim_4': {1: -0.95259932770266209,
+                  2: -0.95204054829135443,
+                  3: -0.95292173565685956}
+        }
+    )
+
+    EXPECTED_NORMALIZED_SONG_VECTORS = pd.DataFrame({
+         'dim_0': {1: -0.11988083946793957,
+                   2: -0.11987644135445424,
+                   3: -0.11984915130050039,
+                   4: -0.11959505679989613,
+                   5: 0.0,
+                   6: -0.11985778996618388,
+                   7: 0.0,
+                   8: -0.11912943734425845},
+         'dim_1': {1: 0.011227841321700047,
+                   2: 0.011234523814540102,
+                   3: 0.011282135228216838,
+                   4: 0.011754282216632921,
+                   5: 0.0,
+                   6: 0.011270540680099618,
+                   7: 0.0,
+                   8: 0.01243794918046868},
+         'dim_2': {1: 0.27693921840487212,
+                   2: 0.27695026387499555,
+                   3: 0.27702061263788358,
+                   4: 0.27768390856100306,
+                   5: 0.0,
+                   6: 0.27699937056082102,
+                   7: 0.0,
+                   8: 0.27884495586147029},
+         'dim_3': {1: -0.039322156580003625,
+                   2: -0.039321085462895637,
+                   3: -0.039304657075885825,
+                   4: -0.039105662064675292,
+                   5: 0.0,
+                   6: -0.039304325537486522,
+                   7: 0.0,
+                   8: -0.039029339882327846},
+         'dim_4': {1: -0.95250247097785168,
+                   2: -0.95249977840440614,
+                   3: -0.95248287043028801,
+                   4: -0.95232413250918369,
+                   5: 0.0,
+                   6: -0.95248811215686702,
+                   7: 0.0,
+                   8: -0.9520376441072006}
         }
     )
 
@@ -150,6 +215,42 @@ class TestImplicitMFPipeline(unittest.TestCase):
         )
 
         assert_frame_equal(actual_song_vectors, TestImplicitMF.EXPECTED_SONG_VECTORS)
+
+    @patch.object(CountryVectorCollection, '_vector_dimension_names', new_callable=PropertyMock, return_value=TestImplicitMF.LATENT_FEATURE_NAMES)
+    def test_country_vectors_collection_is_unit_normalized(self, _):
+        implicit_mf = ImplicitMF(
+            ratings_matrix=DummyRatingsMatrix(),
+            f=TestImplicitMF.LATENT_FEATURES,
+            alpha=TestImplicitMF.ALPHA,
+            lmbda=TestImplicitMF.LAMBDA,
+            n_iterations=TestImplicitMF.N_ITERATIONS
+        )
+        pipeline = ImplicitMFPipeline(implicit_mf=implicit_mf)
+        pipeline.run()
+
+        country_vector_collection = CountryVectorCollection()
+        country_vector_collection.refresh()
+        actual_country_vectors = pd.DataFrame(country_vector_collection.numeric_vectors)
+
+        assert_frame_equal(actual_country_vectors, TestImplicitMF.EXPECTED_NORMALIZED_COUNTRY_VECTORS)
+
+    @patch.object(SongVectorCollection, '_vector_dimension_names', new_callable=PropertyMock, return_value=TestImplicitMF.LATENT_FEATURE_NAMES)
+    def test_song_vectors_collection_is_unit_normalized(self, _):
+        implicit_mf = ImplicitMF(
+            ratings_matrix=DummyRatingsMatrix(),
+            f=TestImplicitMF.LATENT_FEATURES,
+            alpha=TestImplicitMF.ALPHA,
+            lmbda=TestImplicitMF.LAMBDA,
+            n_iterations=TestImplicitMF.N_ITERATIONS
+        )
+        pipeline = ImplicitMFPipeline(implicit_mf=implicit_mf)
+        pipeline.run()
+
+        song_vector_collection = SongVectorCollection()
+        song_vector_collection.refresh()
+        actual_song_vectors = pd.DataFrame(song_vector_collection.numeric_vectors)
+
+        assert_frame_equal(actual_song_vectors, TestImplicitMF.EXPECTED_NORMALIZED_SONG_VECTORS)
 
 
 class TestLatentVectors(unittest.TestCase):

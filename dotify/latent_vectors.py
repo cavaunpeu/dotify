@@ -23,6 +23,7 @@ class VectorCollection(metaclass=ABCMeta):
             self._vector_objects = self._query_all_vectors()
             self._numeric_vectors = self._extract_numeric_vectors()
             self._reset_query_timestamp()
+            self._vectors_loaded = True
 
     @abstractmethod
     def _extract_numeric_vectors(self):
@@ -51,6 +52,8 @@ class VectorCollection(metaclass=ABCMeta):
 
     @property
     def numeric_vectors(self):
+        if not self._vectors_loaded:
+            self.refresh()
         return self._numeric_vectors
 
     @property

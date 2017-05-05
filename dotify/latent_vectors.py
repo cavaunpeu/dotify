@@ -1,6 +1,7 @@
 from abc import ABCMeta, abstractmethod
 from datetime import datetime
 
+import numpy as np
 import pandas as pd
 
 from dotify.database import session
@@ -12,18 +13,17 @@ class VectorCollection(metaclass=ABCMeta):
     REFRESH_WINDOW_IN_SECONDS = 16 * 3600
     DIMENSION_COLUMN_PREFIX = 'dim_'
 
-    # TODO: move this into a __call__ method; as is, things
-    # break when trying to reset our database
     def __init__(self):
-        self._vector_objects = self._query_all_vectors()
-        self._numeric_vectors = self._extract_numeric_vectors()
+        self._vectors_loaded = False
         self._reset_query_timestamp()
 
     def refresh(self):
         time_since_last_query = (datetime.now() - self._query_timestamp).total_seconds()
-        if time_since_last_query > self.REFRESH_WINDOW_IN_SECONDS:
+        if time_since_last_query > self.REFRESH_WINDOW_IN_SECONDS or not self._vectors_loaded:
             self._vector_objects = self._query_all_vectors()
+            self._numeric_vectors = self._extract_numeric_vectors()
             self._reset_query_timestamp()
+            self._vectors_loaded = True
 
     @abstractmethod
     def _extract_numeric_vectors(self):
@@ -36,7 +36,15 @@ class VectorCollection(metaclass=ABCMeta):
         return session.query(self._model).all()
 
     def _extract_single_numeric_vector(self, vector_object):
-        return [getattr(vector_object, dimension_name) for dimension_name in self._vector_dimension_names]
+        vector = [getattr(vector_object, dimension_name) for dimension_name in self._vector_dimension_names]
+        return self._normalize_single_numeric_vector(vector)
+
+    @staticmethod
+    def _normalize_single_numeric_vector(vector):
+        vector_norm = np.linalg.norm(vector)
+        if vector_norm == 0:
+            return vector
+        return np.array(vector) / vector_norm
 
     @property
     def vector_objects(self):
@@ -44,6 +52,8 @@ class VectorCollection(metaclass=ABCMeta):
 
     @property
     def numeric_vectors(self):
+        if not self._vectors_loaded:
+            self.refresh()
         return self._numeric_vectors
 
     @property
